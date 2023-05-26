@@ -1,2 +1,0 @@
-# otbasistencias
-Proyecto de grado

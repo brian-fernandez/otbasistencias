@@ -1,0 +1,81 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav  d-flex"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+  <img src="./../../assets/icons/Frame 1.png" class="m-auto d-block p-3"  width="80" height="80" alt="">
+  <hr>
+    <mat-nav-list>
+      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="house"
+        ></mat-icon>
+        <span class="ff-20">Inicio</span>
+      </button>
+      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="account_circle"
+        ></mat-icon>
+        <span class="ff-20">Usuarios</span>
+      </button>
+      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="bookmarks"
+        ></mat-icon>
+        <span class="ff-20">Reportes</span>
+      </button>
+      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex  p-3">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="calendar_month"
+        ></mat-icon>
+        <span  class="ff-20">Eventos</span>
+      </button>
+    </mat-nav-list>
+
+    <mat-nav-list class="settings w-100">
+      <hr>
+      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="tune"
+        ></mat-icon>
+        <span  class="ff-20">Config..</span>
+      </button>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content >
+    <mat-toolbar color="primary" class="d-flex justify-content-between">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <div class="d-flex click">
+        <div class="info text-end me-2">
+        <h5 class="m-0">Brian Fernandez Mercado</h5>
+        <h6 class="m-0 text-end">Administrador</h6>
+        </div>
+        <img src="./../../assets/img/avatar.jpg"  class="img-avatar m-1 ">
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

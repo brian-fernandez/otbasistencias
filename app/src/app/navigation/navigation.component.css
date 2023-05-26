@@ -1,0 +1,44 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.ff-20{
+  font-size: 20px ;
+}
+.menu-button{
+  margin-top: 20px;
+}
+.settings{
+  display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0px;
+}
+.img-avatar{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #ffff;
+
+}
+.click{
+  cursor: pointer;
+}
+.click:hover > .info {
+  color: #e9e7e7;
+}
