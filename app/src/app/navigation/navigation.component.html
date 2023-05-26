@@ -68,13 +68,20 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
 
-      <div class="d-flex click">
+      <div class="d-flex click" mat-button [matMenuTriggerFor]="menu">
         <div class="info text-end me-2">
         <h5 class="m-0">Brian Fernandez Mercado</h5>
         <h6 class="m-0 text-end">Administrador</h6>
         </div>
         <img src="./../../assets/img/avatar.jpg"  class="img-avatar m-1 ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill m-auto" viewBox="0 0 16 16">
+          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+        </svg>
       </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Perfil</button>
+        <button mat-menu-item>Cerrar sesión</button>
+      </mat-menu>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

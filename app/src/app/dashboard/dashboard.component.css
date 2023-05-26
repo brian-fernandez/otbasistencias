@@ -85,3 +85,24 @@
   display: block;
   font-size: 18px;
 }
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+.qr-information{
+  cursor: pointer;
+}
+.qr-information:hover{
+  background-color: #e4e4e4;
+  transition: 0.3s;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+
+}

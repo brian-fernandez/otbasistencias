@@ -1,6 +1,7 @@
-<div class="p-5 border border-primary">
+<div class="p-5 ">
+  <h3>Inicio/</h3>
   <div class="row">
-    <div class="col-4 div-sm-6 div-xl-4 border border-danger p-3">
+    <div class="col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4">
       <div class="card-counter primary position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
           <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"/>
@@ -9,7 +10,7 @@
         <span class="count-name">Usuarios</span>
       </div>
     </div>
-    <div class="col-4 div-sm-6 div-xl-4 border border-danger p-3">
+    <div class="col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4">
       <div class="card-counter danger position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16">
           <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
@@ -19,16 +20,93 @@
         <span class="count-name">Eventos</span>
       </div>
     </div>
-    <div class="col-4 div-sm-6 div-xl-4 border border-danger p-3">
+    <div class=" col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4">
       <div class="card-counter success position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
           <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
           <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
         </svg>
         <span class="count-numbers">12</span>
-        <span class="count-name">Recudado</span>
+        <span class="count-name">Recudado del mes</span>
       </div>
     </div>
 
+
   </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-xl-6 bg-light p-3 rounded-4">
+      <h3>Lista de residentes</h3>
+      <mat-form-field>
+        <mat-label>Buscador</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Nombre o Carnet" #input>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="progress">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+            <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+
+          <!-- Fruit Column -->
+          <ng-container matColumnDef="fruit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
+            <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-xl-6 bg-light p-3 rounded-4">
+      <h3>Validacion de credencial</h3>
+      <div class="card mb-3 m-2 qr-information" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4 m-auto p-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">
+              <path d="M2 2h2v2H2V2Z"/>
+              <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/>
+              <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/>
+              <path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"/>
+              <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"/>
+            </svg>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+
+              <p class="card-text">A través de este servicio, se realiza un escaneo de la credencial para validar la información personal de la persona y verificar su estado de activo en los registros correspondientes al barrio.</p>
+              <p class="card-text"><small class="text-body-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+                Recuerda que es necesario disponer de un dispositivo con capacidad para leer códigos QR para poder utilizar este servicio. Si estás utilizando un dispositivo móvil, asegúrate de tener activada la función de lectura de QR para poder aprovechar todas las funcionalidades correctamente. </small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 </div>
