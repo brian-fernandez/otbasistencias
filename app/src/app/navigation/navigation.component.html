@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<!-- <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer
     class="sidenav  d-flex"
@@ -10,7 +10,7 @@
   <img src="./../../assets/icons/Frame 1.png" class="m-auto d-block p-3"  width="80" height="80" alt="">
   <hr>
     <mat-nav-list>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+      <button mat-button   class="menu-button w-100 justify-content-start d-flex p-3">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -18,7 +18,7 @@
         ></mat-icon>
         <span class="ff-20">Inicio</span>
       </button>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+      <button mat-button class="menu-button w-100 justify-content-start d-flex p-3">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -26,7 +26,7 @@
         ></mat-icon>
         <span class="ff-20">Usuarios</span>
       </button>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+      <button mat-button  class="menu-button w-100 justify-content-start d-flex p-3">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -34,7 +34,7 @@
         ></mat-icon>
         <span class="ff-20">Reportes</span>
       </button>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex  p-3">
+      <button mat-button  class="menu-button w-100 justify-content-start d-flex  p-3">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -46,7 +46,7 @@
 
     <mat-nav-list class="settings w-100">
       <hr>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+      <button mat-button  class="menu-button w-100 justify-content-start d-flex p-3">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -80,9 +80,9 @@
       </div>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>Perfil</button>
-        <button mat-menu-item>Cerrar sesión</button>
+        <button mat-menu-item (click)="closed()">Cerrar sesión</button>
       </mat-menu>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->

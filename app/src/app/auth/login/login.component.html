@@ -1,1 +1,46 @@
-<p>login works!</p>
+
+<div class="body">
+		<div class="veen">
+      <div class=" row d-flex">
+        <div class="col-sm-6 col-xl-6"> </div>
+        <div class="col-sm-6 col-xl-6 p-5 d-flex flex-column aling-justify">
+          <img src="./../../../assets/icons/Frame 1.png" class="m-auto mb-5" width="100" alt="">
+          Bienvenidos al panel administrativo de la OTB Universitario Alto. El propósito de este panel es facilitar el control y la gestión de las asistencias de los residentes del Barrio Universitario Alto. Este panel está diseñado exclusivamente para uso administrativo y está destinado a ser utilizado por el personal encargado de la administración.</div>
+      </div>
+			<div class="wrapper">
+				<form id="login" tabindex="500">
+					<h3>Iniciar sesion</h3>
+					<div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="login.email"[ngModelOptions]="{standalone: true}">
+            <label for="floatingInput">Ingresa tu correo </label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="login.password"[ngModelOptions]="{standalone: true}">
+            <label for="floatingPassword">Ingres tu contraseña</label>
+          </div>
+					<div class="submit mt-5">
+						<button class="dark" (click)="loginSend()">Iniciar sesión</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<style type="text/css">
+		.site-link{
+      padding: 5px 15px;
+			position: fixed;
+			z-index: 99999;
+			background: #fff;
+			box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+			right: 30px;
+			bottom: 30px;
+			border-radius: 10px;
+		}
+		.site-link img{
+			width: 30px;
+			height: 30px;
+		}
+	</style>

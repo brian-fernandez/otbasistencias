@@ -20,6 +20,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 import { HomeComponent } from './home/home.component';
 import { LoadingComponent } from './loading/loading.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,15 +36,9 @@ import { LoadingComponent } from './loading/loading.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

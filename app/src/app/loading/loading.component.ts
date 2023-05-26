@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EncrDecrService } from '../services/encr-decr.service';
+import { Keysecret } from '../config/secretKeys';
 
 @Component({
   selector: 'app-loading',
@@ -7,9 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./loading.component.css']
 })
 export class LoadingComponent implements OnInit {
+  private Key = Keysecret.key;
   credential: any;
   constructor(
-    private router: Router
+    private router: Router,
+    private EncrypDescryp: EncrDecrService
   ) {
 
   }
@@ -18,14 +22,30 @@ export class LoadingComponent implements OnInit {
     this.credential = {
 
     }
-    this.init();
+    setTimeout(() => {
+      this.init();
+    }, 2000);
+
 
   }
   init() {
-    if (this.credential.email && this.credential.token) {
-      this.router.navigateByUrl('home')
-    } else{
-      this.router.navigateByUrl('sesion');
+
+    try {
+      const email = this.EncrypDescryp.set(this.Key, localStorage.getItem('email')) || false;
+      const password = this.EncrypDescryp.set(this.Key, localStorage.getItem('password')) || false;
+      console.log(email + '  ' + password);
+
+      if (email && password) {
+        return this.router.navigateByUrl('/home/dashboard');
+
+      }
+      console.log('salio');
+
+      return this.router.navigateByUrl('/sesion');
+    } catch (error) {
+      return this.router.navigateByUrl('/sesion');
     }
+
   }
 }
+

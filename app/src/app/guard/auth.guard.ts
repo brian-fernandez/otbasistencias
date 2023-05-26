@@ -15,24 +15,23 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private EncrypDescryp : EncrDecrService
-) {
+    private EncrypDescryp: EncrDecrService
+  ) {
 
-}
+  }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log('entro');
-      var encrypt = this.EncrypDescryp.set(this.Key, 'hola mundoooooooo');
+    const email = this.EncrypDescryp.set(this.Key, localStorage.getItem('email')) || false;
+    const password = this.EncrypDescryp.set(this.Key, localStorage.getItem('password')) || false;
+    console.log(email + '  ' + password);
 
-      var descryp = this.EncrypDescryp.get(this.Key, encrypt);
-      console.log(encrypt);
+    if (email && password) {
+      console.log('entro a if de guard');
+      return true;
+    }
+    return false;
 
-      console.log('descript ' +  descryp);
-
-
-    // this.router.navigateByUrl('/sesion');
-    return true;
-}
+  }
 
 }

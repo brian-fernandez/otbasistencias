@@ -16,26 +16,26 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavigationComponent } from '../navigation/navigation.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 import { AngularMaterialModule } from '../angular-material.module';
-import { HomeComponent } from './home.component';
-import { HomeRoutingModule } from './home-routing.module';
+
+import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CommonModule } from '@angular/common';
 
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    DashboardComponent,
 
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
+    DashboardRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
     AngularMaterialModule
   ],
   providers: [] ,
-  bootstrap: [HomeComponent]
+  bootstrap: [DashboardComponent]
 })
-export class HomeModule { }
+export class DashboardModule { }
