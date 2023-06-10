@@ -23,7 +23,13 @@ constructor(private breakpointObserver: BreakpointObserver,
 dash() {
   this.router.navigateByUrl("home/dashboard");
 }
-
+listUser() {
+  this.router.navigateByUrl("home/lista-usuarios");
+}
+createUser()
+{
+  this.router.navigateByUrl("home/nuevo-usuario");
+}
 
 closed(){
   localStorage.clear();

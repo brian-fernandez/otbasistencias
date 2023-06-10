@@ -6,6 +6,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AuthGuard } from './guard/auth.guard';
 import { LoadingComponent } from './loading/loading.component';
 import { HomeComponent } from './home/home.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserCreateComponent } from './user/user-create/user-create.component';
 
 
 const routes: Routes = [
@@ -17,8 +19,8 @@ const routes: Routes = [
    children: [
     { path: 'nav', component: HomeComponent, canActivate: [AuthGuard]},
     { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
-    // {path: 'lista-reservas', component:ListaReservasComponent , canActivate:[AuthGuard]},
-    // {path: 'lista-mesa', component: ListaMesasComponent, canActivate:[AuthGuard]},
+    {path: 'lista-usuarios', component:UserListComponent , canActivate:[AuthGuard]},
+    {path: 'nuevo-usuario', component: UserCreateComponent, canActivate:[AuthGuard]},
     // {path: 'lista-cliente', component: ListaClienteComponent, canActivate:[AuthGuard]},
     // {path: 'lista-producto', component: ListaProductoComponent, canActivate:[AuthGuard]},
     // {path: 'lista-usuarios', component: ListaUsuariosComponent, canActivate:[AuthGuard]},

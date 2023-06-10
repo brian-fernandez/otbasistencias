@@ -21,6 +21,10 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { CustomMatPaginatorIntl } from './paginator-ES';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { UserCreateComponent } from './user/user-create/user-create.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     LoginComponent,
     LoadingComponent,
-    HomeComponent
+    HomeComponent,
+    UserListComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

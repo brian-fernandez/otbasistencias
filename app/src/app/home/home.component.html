@@ -19,15 +19,51 @@
         ></mat-icon>
         <span class="ff-20">Inicio</span>
       </button>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="account_circle"
-        ></mat-icon>
-        <span class="ff-20">Usuarios</span>
-      </button>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
+
+      <mat-accordion>
+
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="account_circle"
+            ></mat-icon>
+              Usuarios
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+          <button mat-button (click)="listUser()" class=" w-100 justify-content-start d-flex p-3">
+            <!-- <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="account_circle"
+            ></mat-icon> -->
+            <span class="">○ Lista de usuarios</span>
+          </button>
+          <button mat-button (click)="createUser()" class=" w-100 justify-content-start d-flex p-3">
+            <!-- <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="account_circle"
+            ></mat-icon> -->
+            <span class="">○ Crear Usuarios</span>
+          </button>
+          <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
+            <!-- <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="account_circle"
+            ></mat-icon> -->
+            <span class="">○ Escanear Credencial</span>
+          </button>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+
+   
+      <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -35,14 +71,43 @@
         ></mat-icon>
         <span class="ff-20">Reportes</span>
       </button>
-      <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex  p-3">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="calendar_month"
-        ></mat-icon>
-        <span  class="ff-20">Eventos</span>
-      </button>
+
+
+      <mat-expansion-panel >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="calendar_month"
+          ></mat-icon>
+          Eventos
+          </mat-panel-title>
+          
+        </mat-expansion-panel-header>
+        <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
+          <!-- <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="account_circle"
+          ></mat-icon> -->
+          <span class="">○ Lista de eventos</span>
+        </button>
+        <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
+          <!-- <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="account_circle"
+          ></mat-icon> -->
+          <span class="">○ Crear eventos</span>
+        </button>
+      </mat-expansion-panel>
+
+
+ 
+
+
+      
     </mat-nav-list>
 
     <mat-nav-list class="settings w-100">
