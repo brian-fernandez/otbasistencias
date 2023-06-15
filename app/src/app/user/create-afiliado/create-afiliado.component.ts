@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-user-create',
-  templateUrl: './user-create.component.html',
-  styleUrls: ['./user-create.component.css']
+  selector: 'app-create-afiliado',
+  templateUrl: './create-afiliado.component.html',
+  styleUrls: ['./create-afiliado.component.css']
 })
-export class UserCreateComponent implements OnInit{
-
+export class CreateAfiliadoComponent {
   data:any
   imagenUrl!: SafeUrl;
   imagenBase64!: string;
-  idselect: any;
+
   constructor(private sanitizer: DomSanitizer){
 
   }
   ngOnInit(){
-    this.idselect = 0;
+  
    this.data = {
 
    }
@@ -37,13 +36,4 @@ export class UserCreateComponent implements OnInit{
     }
   }
 
-
-
-
-
-
-  select(id:any){
-   return this.idselect = id;
-    
-  }
 }

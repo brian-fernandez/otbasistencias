@@ -1,167 +1,61 @@
 <div class="p-5 ">
     <h3>Inicio / Nuevo Usuario</h3>
+<app-create-afiliado *ngIf="idselect === 1"></app-create-afiliado>
 
-    <div class="container-fluid p-0 m-0">
+
+    <div class="" *ngIf="idselect === 0">
+
         <div class="row">
-            <div class="col-ms-12 col-md-12 col-xl-6">
-                <h5>Formulario</h5>
-                <form class="form-floating">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-
-                            <label for="">Nombre</label>
-                            <input type="text" class="form-control no-border" [(ngModel)]="data.name"
-                                [ngModelOptions]="{standalone: true}">
-
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-                            <label for="">Apellido Completo</label>
-                            <input type="text" class="form-control no-border" id="floatingInputInvalid"
-                                [(ngModel)]="data.lastname" [ngModelOptions]="{standalone: true}">
-                            <!-- <label for="floatingInputInvalid">Nombre Invalido</label> -->
-                            <!-- <label for="floatingInputInvalid">Nombre</label> -->
-                        </div>
+            <div class="col-sm-6 col-md-6 col-xl-6 d-flex">
+                <div class="card  m-2" style="width: 15rem;height: 260px;">
+                    <img src="./../../../assets/svg/user-new.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="info-card" mat-raised-button
+                            matTooltip="La opción de registro de nuevo afiliado facilita la incorporación de nuevos miembros al sistema, brindando la capacidad de recopilar y gestionar su información de manera efectiva. Esto ayuda a mantener un control y seguimiento adecuado de los datos relacionados con los afiliados."
+                            matTooltipPosition="right"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                            </svg></p>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-
-                            <label for="">Correo</label>
-                            <input type="text" class="form-control no-border" [(ngModel)]="data.email"
-                                [ngModelOptions]="{standalone: true}">
-
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-                            <label for="">Carnet de identidad</label>
-                            <input matInput #input maxlength="8" type="phone" class="form-control no-border"
-                                id="floatingInputInvalid" [(ngModel)]="data.ci" [ngModelOptions]="{standalone: true}">
-                            <!-- <mat-hint align="end">Maximo {{input.value.length}}/8</mat-hint> -->
-                            <!-- <label for="floatingInputInvalid">Nombre Invalido</label> -->
-                            <!-- <label for="floatingInputInvalid">Nombre</label> -->
-                        </div>
+                    <button (click)="select(1)" class="btn btn-primary mb-3 m-auto"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                            height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+                            <path
+                                d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z" />
+                            <path
+                                d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z" />
+                        </svg> Crear Afiliado</button>
+                </div>
+                <div class="card m-2" style="width: 15rem;height: 260px;">
+                    <img src="./../../../assets/svg/inquilno-new.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="info-card" mat-raised-button
+                            matTooltip="La opción de registro de nuevo inquilino permite capturar y administrar la información de nuevos arrendatarios, facilitando un adecuado control y seguimiento de los datos relacionados con ellos."
+                            matTooltipPosition="right"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                            </svg></p>
                     </div>
-
-                    <div class="row mt-2">
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-                            <label for="">Dirección</label>
-                            <input type="text" class="form-control no-border" [(ngModel)]="data.addres"
-                                [ngModelOptions]="{standalone: true}">
-
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-                            <label for="">Numero de Domicilio</label>
-                            <input type="text" class="form-control no-border" id="floatingInputInvalid"
-                                [(ngModel)]="data.addresnumber" [ngModelOptions]="{standalone: true}">
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-                            <label for="">Calle</label>
-                            <input type="text" class="form-control no-border" [(ngModel)]="data.street"
-                                [ngModelOptions]="{standalone: true}">
-
-                        </div>
-
-                    </div>
-                    <hr>
-                    <div class="row mt-2">
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-                            <label for="">Telefono</label>
-                            <input type="text" class="form-control no-border" [(ngModel)]="data.phone"
-                                [ngModelOptions]="{standalone: true}">
-
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xl-6">
-                            <label for="">Celular</label>
-                            <input type="text" class="form-control no-border" id="floatingInputInvalid"
-                                [(ngModel)]="data.callphone" [ngModelOptions]="{standalone: true}">
-                        </div>
-                    </div>
-                    <div class=" row mt-2">
-                        <div class="col-sm-12 col-md-12 col-xl-12">
-                            <label for="">Foto</label>
-                            <input type="file" class="form-control no-border" (change)="onFileSelected($event)"
-                                [(ngModel)]="data.photo" [ngModelOptions]="{standalone: true}">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-ms-12 col-md-12 col-xl-6">
-                <div>
-                    <button class="animated-button">Crear</button>
-                    <div class="particle"></div>
+                    <button class="btn btn-primary mb-3 m-auto"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                      </svg> Crear Inquilino</button>
                 </div>
 
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Vista Frontal credencial</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Vista Posterior credencial</button>
-                    </li>
-                  </ul>
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                        <div class="credential box" id="div1">
-                            <div class="container">
-                                <div class="row  mt-3 p-1">
-                                    <hr style="padding-top: 40px;opacity: 0;">
-                                    <div class="col-md-6 col-sm-6 col-xl-5  p-3">
-                                        <div *ngIf="imagenUrl">
-                                            <img [src]="imagenUrl" class="avatar m-auto" alt="Imagen seleccionada">
-                                            <div class="row m-auto">
-                                                <div class="col-md-12 col-sm-12 col-xl-12 m-auto ">
-                                                    <p class="m-0"><strong>C.I:</strong> {{data.ci}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xl-7  p-3 info-text">
-                                        <p class="m-0"><strong>Nombre:</strong> {{data.name}}</p>
-                                        <p class="m-0"><strong>Apellido:</strong> {{data.lastname}}</p>
-                                        <!-- <p class="m-0"><strong>Direccion: </strong>{{data.addres}}</p> -->
-                                        <p class="m-0 text-truncate" style="max-width: 150px;"><strong>Calle: </strong> <a>{{data.street}}</a> </p>
-                                        <p class="m-0"><strong>Numero de Domicilio:</strong> {{data.addresnumber}}</p>
-                                        <p class="m-0"><strong>Telefono:</strong> {{data.phone}}</p>
-                                        <p class="m-0"><strong>Celular:</strong> {{data.callphone}}</p>
-                                    </div>
-                                </div>
-                            </div>
-        
-                        </div>
 
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+                <div class="row ">
+                    <div class="col-md-12 col-xl-12 col-sm-12 col-xll-12 m-auto d-flex">
+                        <img src="./../../../assets/svg/info-user.png" class="m-auto" width="auto" height="200px" alt="">
                     </div>
-                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                            <div class="credentialPost box" id="div1">
-                                <div class="container">
-                                    <div class="row  mt-3">
-                                        <hr style="padding-top: 40px;opacity: 0;">
-                                        <div class="col-md-12 col-sm-12 col-xl-12 p-3">
-                                            <div >
-                                                <img src="../../../assets/img/qrexample.png" class="avatarQr m-auto d-block" alt="Imagen seleccionada">
-                                                
-                                            </div>
-                                        
-                                        </div>
-                                        <div class="col-md-12 col-sm-12col-xl-12 p-3 info-text">
-                                            <p class="m-0 text-center aling-center" *ngIf="data.name">{{data.addres}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-            
-                            </div>
-    
-                        </div>
+                    <div class="col-md-12 col-xl-12 col-sm-12 col-xll-12">
+                        <h4 class="text-primary">Importante</h4>
+                        <p>Al registrar datos de una persona, es importante recopilar información personal básica, como nombre, fecha de nacimiento, dirección y contacto. También se deben solicitar documentos de identificación válidos y establecer información de contacto de emergencia. Dependiendo del caso, puede ser relevante obtener detalles laborales y financieros. Es fundamental obtener el consentimiento de la persona y garantizar la protección de su privacidad.</p>
                     </div>
-
-                  </div>
-
-
-            
-
-                
-
+                </div>
             </div>
         </div>
     </div>

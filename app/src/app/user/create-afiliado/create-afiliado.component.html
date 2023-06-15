@@ -1,0 +1,160 @@
+<div class="container-fluid p-0 m-0" > 
+        
+    <div class="row">
+        <div class="col-ms-12 col-md-12 col-xl-6">
+            <h5>Formulario</h5>
+            <form class="form-floating">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control no-border" [(ngModel)]="data.name"
+                            [ngModelOptions]="{standalone: true}">
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Apellido Completo</label>
+                        <input type="text" class="form-control no-border" id="floatingInputInvalid"
+                            [(ngModel)]="data.lastname" [ngModelOptions]="{standalone: true}">
+                  
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+
+                        <label for="">Correo</label>
+                        <input type="text" class="form-control no-border" [(ngModel)]="data.email"
+                            [ngModelOptions]="{standalone: true}">
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Carnet de identidad</label>
+                        <input matInput #input maxlength="8" type="phone" class="form-control no-border"
+                            id="floatingInputInvalid" [(ngModel)]="data.ci" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Dirección</label>
+                        <input type="text" class="form-control no-border" [(ngModel)]="data.addres"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Numero de Domicilio</label>
+                        <input type="text" class="form-control no-border" id="floatingInputInvalid"
+                            [(ngModel)]="data.addresnumber" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Calle</label>
+                        <input type="text" class="form-control no-border" [(ngModel)]="data.street"
+                            [ngModelOptions]="{standalone: true}">
+
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row mt-2">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Telefono</label>
+                        <input type="text" class="form-control no-border" [(ngModel)]="data.phone"
+                            [ngModelOptions]="{standalone: true}">
+
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Celular</label>
+                        <input type="text" class="form-control no-border" id="floatingInputInvalid"
+                            [(ngModel)]="data.callphone" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class=" row mt-2">
+                    <div class="col-sm-12 col-md-12 col-xl-12">
+                        <label for="">Foto</label>
+                        <input type="file" class="form-control no-border" (change)="onFileSelected($event)"
+                            [(ngModel)]="data.photo" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-ms-12 col-md-12 col-xl-6">
+            <div>
+                <button class="btn btn-sucess ">Crear</button>
+                <div class="particle"></div>
+            </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Vista Frontal credencial</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Vista Posterior credencial</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <div class="credential box" id="div1">
+                        <div class="container">
+                            <div class="row  mt-3 p-1">
+                                <hr style="padding-top: 40px;opacity: 0;">
+                                <div class="col-md-6 col-sm-6 col-xl-5  p-3">
+                                    <div *ngIf="imagenUrl">
+                                        <img [src]="imagenUrl" class="avatar m-auto ps-2" alt="Imagen seleccionada">
+                                        <div class="row m-auto">
+                                            <div class="col-md-12 col-sm-12 col-xl-12 m-auto ">
+                                                <p class="m-0"><strong>C.I:</strong> {{data.ci}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xl-7  p-3 info-text">
+                                    <p class="m-0"><strong>Nombre:</strong> {{data.name}}</p>
+                                    <p class="m-0"><strong>Apellido:</strong> {{data.lastname}}</p>
+                             
+                                    <p class="m-0 text-truncate" style="max-width: 150px;"><strong>Calle: </strong> <a>{{data.street}}</a> </p>
+                                    <p class="m-0"><strong>Numero de Domicilio:</strong> {{data.addresnumber}}</p>
+                                    <p class="m-0"><strong>Telefono:</strong> {{data.phone}}</p>
+                                    <p class="m-0"><strong>Celular:</strong> {{data.callphone}}</p>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                        <div class="credentialPost box" id="div1">
+                            <div class="container">
+                                <div class="row  mt-3">
+                                    <hr style="padding-top: 40px;opacity: 0;">
+                                    <div class="col-md-12 col-sm-12 col-xl-12 p-3">
+                                        <div >
+                                            <img src="../../../assets/img/qrexample.png" class="avatarQr m-auto d-block" alt="Imagen seleccionada">
+                                            
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="col-md-12 col-sm-12col-xl-12 p-3 info-text p-3">
+                                        <p class="m-0 text-center aling-center p-3" *ngIf="data.name">{{data.addres}}</p>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </div>
+
+                    </div>
+                </div>
+
+              </div>
+
+
+        
+
+            
+
+        </div>
+    </div>
+</div> 

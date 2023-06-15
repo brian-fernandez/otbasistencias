@@ -31,6 +31,11 @@ createUser()
   this.router.navigateByUrl("home/nuevo-usuario");
 }
 
+
+createEvent(){
+  this.router.navigateByUrl("home/crear-evento");
+}
+
 closed(){
   localStorage.clear();
   this.router.navigateByUrl('/loading')

@@ -25,6 +25,9 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { CustomMatPaginatorIntl } from './paginator-ES';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { UserCreateComponent } from './user/user-create/user-create.component';
+import { CreateAfiliadoComponent } from './user/create-afiliado/create-afiliado.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CreateEventComponent } from './event/create-event/create-event.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { UserCreateComponent } from './user/user-create/user-create.component';
     LoadingComponent,
     HomeComponent,
     UserListComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    CreateAfiliadoComponent,
+    CreateEventComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,8 @@ import { UserCreateComponent } from './user/user-create/user-create.component';
     LayoutModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FullCalendarModule 
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl}

@@ -30,7 +30,7 @@
               aria-label="Example home icon"
               fontIcon="account_circle"
             ></mat-icon>
-              Usuarios
+              Afiliado/Inquilino
             </mat-panel-title>
             
           </mat-expansion-panel-header>
@@ -40,7 +40,7 @@
               aria-label="Example home icon"
               fontIcon="account_circle"
             ></mat-icon> -->
-            <span class="">○ Lista de usuarios</span>
+            <span class="">○ Lista de Afiliado/Inquilino</span>
           </button>
           <button mat-button (click)="createUser()" class=" w-100 justify-content-start d-flex p-3">
             <!-- <mat-icon
@@ -48,7 +48,7 @@
               aria-label="Example home icon"
               fontIcon="account_circle"
             ></mat-icon> -->
-            <span class="">○ Crear Usuarios</span>
+            <span class="">○ Crear Afiliado/Inquilino</span>
           </button>
           <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
             <!-- <mat-icon
@@ -93,7 +93,7 @@
           ></mat-icon> -->
           <span class="">○ Lista de eventos</span>
         </button>
-        <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
+        <button mat-button (click)="createEvent()" class=" w-100 justify-content-start d-flex p-3">
           <!-- <mat-icon
             aria-hidden="false"
             aria-label="Example home icon"
