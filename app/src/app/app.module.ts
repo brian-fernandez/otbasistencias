@@ -28,7 +28,7 @@ import { UserCreateComponent } from './user/user-create/user-create.component';
 import { CreateAfiliadoComponent } from './user/create-afiliado/create-afiliado.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CreateEventComponent } from './event/create-event/create-event.component';
-
+import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';  
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,8 @@ import { CreateEventComponent } from './event/create-event/create-event.componen
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    FullCalendarModule 
+    FullCalendarModule,
+    NgxMatTimepickerModule 
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl}

@@ -13,8 +13,14 @@ export class CreateEventComponent {
 
   calendarOptions!: CalendarOptions;
   events: any;
- 
+  data: any;
+  selectedTimeInit:any
+  selectedTimeEnd:any
+  check1:any;
+  check2:any;
   ngOnInit() {
+
+
     this.calendarOptions = {
       initialView: 'dayGridMonth',
       plugins: [dayGridPlugin,interactionPlugin],
@@ -38,7 +44,18 @@ export class CreateEventComponent {
 
   handleDateClick(arg:any) {
     console.log(arg);
+    this.data = arg;
+    const modal = document.getElementById('myModal');
+    modal!.style.display = 'block';
     
+  }
+
+  closeModal() {
+    console.log('entro a close');
+    
+    // Close the modal
+    const modal = document.getElementById('myModal');
+    modal!.style.display = 'none';
   }
 show(arg:any){
   console.log(arg.event);

@@ -1,3 +1,89 @@
 <div class="p-5">
-    <full-calendar [events]="events" [options]="calendarOptions"  eventClickInfo  ></full-calendar>
+    <p class="w-50 border p-2 rounded border-opacity-10 ">Para crear un evento,  simplemente haz clic en cualquier recuadro del calendario. Después de hacer clic,
+        se te pedirá que ingreses los detalles del evento. ¡No olvides guardar los cambios una vez que hayas terminado!
+        </p >
+    <full-calendar [events]="events" [options]="calendarOptions" eventClickInfo></full-calendar>
+</div>
+
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Evento</h3>
+                <button (click)="closeModal()" type="button" class="btn-close" aria-label="Close">
+
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>El evento se creara para la fecha <strong>{{data?.dateStr}}.</strong> Para asegurarnos de que
+                    tengamos todos los detalles necesarios, le pedimos que complete los siguientes campos:</p>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-12">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Titulo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                                style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Descripcion</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Hora de inicio</label>
+                        <mat-form-field class="w-100">
+                            <input matInput name="selected_time_A" [format]="24" [(ngModel)]="selectedTimeInit"
+                                [ngxMatTimepicker]="pickerA" placeholder="12:00" readonly />
+                            <mat-icon matSuffix (click)="pickerA.open()">
+                                watch_later
+                            </mat-icon>
+                        </mat-form-field>
+                        <ngx-mat-timepicker #pickerA></ngx-mat-timepicker>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Hora de finalización</label>
+                        <mat-form-field class="w-100">
+                            <input matInput name="selected_time_B" placeholder="16:00" [format]="24"
+                                [(ngModel)]="selectedTimeEnd" [ngxMatTimepicker]="pickerB" readonly />
+                            <mat-icon matSuffix (click)="pickerB.open()">
+                                watch_later
+                            </mat-icon>
+                        </mat-form-field>
+                        <ngx-mat-timepicker #pickerB></ngx-mat-timepicker>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xl-12">
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" [(ngModel)]="check1">Asistencia
+                                Obligatoria</mat-checkbox>
+                        </section>
+
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xl-12">
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin" [(ngModel)]="check2">Asistencia Obligatoria</mat-checkbox>
+                      </section>
+                  
+                </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="closeModal()" type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Close</button>
+                <!-- Add any other buttons you need -->
+            </div>
+        </div>
+    </div>
 </div>
