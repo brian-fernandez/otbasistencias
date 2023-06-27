@@ -1,0 +1,14 @@
+.img-div{
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    
+}
+
+.mat-column-Foto {
+    max-width: 30px;
+  }
+  .example-first-header-row th {
+    border-bottom: none;
+  }
+  

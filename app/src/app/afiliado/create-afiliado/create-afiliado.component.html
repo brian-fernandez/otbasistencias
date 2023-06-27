@@ -1,5 +1,5 @@
 <div class="container-fluid p-0 m-0" > 
-        
+    <hr>
     <div class="row">
         <div class="col-ms-12 col-md-12 col-xl-6">
             <h5>Formulario</h5>
@@ -49,7 +49,27 @@
                 <div class="row mt-2">
                     <div class="col-sm-6 col-md-6 col-xl-6">
                         <label for="">Calle</label>
-                        <input type="text" class="form-control no-border" [(ngModel)]="data.street"
+                          <select class="form-select" aria-label="Default select example" [(ngModel)]="data.street"
+                          [ngModelOptions]="{standalone: true}">
+                            <option value="1">Calle 1</option>
+                            <option value="2">Calle 2</option>
+                            <option value="3">Calle 3</option>
+                            <option value="4">Calle 4</option>
+                            <option value="5">Calle 5</option>
+                            <option value="6">Calle 6</option>
+                            <option value="7">Calle 7</option>
+                            <option value="8">Calle 8</option>
+                            <option value="9">Calle 9</option>
+                            <option value="10">Calle 10</option>
+                            <option value="11">Calle 11</option>
+
+                          </select>
+                    </div>
+
+                  
+                    <div class="col-sm-6 col-md-6 col-xl-6">
+                        <label for="">Contraseña</label>
+                        <input type="password" class="form-control no-border" [(ngModel)]="data.password"
                             [ngModelOptions]="{standalone: true}">
 
                     </div>
@@ -77,12 +97,14 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div class="col-ms-12 col-md-12 col-xl-6">
             <div>
-                <button class="btn btn-sucess ">Crear</button>
+                <button class="btn btn-primary mb-2" >Crear</button>
                 <div class="particle"></div>
             </div>
+        </div>
+        
+        <div class="col-ms-12 col-md-12 col-xl-6">
+           
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -100,7 +122,7 @@
                                 <hr style="padding-top: 40px;opacity: 0;">
                                 <div class="col-md-6 col-sm-6 col-xl-5  p-3">
                                     <div *ngIf="imagenUrl">
-                                        <img [src]="imagenUrl" class="avatar m-auto ps-2" alt="Imagen seleccionada">
+                                        <img [src]="imagenUrl" class="avatar m-auto ps-2 d-flex" alt="Imagen seleccionada">
                                         <div class="row m-auto">
                                             <div class="col-md-12 col-sm-12 col-xl-12 m-auto ">
                                                 <p class="m-0"><strong>C.I:</strong> {{data.ci}}</p>

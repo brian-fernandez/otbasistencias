@@ -1,147 +1,141 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav  d-flex"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
-  <img src="./../../assets/icons/Frame 1.png" class="m-auto d-block p-3"  width="80" height="80" alt="">
-  <p class="margin-auto text-center">OTB Universitario Alto</p>
-  <hr>
+  <mat-sidenav #drawer class="sidenav  d-flex" fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    
+    <img src="./../../assets/icons/Frame 1.png" class="m-auto d-block p-3" width="80" height="80" alt="">
+    <p class="margin-auto text-center">OTB Universitario Alto</p>
+    <hr>
     <mat-nav-list>
       <button mat-button (click)="dash()" class="menu-button w-100 justify-content-start d-flex p-3">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="house"
-        ></mat-icon>
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="house"></mat-icon>
         <span class="ff-20">Inicio</span>
       </button>
 
       <mat-accordion>
-
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon
-              aria-hidden="false"
-              aria-label="Example home icon"
-              fontIcon="account_circle"
-            ></mat-icon>
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="admin_panel_settings"></mat-icon>
+            Usuario
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <button (click)="listUser()" mat-button class=" w-100 justify-content-start d-flex p-3">
+            <span class="">○ Lista de Usuario</span>
+          </button>
+          <button (click)="createUser()" mat-button  class=" w-100 justify-content-start d-flex p-3">
+            <span class="">○ Crear nuevo usuario</span>
+          </button>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
               Afiliado/Inquilino
             </mat-panel-title>
-            
           </mat-expansion-panel-header>
-          <button mat-button (click)="listUser()" class=" w-100 justify-content-start d-flex p-3">
-            <!-- <mat-icon
-              aria-hidden="false"
-              aria-label="Example home icon"
-              fontIcon="account_circle"
-            ></mat-icon> -->
+          <button mat-button (click)="listAfiliado()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Lista de Afiliado/Inquilino</span>
           </button>
-          <button mat-button (click)="createUser()" class=" w-100 justify-content-start d-flex p-3">
-            <!-- <mat-icon
-              aria-hidden="false"
-              aria-label="Example home icon"
-              fontIcon="account_circle"
-            ></mat-icon> -->
+          <button mat-button (click)="createAfiliado()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Crear Afiliado/Inquilino</span>
           </button>
-          <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
-            <!-- <mat-icon
-              aria-hidden="false"
-              aria-label="Example home icon"
-              fontIcon="account_circle"
-            ></mat-icon> -->
-            <span class="">○ Escanear Credencial</span>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <button mat-button (click)="reporte()" class=" w-100 justify-content-start d-flex p-3">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmarks"></mat-icon>
+        <span class="ff-20">Reportes</span>
+      </button>
+      
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="payments"></mat-icon>
+            Pagos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <button mat-button (click)="listaPagos()" class=" w-100 justify-content-start d-flex p-3">
+            <span class="">○ Lista de Pagos</span>
+          </button>
+          <button mat-button (click)="createPagos()" class=" w-100 justify-content-start d-flex p-3">
+            <span class="">○ Crear nuevo Pago</span>
+          </button>
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="folder"></mat-icon>
+              Proyectos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <button mat-button (click)="listProyect()" class=" w-100 justify-content-start d-flex p-3">
+            <span class="">○ Lista de Proyectos</span>
+          </button>
+          <button mat-button (click)="createProyect()" class=" w-100 justify-content-start d-flex p-3">
+            <span class="">○ Crear nuevo Proyecto</span>
           </button>
         </mat-expansion-panel>
       </mat-accordion>
 
 
-   
-      <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="bookmarks"
-        ></mat-icon>
-        <span class="ff-20">Reportes</span>
+
+      <button mat-button (click)="qr()" class=" w-100 justify-content-start d-flex p-3">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="qr_code_scanner"></mat-icon>
+        <span class="ff-20">Escanear Credencial</span>
       </button>
 
 
-      <mat-expansion-panel >
+    
+
+
+
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <mat-icon
-            aria-hidden="false"
-            aria-label="Example home icon"
-            fontIcon="calendar_month"
-          ></mat-icon>
-          Eventos
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"></mat-icon>
+            Eventos
           </mat-panel-title>
-          
         </mat-expansion-panel-header>
-        <button mat-button routerLink="/dash" class=" w-100 justify-content-start d-flex p-3">
-          <!-- <mat-icon
-            aria-hidden="false"
-            aria-label="Example home icon"
-            fontIcon="account_circle"
-          ></mat-icon> -->
+        <button mat-button (click)="listEvent()" class=" w-100 justify-content-start d-flex p-3">
           <span class="">○ Lista de eventos</span>
         </button>
         <button mat-button (click)="createEvent()" class=" w-100 justify-content-start d-flex p-3">
-          <!-- <mat-icon
-            aria-hidden="false"
-            aria-label="Example home icon"
-            fontIcon="account_circle"
-          ></mat-icon> -->
           <span class="">○ Crear eventos</span>
         </button>
       </mat-expansion-panel>
-
-
- 
-
-
-      
     </mat-nav-list>
 
     <mat-nav-list class="settings w-100">
       <hr>
       <button mat-button routerLink="/dash" class="menu-button w-100 justify-content-start d-flex p-3">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="tune"
-        ></mat-icon>
-        <span  class="ff-20">Config..</span>
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="tune"></mat-icon>
+        <span class="ff-20">Config..</span>
       </button>
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content >
+  <mat-sidenav-content>
     <mat-toolbar color="primary" class="d-flex justify-content-between">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-      >
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
 
       <div class="d-flex click" mat-button [matMenuTriggerFor]="menu">
         <div class="info text-end me-2">
-        <h5 class="m-0">Brian Fernandez Mercado</h5>
-        <h6 class="m-0 text-end">Administrador</h6>
+          <h5 class="m-0">Brian Fernandez Mercado</h5>
+          <h6 class="m-0 text-end">Administrador</h6>
         </div>
-        <img src="./../../assets/img/avatar.jpg"  class="img-avatar m-1 ">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill m-auto" viewBox="0 0 16 16">
-          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+        <img src="./../../assets/img/avatar.jpg" class="img-avatar m-1 ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          class="bi bi-caret-down-fill m-auto" viewBox="0 0 16 16">
+          <path
+            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
         </svg>
       </div>
       <mat-menu #menu="matMenu">

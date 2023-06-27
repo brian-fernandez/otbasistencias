@@ -1,7 +1,11 @@
 <div class="p-5 ">
-    <h3>Inicio / Nuevo Usuario</h3>
+    <div class="d-flex align-items-center cursor" *ngIf="idselect != 0" (click)="idselect = 0">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_back">Volver</mat-icon>
+    Volver
+    </div>
+    
 <app-create-afiliado *ngIf="idselect === 1"></app-create-afiliado>
-
+<app-create-inquilino *ngIf="idselect === 2"></app-create-inquilino>
 
     <div class="" *ngIf="idselect === 0">
 
@@ -39,7 +43,7 @@
                                     d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                             </svg></p>
                     </div>
-                    <button class="btn btn-primary mb-3 m-auto"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                    <button  (click)="select(2)" class="btn btn-primary mb-3 m-auto"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
                       </svg> Crear Inquilino</button>
                 </div>

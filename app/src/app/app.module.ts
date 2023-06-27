@@ -21,27 +21,48 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserListComponent } from './user/user-list/user-list.component';
+
 import { CustomMatPaginatorIntl } from './paginator-ES';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { UserCreateComponent } from './user/user-create/user-create.component';
-import { CreateAfiliadoComponent } from './user/create-afiliado/create-afiliado.component';
+
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CreateEventComponent } from './event/create-event/create-event.component';
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';  
+import { EscanQrComponent } from './escanQr/escanQr.component';
+import { UserListComponent } from './afiliado/user-list/user-list.component';
+import { UserCreateComponent } from './afiliado/user-create/user-create.component';
+import { CreateAfiliadoComponent } from './afiliado/create-afiliado/create-afiliado.component';
+import { CreateInquilinoComponent } from './afiliado/create-inquilino/create-inquilino.component';
+import { ProfileDetailsComponent } from './profile/profile-details/profile-details.component';
+import { ListUserComponent } from './user/list-user/list-user.component';
+import { ReporteComponent } from './reporte/reporte.component';
+import { CreateUserComponent } from './user/create-user/create-user.component';
+import { ProyectosComponent } from './proyectos/proyectos.component';
+
 @NgModule({
-  declarations: [
+  declarations: [			
     AppComponent,
     NavigationComponent,
     DashboardComponent,
     LoginComponent,
     LoadingComponent,
     HomeComponent,
+    // componente inquilino-afiliado
     UserListComponent,
     UserCreateComponent,
     CreateAfiliadoComponent,
-    CreateEventComponent
-  ],
+    CreateInquilinoComponent,
+    //end
+    CreateEventComponent,
+    EscanQrComponent,
+    //perfil,
+    ProfileDetailsComponent,
+    //user
+    ListUserComponent,
+    CreateUserComponent,
+    ReporteComponent,
+      ProyectosComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
