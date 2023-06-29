@@ -1,3 +1,150 @@
-<p>
-  create-pago works!
-</p>
+<div class="p-3 border" *ngIf="!dataenviar">
+    <div class="row">
+        <div class="col-sm-8 col-xl-8 col-md-8 border" *ngIf="!select">
+            <form class="example-form">
+                <mat-form-field class="example-full-width w-100">
+                    <mat-label>Busca Afiliado</mat-label>
+                    <input type="text" placeholder="C.I" aria-label="Busca al afiliado" matInput
+                        [formControl]="stateCtrl" [matAutocomplete]="auto">
+                    <mat-autocomplete #seleccion (optionSelected)="onOptionSelected($event)" autoActiveFirstOption
+                        #auto="matAutocomplete">
+                        <mat-option *ngFor="let state of filteredStates  | async" (click)="send(state)"
+                            [value]="state.ci">
+                            <img alt=""
+                                style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;"
+                                class="example-option-img" [src]="state.img" height="25">
+                            <span>{{state.name}}</span> |
+                            <small>{{state.ci}}</small>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+
+        </div>
+        <div class="col-sm-8 col-xl-8 col-md-8 border " *ngIf="select">
+
+            <label for="" class="p-3">Selecciona la fecha limite del pago</label>
+
+            <div class="nev">
+                <mat-form-field color="accent">
+                    <mat-label>Secciona la fecha</mat-label>
+                    <input matInput [matDatepicker]="picker1" [min]="maxDate"  [(ngModel)]="time">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput name="selected_time_B" [format]="24" [(ngModel)]="selectedTime"
+                        [ngxMatTimepicker]="pickerB" placeholder="16:00" readonly />
+                    <mat-icon matSuffix (click)="pickerB.open()">
+                        watch_later
+                    </mat-icon>
+                </mat-form-field>
+                <ngx-mat-timepicker color="accent" #pickerB></ngx-mat-timepicker>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-4 col-xl-4 col-md-4 border">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
+                    <strong>Rsponsable:</strong>
+                    <p class="m-0">{{user.nombre}}</p>
+                </div>
+                <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
+                    <strong>Cargo:</strong>
+                    <p class="m-0">{{user.cargo}}</p>
+                </div>
+                <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
+                    <strong>C.I:</strong>
+                    <p class="m-0">{{user.CI}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="select">
+        <div class="col-sm-12 col-xl-12 col-md-12  p-5" x>
+            <div class="row border">
+                <div class="col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center bg-danger text-light cursor"
+                    (click)="removed()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path
+                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                    </svg>
+                </div>
+                <div class="col-11 col-ms-11 col-xl-11col-md-11">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Nombre: </strong>{{select.name}}</li>
+                        <li class="list-group-item"><strong>C.I: </strong>{{select.ci}}</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12 col-md-12  paddingtop-bottom">
+            <div class="row border" *ngIf="montoTotal">
+                <div class="col-auto col-sm-3 col-md-3 col-xl-3 p-1 w-auto">
+                    <button (click)="newPago()" class="btn btn-success">Crear Pago</button>
+                </div>
+                <div class="col-auto col-sm-6 col-md-6col-xl-6  ">
+                    
+                </div>
+                <div class="col-auto col-sm-3 col-md-3 col-xl-3 border">
+                    Total en bolvianos {{montoTotal}} bs.
+                </div>
+            </div>
+            <div class="row border">
+                <div class="col-auto col-sm-1 col-md-1 col-xl-1 w-auto"></div>
+                <div class="col-auto col-sm-10 col-md-10 col-xl-10 border ">
+                    Titulo
+                </div>
+                <div class="col-auto col-sm-1 col-md-1 col-xl-1  border">
+                    Monto
+                </div>
+            </div>
+            <ul class="list-group list-group-flush border scrollspy-example" style="overflow: scroll; height: 50vh;">
+                <li class="list-group-item cursor "  (click)="toggleSeleccion(pago)" *ngFor="let pago of pagosPendientes">
+                    <div class="row d-flex">
+                        <div class="col-auto col-sm-1 col-md-1 col-xl-1 w-auto">
+                            <svg [class.text-success]="pago.seleccionado" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                              </svg>
+                        </div>
+                        <div class="col-auto col-sm-10 col-md-10 col-xl-10">
+                            <span [class.checked]="pago.seleccionado">{{ pago.descripcion }}</span>
+                        </div>
+                        <div class="col-auto col-sm-1 col-md-1 col-xl-1">
+                            <span [class.checked]="pago.seleccionado">{{ pago.monto }}</span>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="dataenviar">
+   <div class="row m-3" *ngIf="active">
+    <mat-progress-bar  mode="determinate" [value]="progress"></mat-progress-bar>
+    <p class="text-center">Descargando pdf.. {{ progress }}%</p>
+   </div>
+
+   <div class="row d-flex baseline p-2">
+    <div class="col-auto"><p (click)="removed()" class="cursor"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
+      </svg> Atras</p></div>
+   <div class="col-auto">
+    <button (click)="download()"  class="btn btn-warning"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+      </svg> Descargar</button>
+   </div>
+   </div>
+</div>
+<app-pdf-pago id="htmlData" *ngIf="dataenviar" [texto]="dataenviar" style="display: block;"></app-pdf-pago>

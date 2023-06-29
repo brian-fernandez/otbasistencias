@@ -1,0 +1,11 @@
+.tittle{
+    font-size: 2rem;
+    font-style: inherit;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-align: center;
+    padding: 10px;
+}
+.font-10{
+    font-size: 10px;
+}

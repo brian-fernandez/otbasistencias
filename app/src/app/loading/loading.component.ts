@@ -29,20 +29,25 @@ export class LoadingComponent implements OnInit {
 
   }
   init() {
-
+    console.log('entro a init');
+    
     try {
       const email = this.EncrypDescryp.set(this.Key, localStorage.getItem('email')) || false;
       const password = this.EncrypDescryp.set(this.Key, localStorage.getItem('password')) || false;
       console.log(email + '  ' + password);
-
+      
       if (email && password) {
+        console.log('entro a if');
+        
         return this.router.navigateByUrl('/home/dashboard');
 
       }
-      console.log('salio');
+      
 
       return this.router.navigateByUrl('/sesion');
     } catch (error) {
+      console.log('entro a error');
+      
       return this.router.navigateByUrl('/sesion');
     }
 

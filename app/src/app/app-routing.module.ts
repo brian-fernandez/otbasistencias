@@ -20,17 +20,20 @@ import { CrearProyectoComponent } from './proyectos/crear-proyecto/crear-proyect
 import { ListPagosComponent } from './pagos/list-pagos/list-pagos.component';
 import { ListEventComponent } from './event/list-event/list-event.component';
 import { CreatePagoComponent } from './pagos/create-pago/create-pago.component';
+import { PdfPagoComponent } from './PDF/pdf-pago/pdf-pago.component';
 
 
 const routes: Routes = [
 
-  {path: '', component: LoadingComponent,pathMatch:'full'},
+  {path: '', component: LoadingComponent},
+  
   {path: 'loading', component: LoadingComponent},
   {path: 'sesion', component: LoginComponent},
+  
   {path: 'home' , component:HomeComponent,
    children: [
     { path: 'nav', component: HomeComponent, canActivate: [AuthGuard]},
-    { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
+    { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard],pathMatch:'full' },
     /* Afiliados*/
     {path: 'lista', component:UserListComponent , canActivate:[AuthGuard]},
     {path: 'nuevo', component: UserCreateComponent, canActivate:[AuthGuard]},
@@ -51,10 +54,14 @@ const routes: Routes = [
     {path: 'nuevo-proyecto', component: CreatePagoComponent, canActivate:[AuthGuard]},
     //pagos
     {path: 'pagos', component: ListPagosComponent, canActivate:[AuthGuard]},
-    {path: 'nuevo-pago', component: ListPagosComponent, canActivate:[AuthGuard]},
+    {path: 'nuevo-pago', component: CreatePagoComponent, canActivate:[AuthGuard]},
+    {path: 'nuevo-pago/:id', component: CreatePagoComponent, canActivate:[AuthGuard]},
+    
 
+    {path: 'pdf-pagos', component: PdfPagoComponent, canActivate:[AuthGuard]},
 
-]}
+]},
+{path: '**', component: LoadingComponent},
 ]
 
 @NgModule({

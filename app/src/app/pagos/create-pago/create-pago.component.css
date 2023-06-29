@@ -1,0 +1,14 @@
+.nev{
+    display: flex;
+    justify-content: space-between;
+}.checked {
+    text-decoration: line-through;
+    color: gray;
+  }
+
+.paddingtop-bottom{
+    padding: 0px 3rem 0px 3rem ;
+}
+.baseline{
+    align-items: baseline;
+}

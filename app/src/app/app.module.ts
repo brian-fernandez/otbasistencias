@@ -27,7 +27,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CreateEventComponent } from './event/create-event/create-event.component';
-import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';  
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { EscanQrComponent } from './escanQr/escanQr.component';
 import { UserListComponent } from './afiliado/user-list/user-list.component';
 import { UserCreateComponent } from './afiliado/user-create/user-create.component';
@@ -38,9 +38,14 @@ import { ListUserComponent } from './user/list-user/list-user.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
-
+import { ListPagosComponent } from './pagos/list-pagos/list-pagos.component';
+import { CreatePagoComponent } from './pagos/create-pago/create-pago.component';
+import { PdfPagoComponent } from './PDF/pdf-pago/pdf-pago.component';
+import { HttpClientModule } from '@angular/common/http';
+import { QRCodeModule } from 'angularx-qrcode';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
-  declarations: [			
+  declarations: [
     AppComponent,
     NavigationComponent,
     DashboardComponent,
@@ -61,8 +66,17 @@ import { ProyectosComponent } from './proyectos/proyectos.component';
     ListUserComponent,
     CreateUserComponent,
     ReporteComponent,
-      ProyectosComponent
-   ],
+    ProyectosComponent,
+
+    //pagos
+    ListPagosComponent,
+    CreatePagoComponent,
+
+
+    //PDFS
+
+    PdfPagoComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -72,10 +86,13 @@ import { ProyectosComponent } from './proyectos/proyectos.component';
     ReactiveFormsModule,
     FormsModule,
     FullCalendarModule,
-    NgxMatTimepickerModule 
+    NgxMatTimepickerModule,
+    HttpClientModule,
+    QRCodeModule
+  
   ],
   providers: [
-    {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl}
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
   ],
   bootstrap: [AppComponent]
 })

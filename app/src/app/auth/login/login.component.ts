@@ -11,6 +11,15 @@ import { EncrDecrService } from 'src/app/services/encr-decr.service';
 export class LoginComponent  implements OnInit {
   private Key = Keysecret.key;
   login:any;
+  dataUser=
+   
+    {
+      nombre:"Brian Fernandez Mercado",
+      CI:"14696249",
+      cargo:"Admin"
+    }
+   
+  
 
   constructor(
     private Encrypt :EncrDecrService,
@@ -30,6 +39,7 @@ export class LoginComponent  implements OnInit {
 
     localStorage.setItem('email',this.Encrypt.set(this.Key,this.login.email));
     localStorage.setItem('password',this.Encrypt.set(this.Key,this.login.password));
+    localStorage.setItem('data',JSON.stringify(this.dataUser))
     this.router.navigateByUrl('/loading');
   }
 }

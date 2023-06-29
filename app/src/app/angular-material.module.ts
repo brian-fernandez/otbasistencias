@@ -33,7 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 const materialModules = [
     CdkTreeModule,
@@ -70,6 +70,7 @@ const materialModules = [
     MatNativeDateModule,
     MatStepperModule,
     MatFormFieldModule,
+    MatProgressBarModule
 
 ];
 

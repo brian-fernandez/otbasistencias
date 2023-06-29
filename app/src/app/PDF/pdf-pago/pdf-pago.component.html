@@ -1,0 +1,94 @@
+
+<div class="p-3 border">
+    <div class="row">
+      <div class="col-md-3 col-xl-3 col-sm-3 ">
+
+      </div>
+      <div class="col-md-5 col-xl-5 col-sm-5 ">
+          <h1 class="tittle">Pago</h1>
+      </div>
+      <div class="col-md-4 col-xl-4 col-sm-4  d-flex">
+        <div class="row">
+          <div class="col-12  text-end">"OTB" Barrio Universitario Alto</div>
+          <div class="col-12  text-end font-10 m-0">Avenida Petrolera Km 3 1/2</div>
+          <div class="col-12  text-end font-10 m-0">Cochabamba - Bolivia</div>
+        </div>
+        <img src="../../../assets/icons/logo.png" width="80" height="80" alt="">
+      </div>
+    </div>
+    <div class="row p-4">
+      <div class="col-6 col-sm-6 col-xl-6 col-md-6 border border-black">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>Fecha: </strong> 23-07-2022</li>
+          <li class="list-group-item"><strong>Señor(es): </strong>Brian Fernandez Mercado</li>
+          <li class="list-group-item"><strong>C.I: </strong>14696249</li>
+        </ul>
+      </div>
+      <div class="col-6 col-sm-6 col-xl-6 col-md-6 "></div>
+    </div>
+
+    <div class="row p-4">
+      <table class="table  table-striped table-bordered border border-black m-0">
+        <thead>
+          <tr>
+            <th scope="col-1" class="w-auto" style="width: 100px !important;">Codigo</th>
+            <th scope="col-10">Detalle</th>
+            <th scope="col-1" style="text-align: end;">Total</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td class="text-end">Otto</td>
+   
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+          
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+          <!-- <tr>
+            <th colspan="6">son {{convertirNumeroEnLetras(31)}} Bolivianos</th>
+            <td >Larry the Bird</td>
+            <td>@twitter</td>
+          </tr> -->
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-xl-6 col-md-6 col-sm-6 border border-black">Son {{convertirNumeroEnLetras(31)}} Bolivianos</div>
+        <div class="col-xl-6 col-md-6 col-sm-6 border">
+          <div class="row">
+            <div class="col-xl-6 col-md-6 col-sm-6 border text-end">
+              <p class="m-0  d-block"></p>
+            </div>
+            <div class="col-xl-4 col-md-4 col-sm-4 border  bg-black text-light">Total en Bs.</div>
+            <div class="col-xl-2 col-md-2 col-sm-2 border">
+              <p class="m-0 text-end">31</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 col-md-3 col-xl-3">
+        <qrcode [qrdata]="myAngularxQrCode" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+      </div>
+      <div class="col-sm-5 col-xl-5 col-md-5 mt-3 ">
+        <ul class="list-group list-group-flush border border-black">
+          <li class="list-group-item"><strong>Numero de cuenta: </strong> 100000-XXXXXXXXXX</li>
+          <li class="list-group-item"><strong>Fecha limite de emisión: </strong>29/06/2023</li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+
