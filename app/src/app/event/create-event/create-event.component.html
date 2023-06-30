@@ -1,5 +1,5 @@
 <div class="p-5">
-    <p class="w-50 border p-2 rounded border-opacity-10 ">Para crear un evento,  simplemente haz clic en cualquier recuadro del calendario. Después de hacer clic,
+    <p class="w-100 border p-2 rounded border-opacity-10 ">Para crear un evento,  simplemente haz clic en cualquier recuadro del calendario. Después de hacer clic,
         se te pedirá que ingreses los detalles del evento. ¡No olvides guardar los cambios una vez que hayas terminado!
         </p >
     <full-calendar [events]="events" [options]="calendarOptions" eventClickInfo></full-calendar>
@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-xl-12">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input [(ngModel)]="dataEvent.title" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Titulo</label>
                         </div>
                     </div>
@@ -82,6 +82,8 @@
             <div class="modal-footer">
                 <button (click)="closeModal()" type="button" class="btn btn-secondary"
                     data-dismiss="modal">Cerrar</button>
+                    <button (click)="closeModal()" type="button" class="btn btn-success"
+                    data-dismiss="modal">Crear evento</button>
                 <!-- Add any other buttons you need -->
             </div>
         </div>

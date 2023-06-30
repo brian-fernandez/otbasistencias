@@ -44,6 +44,8 @@ import { PdfPagoComponent } from './PDF/pdf-pago/pdf-pago.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ListEventComponent } from './event/list-event/list-event.component';
+import { EventidComponent } from './event/eventid/eventid.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,8 +59,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     UserCreateComponent,
     CreateAfiliadoComponent,
     CreateInquilinoComponent,
-    //end
+    //event
     CreateEventComponent,
+    ListEventComponent,
+    EventidComponent,
+
     EscanQrComponent,
     //perfil,
     ProfileDetailsComponent,

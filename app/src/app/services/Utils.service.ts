@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Injectable({
   providedIn: 'root'
@@ -71,4 +73,34 @@ private http:HttpClient
 
     xhr.send();
   }
+
+  convertPDF(html,titulo){
+    const DATA: any = document.getElementById(html);
+    const doc = new jsPDF('portrait', 'px', 'Letter');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+    html2canvas(DATA, options).then((canvas) => {
+      const img = canvas.toDataURL('image/PNG');
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(
+        img,
+        'PNG',
+        bufferX,
+        bufferY,
+        pdfWidth,
+        pdfHeight,
+        'FAST'
+      );
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}_`+titulo`.pdf`);
+    });
+  }
+  
 }

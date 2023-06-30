@@ -21,6 +21,7 @@ import { ListPagosComponent } from './pagos/list-pagos/list-pagos.component';
 import { ListEventComponent } from './event/list-event/list-event.component';
 import { CreatePagoComponent } from './pagos/create-pago/create-pago.component';
 import { PdfPagoComponent } from './PDF/pdf-pago/pdf-pago.component';
+import { EventidComponent } from './event/eventid/eventid.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,7 @@ const routes: Routes = [
     //evento
     {path: 'nuevo-evento', component: CreateEventComponent, canActivate:[AuthGuard]},
     {path: 'eventos', component: ListEventComponent, canActivate:[AuthGuard]},
+    {path: 'evento/:id', component: EventidComponent, canActivate:[AuthGuard]},
     //reporte
     {path: 'reportes', component: ReporteComponent, canActivate:[AuthGuard]},
     //lector

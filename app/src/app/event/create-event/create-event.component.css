@@ -1,3 +1,12 @@
 .fc-day{
     cursor: pointer !important;
 }
+
+.past-event{
+    background-color: brown !important;
+    color: white !important;
+}
+.future-event{
+    background-color: darkgreen !important;
+    color: white !important;
+}
