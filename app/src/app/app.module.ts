@@ -46,6 +46,8 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ListEventComponent } from './event/list-event/list-event.component';
 import { EventidComponent } from './event/eventid/eventid.component';
+import { EventQrComponent } from './event/event-qr/event-qr.component';
+import { NgQrScannerModule } from 'angular2-qrscanner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +65,7 @@ import { EventidComponent } from './event/eventid/eventid.component';
     CreateEventComponent,
     ListEventComponent,
     EventidComponent,
+    EventQrComponent,
 
     EscanQrComponent,
     //perfil,
@@ -93,7 +96,8 @@ import { EventidComponent } from './event/eventid/eventid.component';
     FullCalendarModule,
     NgxMatTimepickerModule,
     HttpClientModule,
-    QRCodeModule
+    QRCodeModule,
+    NgQrScannerModule
   
   ],
   providers: [

@@ -1,0 +1,22 @@
+.img-div{
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    
+}
+
+.mat-column-Foto {
+    max-width: 30px;
+  }
+  .example-first-header-row th {
+    border-bottom: none;
+  }
+
+  input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+.oculto{
+    display: none;
+}

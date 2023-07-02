@@ -1,0 +1,78 @@
+<div [ngClass]="{'oculto':result}">
+  <div class="row p-3" >
+    <h3 class="text-center">Escanea el QR a 3cm de distancia para mejor lectura</h3>
+    <div class="col-xl-3 col-md-3 col-sm-3"></div>
+    <div class="col-xl-6 col-md-6 col-sm-6">
+      <qr-scanner
+      [debug]="false"
+      [canvasWidth]="100" 
+      [canvasHeight]="100" 
+      [stopAfterScan]="false" 
+      [updateTime]="500"> 
+    </qr-scanner>
+    </div>
+    <div class="col-xl-3 col-md-3 col-sm-3"></div>
+  </div>
+</div>
+
+<!-- perfilencontrado -->
+
+<div *ngIf="result">
+  <div class="p-3">
+    <div class="row">
+      <h1>Dato encontrado</h1>
+      <div class="col-auto col-xl-3 col-md-12 col-ms-12 col-xs-12 border m-auto">
+        <div class="imgbox m-auto d-flex">
+          <img src="./../../../assets/img/avatar.jpg" class=" m-auto img-div" alt="">
+        </div>
+      </div>
+      <div class="col-auto col-xl-8 col-md-12 col-ms-12 col-xs-12 border ">
+        <div class="row">
+          <div class=" col-xl-6 col-md-6 col-sm-6 col-xs-12 border">
+            <p>Credenciales</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Nombre:</strong> Brian </li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Apellido:</strong> Fernandez Mercado</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Dirección</strong> Avenida Petrolera Km 3 1/2</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Calle:</strong> Calle 2</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Celular</strong> 69489025</li>
+            </ul>
+          </div>
+          <div class=" col-xl-6 col-md-6 col-sm-6 col-xs-12 border">
+            <p> </p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>N° de domicilio:</strong> 0000 </li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Correo:</strong> brianxmister@gmail.com</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Estado</strong> Activo</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Tipo:</strong> Afiliado</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Telefono</strong> 69489025</li>
+  
+            
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="p-3">
+      <div class="row">
+        <div class="col-xl-8 col-md-6 col-sm-6">
+          <div class="mb-3">
+            <mat-form-field floatLabel="always">
+              <mat-label>Aporte</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="0">
+              <span matTextPrefix>Bs.&nbsp;</span>
+              <span matTextSuffix></span>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xl-2 col-sm-3 col-md-3 p-1">
+          <button (click)="removed() "class="btn btn-danger">Cancelar</button>
+        </div>
+        <div class="col-xl-2 col-sm-3 col-md-3 p-1">
+          <button (click)="add() "class="btn btn-success">Registrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

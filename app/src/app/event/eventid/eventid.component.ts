@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { EventQrComponent } from '../event-qr/event-qr.component';
+import { MatDialog } from '@angular/material/dialog';
 export interface UserData {
   id:string;
   nombre:string;
@@ -51,13 +53,15 @@ export class EventidComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  timestart: string = "04:26";
-  timeendt: string = "04:30";
+  timestart: string = "00:00";
+  timeendt: string = "5:30";
   percentage: number = 0;
 
-  constructor( private router:Router) { 
+  constructor( private router:Router,
+    private dialog:MatDialog) { 
     this.dataSource = new MatTableDataSource(DATA);
-    console.log(this.dataSource);
+    console.log(this.dataSource
+      );
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -126,5 +130,28 @@ export class EventidComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+
+
+  openDialog() {
+    console.log('hola');
+    
+    const dialogRef = this.dialog.open(EventQrComponent,{
+      width:'90%',
+      height:'500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      
+
+      /// actualizacion de la tabla
+      //datos
+    });
   }
 }
