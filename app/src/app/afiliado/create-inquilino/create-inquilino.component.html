@@ -104,26 +104,7 @@
 
                 </div>
                 <hr>
-                <div class="row mt-2">
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Telefono</label>
-                        <input type="text" class="form-control no-border" [(ngModel)]="data.phone"
-                            [ngModelOptions]="{standalone: true}">
-
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Celular</label>
-                        <input type="text" class="form-control no-border" id="floatingInputInvalid"
-                            [(ngModel)]="data.callphone" [ngModelOptions]="{standalone: true}">
-                    </div>
-                </div>
-                <div class=" row mt-2">
-                    <div class="col-sm-12 col-md-12 col-xl-12">
-                        <label for="">Foto</label>
-                        <input type="file" class="form-control no-border" (change)="onFileSelected($event)"
-                            [(ngModel)]="data.photo" [ngModelOptions]="{standalone: true}">
-                    </div>
-                </div>
+              
             </form>
             <div>
                 <button class="btn btn-primary mb-2" >Crear</button>
@@ -132,8 +113,28 @@
         </div>
         
         <div class="col-ms-12 col-md-12 col-xl-6" *ngIf="id">
-           
+            <h5>Contacto</h5>
+            <div class="row mt-2">
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                    <label for="">Telefono</label>
+                    <input type="text" class="form-control no-border" [(ngModel)]="data.phone"
+                        [ngModelOptions]="{standalone: true}">
 
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                    <label for="">Celular</label>
+                    <input type="text" class="form-control no-border" id="floatingInputInvalid"
+                        [(ngModel)]="data.callphone" [ngModelOptions]="{standalone: true}">
+                </div>
+            </div>
+            <div class=" row mt-2">
+                <div class="col-sm-12 col-md-12 col-xl-12">
+                    <label for="">Foto</label>
+                    <input type="file" class="form-control no-border" (change)="onFileSelected($event)"
+                        [(ngModel)]="data.photo" [ngModelOptions]="{standalone: true}">
+                </div>
+            </div>
+          <div style="display: none;">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Vista Frontal credencial</button>
@@ -199,6 +200,7 @@
                 </div>
 
               </div>
+          </div>
 
 
         

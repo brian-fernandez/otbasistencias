@@ -25,23 +25,43 @@
    
       <div class="col-sm-8 col-xl-8 col-md-8 border" *ngIf="select">
         <div class="row border">
-          <div class="col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center bg-danger text-light cursor" (click)="removed()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-            </svg>
+          <div class="col-11 col-ms-11 col-xl-11 col-md-11 p-0">
+            <ul class="list-group list-group-flush m-auto">
+              <li class="list-group-item d-flex justify-content-start">
+                <button class="btn bg-danger text-light" (click)="removed()">
+                  <svg  class="  cursor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                  </svg>
+                  Atras
+                </button>
+                <button (click)="handleDateClick()" style="margin-left: 10px;" class="btn bg-success text-light">   <svg  class="  cursor" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                  <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                </svg> Añadir rol</button>
+
+              </li>
+              <li class="list-group-item m-auto"><img src="{{select.img}}" style="width: 100px;margin: auto;" alt=""></li>
+            </ul>
+           
           </div>
-          <div class="col-10 col-ms-10 col-xl-10 col-md-10">
+          <div  class="d-flex col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center " >
+         
+           
+          </div>
+          <div class="col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center  text-light cursor" >
+            
+          </div>
+          <div class="col-10 col-ms-10 col-xl-10 col-md-10 p-0">
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><strong>Nombre: </strong>{{select.name}}</li>
-              <li class="list-group-item"><strong>C.I</strong>{{select.ci}}</li>
-              <li class="list-group-item"><strong>Foto</strong>{{select.img}}</li>
+              <li class="list-group-item"><strong>C.I: </strong>{{select.ci}}</li>
+              <li class="list-group-item"><strong>Calle: </strong>{{select.calle}}</li>
+              <li class="list-group-item"><strong>Celular: </strong>{{select.cel}}</li>
+             
             </ul>
           </div>
-          <div (click)="handleDateClick()" class="col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center bg-success text-light cursor" (click)="addrol()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
-              <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
-              <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-            </svg>
+          <div  class="col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center text-light cursor" >
+         
           </div>
         </div>
     </div>

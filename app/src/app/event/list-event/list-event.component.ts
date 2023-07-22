@@ -19,13 +19,13 @@ const DATA = [
     "fecha":"2023-06-13",
     "horai":"12:00",
     "horaf":"13:00",
-    "estado":1,
+    "estado":2,
     "encargado":"Brian Fernandez Mercado"
   },
   {
     "id":"2",
     "titulo":"Reunion navideña 2023",
-    "fecha":"2023-12-14",
+    "fecha":"2022-12-14",
     "horai":"16:00",
     "horaf":"17:00",
     "estado":2,

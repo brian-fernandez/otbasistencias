@@ -13,6 +13,7 @@ export interface UserData {
   cargo:string;
   encargado: string;
   estado:any;
+  donacion:any;
 }
 
 
@@ -20,18 +21,60 @@ const DATA = [
   {
     "id":"2",
     "nombre":"Juan Antonio Mercado",
-    "ci":"1249534863",
-    "cargo":"Admin",
+    "ci":"13:50",
+    "cargo":"--",
+    "donacion":"30",
     "encargado":"Antonio  Alvarez",
     "estado":1
   },
   {
     "id":"1",
     "nombre":"Brian Fernandez Mercado",
-    "ci":"1249534863",
-    "cargo":"Cajero",
+    "ci":"13:43",
+    "cargo":"--",
+    "donacion":"30",
     "encargado":"Antonio Alvarez",
-    "estado":2
+    "estado":1
+  }
+  ,
+  {
+    "id":"1",
+    "nombre":"Silvester Fernandez Mercado",
+    "ci":"13:43",
+    "cargo":"--",
+    "donacion":"30",
+    "encargado":"Antonio Alvarez",
+    "estado":1
+  }
+  ,
+  {
+    "id":"1",
+    "nombre":"Federico Fernandez Mercado",
+    "ci":"13:43",
+    "cargo":"--",
+    "donacion":"30",
+    "encargado":"Antonio Alvarez",
+    "estado":1
+  }
+  ,
+  {
+    "id":"1",
+    "nombre":"Maria Fernandez Mercado",
+    "ci":"13:43",
+    "cargo":"--",
+    "donacion":"30",
+    "encargado":"Antonio Alvarez",
+    "estado":1
+  }
+  ,
+  {
+    "id":"1",
+    "nombre":"Axel Fernandez Mercado",
+    "ci":"13:43",
+    "cargo":"--",
+    "donacion":"30",
+    "encargado":"Antonio Alvarez",
+    "estado":1
   }
   ]
 @Component({
@@ -53,8 +96,8 @@ export class EventidComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  timestart: string = "00:00";
-  timeendt: string = "5:30";
+  timestart: string = "18:33";
+  timeendt: string = "18:40";
   percentage: number = 0;
 
   constructor( private router:Router,

@@ -12,3 +12,12 @@
     border-bottom: none;
   }
   
+.block{
+  display: block !important;
+}
+
+.end{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}

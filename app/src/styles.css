@@ -48,5 +48,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-items: center;
 }
 .baseline{
-    align-items: baseline;
+    align-items: baseline !important;
 }

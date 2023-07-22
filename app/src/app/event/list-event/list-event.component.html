@@ -54,7 +54,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
             <td mat-cell *matCellDef="let row">
               
-              <p class="m-0" [ngClass]="{'text-success':row.estado===1,'text-danger':row.estado !== 1 }" >{{row.estado===1?'Activo':'Inactivo'}}</p>
+              <p class="m-0" [ngClass]="{'text-success':row.estado===1,'text-danger':row.estado !== 1 }" >{{row.estado===1?'Pendiente':'Finalizado'}}</p>
               
 
             

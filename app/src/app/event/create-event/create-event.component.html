@@ -1,24 +1,23 @@
-<div class="p-5">
+<div class="p-5" *ngIf="!createShow">
     <p class="w-100 border p-2 rounded border-opacity-10 ">Para crear un evento,  simplemente haz clic en cualquier recuadro del calendario. Después de hacer clic,
         se te pedirá que ingreses los detalles del evento. ¡No olvides guardar los cambios una vez que hayas terminado!
         </p >
     <full-calendar [events]="events" [options]="calendarOptions" eventClickInfo></full-calendar>
 </div>
 
+<div *ngIf="createShow" class="p-3">
+    <div class="modal-content">
+        <div class="modal-header">
+         
+            
+        </div>
+        <div class="modal-body">
+           
 
-<div class="modal" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Evento</h3>
-                <button (click)="closeModal()" type="button" class="btn-close" aria-label="Close">
-
-                </button>
-            </div>
-            <div class="modal-body">
+          <div class="row">
+            <div class="col-6 col-sm-6 col-xl-6 col-md-6">
                 <p>El evento se creara para la fecha <strong>{{data?.dateStr}}.</strong> Para asegurarnos de que
                     tengamos todos los detalles necesarios, le pedimos que complete los siguientes campos:</p>
-
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-xl-12">
                         <div class="form-floating mb-3">
@@ -61,31 +60,83 @@
                         </mat-form-field>
                         <ngx-mat-timepicker #pickerB></ngx-mat-timepicker>
                     </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xl-12">
+                    <div class="col-md-5 col-sm-5 col-xl-5">
                         <section class="example-section">
-                            <mat-checkbox class="example-margin" [(ngModel)]="check1">Asistencia
+                            <mat-checkbox  class="example-margin" (change)="obligacion($event)">Asistencia
                                 Obligatoria</mat-checkbox>
                         </section>
-
+                        
                     </div>
-                    <!-- <div class="col-md-12 col-sm-12 col-xl-12">
-                    <section class="example-section">
-                        <mat-checkbox class="example-margin" [(ngModel)]="check2">Asistencia Obligatoria</mat-checkbox>
-                      </section>
-                  
-                </div> -->
+                    <div  class="col-md-5 col-sm-5 col-xl-5">
+                        <div class="form-floating mb-3" [ngClass]="{'d-none':!observador}">
+                            <input [(ngModel)]="dataEvent.monto" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Monto de la multa</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button (click)="closeModal()" type="button" class="btn btn-secondary"
-                    data-dismiss="modal">Cerrar</button>
-                    <button (click)="closeModal()" type="button" class="btn btn-success"
-                    data-dismiss="modal">Crear evento</button>
-                <!-- Add any other buttons you need -->
+            <div class="col-6 col-sm-6 col-xl-6 col-md-6">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
+                        <strong>Rsponsable:</strong>
+                        <p class="m-0">{{user.nombre}}</p>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
+                        <strong>Cargo:</strong>
+                        <p class="m-0">{{user.cargo}}</p>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
+                        <strong>C.I:</strong>
+                        <p class="m-0">{{user.CI}}</p>
+                    </div>
+                </div>
+                <div class="row border">
+                    
+                    <div class="col-auto col-sm-7 col-md-7 col-xl-7 border ">
+                        Asunto
+                    </div>
+                    <div class="col-auto col-sm-4 col-md-4 col-xl-4  border">
+                        Categoria
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-xl-12">
+                    <ul class="list-group list-group-flush border scrollspy-example" style="overflow: scroll; height: 50vh;">
+                        <li class="list-group-item cursor "  (click)="toggleSeleccion(pago)" *ngFor="let pago of pagosPendientes">
+                            <div class="row d-flex">
+                                <div class="col-auto col-sm-1 col-md-1 col-xl-1 w-auto">
+                                    <svg [class.text-success]="pago.seleccionado" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                                      </svg>
+                                </div>
+                                <div class="col-auto col-sm-7 col-md-7 col-xl-7">
+                                    <span [class.checked]="pago.seleccionado">{{ pago.asunto }}</span>
+                                </div>
+                                <div class="col-auto col-sm-4 col-md-4 col-xl-4">
+                                    <span [class.checked]="pago.seleccionado">{{ pago.categoria }}</span>
+                                </div>
+                            </div>
+                           
+                        </li>
+        
+                    </ul>
+                </div>
             </div>
+
+            
+          </div>
+   
         </div>
+      
+        
+    </div>
+    <div class="modal-footer d-flex justify-content-start">
+        <button (click)="closeModal()" type="button" class="btn btn-secondary"
+            data-dismiss="modal" style="margin-right: 10px;">Cerrar</button>
+            <button (click)="closeModal()" type="button" class="btn btn-success"
+            data-dismiss="modal">Crear evento</button>
+        <!-- Add any other buttons you need -->
     </div>
 </div>
+
+

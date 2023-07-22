@@ -1,0 +1,12 @@
+.sd{
+    display: flex;
+    align-items: flex-end;
+}
+.icons{
+    position: relative;
+}
+.icons::before{
+    content: '';
+    position: absolute;
+    background-image: url(./../../../assets/icons/logo.png);
+}

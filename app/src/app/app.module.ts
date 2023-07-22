@@ -48,6 +48,11 @@ import { ListEventComponent } from './event/list-event/list-event.component';
 import { EventidComponent } from './event/eventid/eventid.component';
 import { EventQrComponent } from './event/event-qr/event-qr.component';
 import { NgQrScannerModule } from 'angular2-qrscanner';
+import { PdfProfileComponent } from './PDF/pdf-profile/pdf-profile.component';
+import { PdfCredentialComponent } from './PDF/pdf-credential/pdf-credential.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LineComponent } from './reporte/line/line.component';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +88,13 @@ import { NgQrScannerModule } from 'angular2-qrscanner';
 
     //PDFS
 
-    PdfPagoComponent
+    PdfPagoComponent,
+    PdfProfileComponent,
+    PdfCredentialComponent,
+
+
+    //Grafix
+    LineComponent
   ],
   imports: [
     BrowserModule,
@@ -97,8 +108,8 @@ import { NgQrScannerModule } from 'angular2-qrscanner';
     NgxMatTimepickerModule,
     HttpClientModule,
     QRCodeModule,
-    NgQrScannerModule
-  
+    NgQrScannerModule,
+    NgxChartsModule
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }

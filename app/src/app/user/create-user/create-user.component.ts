@@ -21,6 +21,8 @@ export interface State {
   img: string;
   name: string;
   ci: string;
+  cel:string;
+  calle:string
 }
 @Component({
   selector: 'app-create-user',
@@ -48,6 +50,8 @@ export class CreateUserComponent implements OnInit {
       ci: '45676243',
       // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
       img: '../../assets/img/avatar.jpg',
+      calle:'Calle 2',
+      cel: '69489025'
     },
     {
       id:2,
@@ -55,6 +59,8 @@ export class CreateUserComponent implements OnInit {
       ci: '45645376',
       // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
       img: '../../assets/img/avatar.jpg',
+      calle:'Calle 2',
+      cel: '69489025'
     },
     {
       id:3,
@@ -62,6 +68,8 @@ export class CreateUserComponent implements OnInit {
       ci: '55436243',
       // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
       img: '../../assets/img/avatar.jpg',
+      calle:'Calle 2',
+      cel: '69489025'
     },
     {
       id:4,
@@ -69,6 +77,8 @@ export class CreateUserComponent implements OnInit {
       ci: '25436223',
       // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
       img: '../../assets/img/avatar.jpg',
+      calle:'Calle 2',
+      cel: '69489025'
     },
   ];
 

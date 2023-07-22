@@ -3,61 +3,54 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
+
 export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
+  id:string;
+  nombre:string;
+  ci:string;
+  cargo:string;
+  encargado: string;
+  estado:any;
 }
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+const DATA = [
+  {
+    "id":"2",
+    "nombre":"Juan Antonio Mercado",
+    "ci":"1249534863",
+    "cargo":"Admin",
+    "encargado":"Antonio  Alvarez",
+    "estado":1,
+    "tipo":'Afiliado',
+    "iconexion": moment(new Date()).format('hh:mm'),
+  },
+  {
+    "id":"1",
+    "nombre":"Brian Fernandez Mercado",
+    "ci":"1249534863",
+    "cargo":"Cajero",
+    "encargado":"Antonio Alvarez",
+    "estado":1,
+    "tipo":'Afiliado',
+    "iconexion": moment(new Date()).format('hh:mm'),
+  }
+  ]
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit','Acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'ci','tipo','iconexion','encargado','estado','acciones'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private breakpointObserver: BreakpointObserver) {
-     // Create 100 users
-     const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
-     // Assign the data to the data source for the table to render
-     this.dataSource = new MatTableDataSource(users);
+     this.dataSource = new MatTableDataSource(DATA);
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -74,18 +67,3 @@ export class UserListComponent {
   }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
-}

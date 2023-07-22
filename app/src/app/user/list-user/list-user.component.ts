@@ -29,7 +29,7 @@ const DATA = [
     "ci":"1249534863",
     "cargo":"Cajero",
     "encargado":"Antonio Alvarez",
-    "estado":2
+    "estado":1
   }
   ]
 @Component({
@@ -80,5 +80,8 @@ export class ListUserComponent implements OnInit {
 
   addnew(){
     this.router.navigateByUrl("home/nuevo-Usuario");
+  }
+  profile(){
+    this.router.navigateByUrl("home/perfil");
   }
 }

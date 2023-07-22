@@ -97,9 +97,23 @@ private http:HttpClient
         pdfHeight,
         'FAST'
       );
+
+      const remainingHeight = doc.internal.pageSize.getHeight() - (pdfHeight + bufferY);
+      if (remainingHeight < 0) {
+        doc.addPage(); // Agregar una nueva página
+      }
       return doc;
     }).then((docResult) => {
-      docResult.save(`${new Date().toISOString()}_`+titulo`.pdf`);
+      switch (titulo) {
+        case 1:
+          docResult.save(`${new Date().toISOString()}_perfil.pdf`);
+          break;
+        case 2:
+          docResult.save(`${new Date().toISOString()}_credencial.pdf`);
+          break;
+        default:
+          break;
+      }
     });
   }
   

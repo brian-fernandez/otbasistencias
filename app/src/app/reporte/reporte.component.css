@@ -1,0 +1,17 @@
+::ng-deep .legend-items-container{
+    display: block !important;
+}
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items
+{
+    overflow: initial !important;
+}
+::ng-deep .advanced-pie-legend .total-label {
+    font-size: 14px !important;
+    margin-top: 5px !important;
+}
+::ng-deep .advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value{
+    font-size: 15px !important;
+}
+::ng-deep .chart-legend{
+    display: none !important;
+}

@@ -22,6 +22,7 @@ import { ListEventComponent } from './event/list-event/list-event.component';
 import { CreatePagoComponent } from './pagos/create-pago/create-pago.component';
 import { PdfPagoComponent } from './PDF/pdf-pago/pdf-pago.component';
 import { EventidComponent } from './event/eventid/eventid.component';
+import { PdfCredentialComponent } from './PDF/pdf-credential/pdf-credential.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,7 @@ const routes: Routes = [
   
   {path: 'loading', component: LoadingComponent},
   {path: 'sesion', component: LoginComponent},
-  
+  {path: 'pdf-credencial', component: PdfCredentialComponent, canActivate:[AuthGuard]},
   {path: 'home' , component:HomeComponent,
    children: [
     { path: 'nav', component: HomeComponent, canActivate: [AuthGuard]},
@@ -61,9 +62,11 @@ const routes: Routes = [
     
 
     {path: 'pdf-pagos', component: PdfPagoComponent, canActivate:[AuthGuard]},
+   
 
 ]},
 {path: '**', component: LoadingComponent},
+
 ]
 
 @NgModule({

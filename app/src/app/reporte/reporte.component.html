@@ -1,3 +1,78 @@
-<p>
-  reporte works!
-</p>
+<div class="p-3">
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xl-6">
+      <h3 class="p-0 m-0">Cantidad de personas que viven en la OTB Universitario Alto</h3>
+      <ngx-charts-advanced-pie-chart [view]="view"  [scheme]="colorScheme" [results]="data1" [gradient]="gradient">
+      </ngx-charts-advanced-pie-chart>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xl-6"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xl-6">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="p-0 m-0">Particapación en las reuniones </h3>
+      </div>
+    </div>
+      <ngx-charts-bar-vertical
+      (window:resize)="onResize($event)"
+      [view]="viewtwo"
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      >
+    </ngx-charts-bar-vertical>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xl-6">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex baseline">
+          <h3 class="p-0 m-0">Particapación del mes   </h3>
+          <mat-form-field>
+            <mat-label>Selecciones el mes</mat-label>
+            <mat-select>
+              <mat-option value="one">Enero</mat-option>
+              <mat-option value="two">Febrero</mat-option>
+              <mat-option value="two">Marzo</mat-option>
+              <mat-option value="two">Abril</mat-option>
+              <mat-option value="two">Mayo</mat-option>
+              <mat-option value="two">Junio</mat-option>
+              <mat-option value="two">Julio</mat-option>
+              <mat-option value="two">Agosto</mat-option>
+              <mat-option value="two">Septiembre</mat-option>
+              <mat-option value="two">Octubre</mat-option>
+              <mat-option value="two">Noviembre</mat-option>
+              <mat-option value="two">Diciembre</mat-option>
+            </mat-select>
+          </mat-form-field>
+         </div>
+      </div>
+    </div>
+      <ngx-charts-bar-vertical
+      [view]="viewtwo"
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      >
+    </ngx-charts-bar-vertical>
+    </div>
+  </div>
+  <div class="row">
+    <app-line></app-line>
+
+  </div>
+</div>
