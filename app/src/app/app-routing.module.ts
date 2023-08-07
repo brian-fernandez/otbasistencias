@@ -28,7 +28,7 @@ import { PdfCredentialComponent } from './PDF/pdf-credential/pdf-credential.comp
 const routes: Routes = [
 
   {path: '', component: LoadingComponent},
-  
+
   {path: 'loading', component: LoadingComponent},
   {path: 'sesion', component: LoginComponent},
   {path: 'pdf-credencial', component: PdfCredentialComponent, canActivate:[AuthGuard]},
@@ -40,7 +40,7 @@ const routes: Routes = [
     {path: 'lista', component:UserListComponent , canActivate:[AuthGuard]},
     {path: 'nuevo', component: UserCreateComponent, canActivate:[AuthGuard]},
     /* Perfil */
-    {path: 'perfil', component: ProfileDetailsComponent, canActivate:[AuthGuard]},
+    {path: 'perfil/:id', component: ProfileDetailsComponent, canActivate:[AuthGuard]},
     /*User*/
     {path: 'lista-Usuario', component: ListUserComponent, canActivate:[AuthGuard]},
     {path: 'nuevo-Usuario', component: CreateUserComponent, canActivate:[AuthGuard]},
@@ -59,10 +59,10 @@ const routes: Routes = [
     {path: 'pagos', component: ListPagosComponent, canActivate:[AuthGuard]},
     {path: 'nuevo-pago', component: CreatePagoComponent, canActivate:[AuthGuard]},
     {path: 'nuevo-pago/:id', component: CreatePagoComponent, canActivate:[AuthGuard]},
-    
+
 
     {path: 'pdf-pagos', component: PdfPagoComponent, canActivate:[AuthGuard]},
-   
+
 
 ]},
 {path: '**', component: LoadingComponent},

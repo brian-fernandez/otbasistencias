@@ -13,8 +13,8 @@
                  >
           <mat-autocomplete #seleccion (optionSelected)="onOptionSelected($event)" autoActiveFirstOption #auto="matAutocomplete">
             <mat-option  *ngFor="let state of filteredStates  | async" (click)="send(state)"  [value]="state.ci"  >
-              <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" [src]="state.img" height="25">
-        <span>{{state.name}}</span> |
+              <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" [src]="state.src_foto" height="25">
+        <span>{{state.nombre}} {{state.apellido}}</span> |
         <small>{{state.ci}}</small>
             </mat-option>
           </mat-autocomplete>
@@ -22,10 +22,11 @@
       </form>
 
     </div>
-   
+
       <div class="col-sm-8 col-xl-8 col-md-8 border" *ngIf="select">
         <div class="row border">
-          <div class="col-11 col-ms-11 col-xl-11 col-md-11 p-0">
+          <div  class="d-flex col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center " ></div>
+          <div class="col-10 col-ms-10 col-xl-10 col-md-10 p-0">
             <ul class="list-group list-group-flush m-auto">
               <li class="list-group-item d-flex justify-content-start">
                 <button class="btn bg-danger text-light" (click)="removed()">
@@ -40,49 +41,48 @@
                 </svg> Añadir rol</button>
 
               </li>
-              <li class="list-group-item m-auto"><img src="{{select.img}}" style="width: 100px;margin: auto;" alt=""></li>
+              <li class="list-group-item m-auto"><img src="{{select.src_foto}}" style="width: 100%;height: 250px;" alt=""></li>
             </ul>
-           
+
           </div>
-          <div  class="d-flex col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center " >
-         
-           
-          </div>
+          <div  class="d-flex col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center " ></div>
           <div class="col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center  text-light cursor" >
-            
+
           </div>
           <div class="col-10 col-ms-10 col-xl-10 col-md-10 p-0">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><strong>Nombre: </strong>{{select.name}}</li>
-              <li class="list-group-item"><strong>C.I: </strong>{{select.ci}}</li>
-              <li class="list-group-item"><strong>Calle: </strong>{{select.calle}}</li>
-              <li class="list-group-item"><strong>Celular: </strong>{{select.cel}}</li>
-             
+              <li class="list-group-item"><strong>Nombre: </strong>{{select?.nombre}} {{select?.apellido}}</li>
+              <li class="list-group-item"><strong>C.I: </strong>{{select?.ci}}</li>
+              <li class="list-group-item"><strong>Calle: </strong>{{select?.calle}}</li>
+              <li class="list-group-item"><strong>Celular: </strong>{{select?.celular}}</li>
+              <li class="list-group-item"><strong>Telefono: </strong>{{select?.telefono || '-'}}</li>
+              <li class="list-group-item"><strong>Dirección: </strong>{{select?.direccion || '-'}}</li>
+              <li class="list-group-item"><strong>Correo: </strong>{{select?.email || '-'}}</li>
             </ul>
           </div>
           <div  class="col-1 col-sm-1 col-md-1 col-xl-1 p-0 center-center text-light cursor" >
-         
+
           </div>
         </div>
     </div>
     <div class="col-sm-4 col-xl-4 col-md-4 border">
       <div class="row">
         <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
-          <strong>Rsponsable:</strong><p class="m-0">{{user.nombre}}</p>
+          <strong>Rsponsable:</strong><p class="m-0">{{user?.nombre}} {{user?.apellido}}</p>
         </div>
+        <!-- <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
+          <strong>Cargo:</strong><p class="m-0">{{user?.cargo}}</p>
+        </div> -->
         <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
-          <strong>Cargo:</strong><p class="m-0">{{user.cargo}}</p>
+          <strong>C.I:</strong><p class="m-0">{{user?.ci}}</p>
         </div>
-        <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
-          <strong>C.I:</strong><p class="m-0">{{user.CI}}</p>
-        </div>  
       </div>
     </div>
   </div>
 
 
   <!-- table -->
- 
+
 </div>
 
 
@@ -103,12 +103,12 @@
             <mat-form-field>
               <mat-label>Seleccione el rol </mat-label>
               <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                  {{food.viewValue}}
+                <mat-option *ngFor="let list of listcargo" [value]="list.id">
+                  {{list.nombre}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-             
+
           </div>
           <div class="modal-footer">
               <button (click)="closeModal()" type="button" class="btn btn-secondary"

@@ -2,7 +2,7 @@
   <mat-sidenav #drawer class="sidenav  d-flex" fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
-    
+
     <img src="./../../assets/icons/Frame 1.png" class="m-auto d-block p-3" width="80" height="80" alt="">
     <p class="margin-auto text-center">OTB Universitario Alto</p>
     <hr>
@@ -48,7 +48,7 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmarks"></mat-icon>
         <span class="ff-20">Reportes</span>
       </button>
-      
+
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -65,7 +65,7 @@
           </button>
         </mat-expansion-panel>
       </mat-accordion>
-      
+
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -113,10 +113,13 @@
 
       <div class="d-flex click" mat-button [matMenuTriggerFor]="menu">
         <div class="info text-end me-2">
-          <h5 class="m-0">Brian Fernandez Mercado</h5>
-          <h6 class="m-0 text-end">Administrador</h6>
+          <h5 class="m-0 text-capitalize">{{data?.nombre}} {{data?.apellido}}</h5>
+          <h6 class="m-0 text-end">{{data?.role?.nombre}}</h6>
         </div>
-        <img src="./../../assets/img/avatar.jpg" class="img-avatar m-1 ">
+        <img *ngIf="data?.src_foto" [src]="data?.src_foto" class="img-avatar m-1 ">
+        <div *ngIf="!data?.src_foto" class="initials img-avatar m-1">
+           {{ getInitials(data?.apellido) }}
+        </div>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
           class="bi bi-caret-down-fill m-auto" viewBox="0 0 16 16">
           <path
@@ -124,7 +127,7 @@
         </svg>
       </div>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>Perfil</button>
+        <button mat-menu-item (click)="viewProfile(data?.id)">Perfil</button>
         <button mat-menu-item (click)="closed()">Cerrar sesión</button>
       </mat-menu>
     </mat-toolbar>

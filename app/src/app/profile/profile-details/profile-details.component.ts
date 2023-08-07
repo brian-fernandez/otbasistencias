@@ -1,145 +1,49 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, SimpleChanges, ViewChild} from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { UtilsService } from 'src/app/services/Utils.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+
+
+
+
+
 export interface UserData {
   id:string;
-  foto: string;
-  datos: string;
+  img: string;
+  nombre: string;
+  apellido:string;
+  estado:String
 }
 
 export interface Multas {
-  id:string;
-  data: {
-    id:string,
-    titulo:string,
-    fecha:string
+  id:any;
+  monto:any;
+  asistencia:any;
+  evento:{
+    id:any;
+    titulo:any;
+    fecha:any;
   };
-  total: string;
-  estado: string;
+  pago:{
+    id:any;
+    fecha:any,
+    responsable:{
+      id:any;
+      nombre:any;
+      apellido:any;
+    }
+  }
+
 }
 
-export interface Donaciones {
-  id:string;
-  data: {
-    id:string,
-    titulo:string,
-    fecha:string
-  };
-  total: string;
-  estado: string;
-}
 
-/** Constants used to fill up our data base. */
-const DATA = [
-{
-  "id":"2",
-  "Foto":"./../../../assets/img/avatar.jpg",
-  "Data":{
-    "nombre":"brian fernandez mercado",
-    "ci":"14696849",
-    "activo":1
-  }
-},
-{
-  "id":"1",
-  "Foto":"./../../../assets/img/avatar.jpg",
-  "Data":{
-    "nombre":"Maria fernandez mercado",
-    "ci":"14696849",
-    "activo":0
-  }
-}
-]
 
-const DONACIONES = [
-  {
-    "id":"2",
-    "data":{
-      "id":"1",
-      "titulo":"Reunion de emergencia",
-      "fecha":"23/06/2023"
-    },
- 
-      "total":20.00,
-      "estado":0,
-    
-  }
-  ]
-
-const Multas = [
-  {
-    "id":"2",
-    "data":{
-      "id":"1",
-      "titulo":"Reunion de emergencia",
-      "fecha":"23/06/2023"
-    },
- 
-      "total":20.00,
-      "estado":0,
-    
-  },
-  {
-    "id":"3",
-    "data":{
-      "id":"1",
-      "titulo":"Reunion de emergencia",
-      "fecha":"23/06/2023"
-    },
- 
-      "total":20.00,
-      "estado":0,
-  },
-  {
-    "id":"3",
-    "data":{
-      "id":"1",
-      "titulo":"Reunion de emergencia",
-      "fecha":"23/06/2023"
-    },
- 
-      "total":20.00,
-      "estado":0,
-  },
-  {
-    "id":"3",
-    "data":{
-      "id":"1",
-      "titulo":"Reunion de emergencia",
-      "fecha":"23/06/2023"
-    },
- 
-      "total":20.00,
-      "estado":0,
-  },
-  {
-    "id":"3",
-    "data":{
-      "id":"1",
-      "titulo":"Reunion de emergencia",
-      "fecha":"23/06/2023"
-    },
- 
-      "total":20.00,
-      "estado":0,
-  },
-  {
-    "id":"3",
-    "data":{
-      "id":"1",
-      "titulo":"Reunion de emergencia",
-      "fecha":"23/06/2023"
-    },
- 
-      "total":20.00,
-      "estado":0,
-  }
-  ]
 
 @Component({
   selector: 'app-profile-details',
@@ -167,49 +71,46 @@ dataSourceD: MatTableDataSource<Multas> | any;
   @ViewChild('sort3') sortD!: MatSort;
   progress: number;
   protetip: any;
-
+  userData: any;
+  id:any;
+  users: any;
   constructor(
     private utils:UtilsService,
-    private router:Router
+    private router:Router,
+    private user:UserService,
+    private route: ActivatedRoute
+
   ) {
     // Create 100 users
-
-
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(DATA);
+    // this.dataSource = new MatTableDataSource(DATA);
+    // this.dataSourceMultas = new MatTableDataSource(Multas);
+    // this.dataSourceD = new MatTableDataSource(DONACIONES);
 
-    this.dataSourceMultas = new MatTableDataSource(Multas);
-
-    this.dataSourceD = new MatTableDataSource(DONACIONES);
-    
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    //Multas
-    this.dataSourceMultas.paginator = this.paginatorM;
-    this.dataSourceMultas.sort = this.sortM;
-    //donaciones
-    this.dataSourceD.paginator = this.paginatorD;
-    this.dataSourceD.sort = this.sortD;
-   
+    // console.log('afterView');
+
+    // this.id  = this.route.snapshot.paramMap.get('id');
+    // this.getdata(this.id);
   }
 
   ngOnInit() {
    this.protetip = false;
+   this.route.params.subscribe(params => {
+    const id = params['id'];
+    this.getdata(id);
+  });
+   this.id  = this.route.snapshot.paramMap.get('id');
+   this.getdata(this.id)
   }
 
   active(type:any,id:any){
-
     console.log(type, id);
-    
   }
-
   pdfProfile(){
    this.protetip = true;
-   
-   
     this.progress = -1;
     const interval = setInterval(() => {
       this.progress += 10;
@@ -219,32 +120,48 @@ dataSourceD: MatTableDataSource<Multas> | any;
         this.protetip = false;
       }
     }, 100);
-   
-    console.log(this.protetip);
   }
-
   pdfCredential(){
-    // this.router.navigateByUrl('pdf-credencial' );
     var datos = {
       parametro1: 'valor1',
       parametro2: 'valor2'
     };
-    
-    // Navega a la ruta deseada utilizando this.router.navigate
     this.router.navigate(['/pdf-credencial'], { state: datos });
-    
-    // Abre una nueva ventana utilizando window.open
     var newWindow = window.open('', '_blank');
-    
-    // Verifica si la ventana se abrió correctamente
     if (newWindow) {
-      // La ventana se abrió correctamente, puedes realizar acciones adicionales si es necesario
-    
-      // Obtén los datos enviados utilizando window.history.state
       var datosRecibidos = newWindow.window.history.state;
   }
 }
 
-
+getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((word) => word[0])
+    .join('');
+}
+getdata(id){
+  this.user.getId(id).subscribe(
+    async (params:any) => {
+      this.users = params.user;
+      this.userData = params;
+      this.dataSource = this.userData.user.inquilinos;
+      this.dataSourceMultas = this.userData.user.multas;
+      this.dataSourceD = this.userData.user.asistencia;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSourceMultas.paginator = this.paginatorM;
+      this.dataSourceMultas.sort = this.sortM;
+      this.dataSourceD.paginator = this.paginatorD;
+      this.dataSourceD.sort = this.sortD;
+    }, (err) =>{
+      console.log(err);
+    }
+  )
 }
 
+viewProfile(id){
+  this.router.navigate(['home/perfil',id]);
+  // this.getdata(id);
+}
+
+}

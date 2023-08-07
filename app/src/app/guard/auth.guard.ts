@@ -22,10 +22,8 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const email = this.EncrypDescryp.set(this.Key, localStorage.getItem('email')) || false;
-    const password = this.EncrypDescryp.set(this.Key, localStorage.getItem('password')) || false;
-    console.log(email + '  ' + password);
-
+    const email =  localStorage.getItem('dataUser') || false;
+    const password =  localStorage.getItem('token')|| false;
     if (email && password) {
       console.log('entro a if de guard');
       return true;

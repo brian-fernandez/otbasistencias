@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -16,11 +17,16 @@ export class NavigationComponent {
       map(result => result.matches),
       shareReplay()
     );
+  data: any;
 
   constructor(private breakpointObserver: BreakpointObserver,
-    private router: Router) { }
+    private router: Router,
+    private serviceauth:AuthService) { }
 
 
+ngOnInit(){
+  this.getUser();
+}
 
   dash() {
     this.router.navigateByUrl("/dashboard");
@@ -30,5 +36,11 @@ export class NavigationComponent {
     localStorage.clear();
     this.router.navigateByUrl('/loading')
 
+  }
+
+  getUser(){
+    this.data = this.serviceauth.get();
+    console.log(this.data);
+    
   }
 }

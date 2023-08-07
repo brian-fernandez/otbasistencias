@@ -22,9 +22,7 @@ export class LoadingComponent implements OnInit {
     this.credential = {
 
     }
-    setTimeout(() => {
-      this.init();
-    }, 2000);
+  this.init();
 
 
   }
@@ -32,22 +30,13 @@ export class LoadingComponent implements OnInit {
     console.log('entro a init');
     
     try {
-      const email = this.EncrypDescryp.set(this.Key, localStorage.getItem('email')) || false;
-      const password = this.EncrypDescryp.set(this.Key, localStorage.getItem('password')) || false;
-      console.log(email + '  ' + password);
-      
+      const email =  localStorage.getItem('dataUser') || false;
+      const password = localStorage.getItem('token') || false;
       if (email && password) {
-        console.log('entro a if');
-        
         return this.router.navigateByUrl('/home/dashboard');
-
-      }
-      
-
+      }  
       return this.router.navigateByUrl('/sesion');
     } catch (error) {
-      console.log('entro a error');
-      
       return this.router.navigateByUrl('/sesion');
     }
 

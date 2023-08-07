@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { AlertComponent } from '../alerts/alert/alert.component';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,8 @@ export class UtilsService {
 
 constructor(
 private _snackBar:MatSnackBar,
-private http:HttpClient
+private http:HttpClient,
+public dialog: MatDialog
 ) { }
   openSnackBar(text:any) {
     this._snackBar.open(text, 'Cerrar', {
@@ -24,15 +28,15 @@ private http:HttpClient
   }
 
   credentials(){
-    const miObjetoRecuperado = localStorage.getItem('data');
+    const miObjetoRecuperado = localStorage.getItem('dataUser');
     let objetoRecuperado: any = null;
-    
+
     if (miObjetoRecuperado !== null) {
       objetoRecuperado = JSON.parse(miObjetoRecuperado);
     }
     return this.user= objetoRecuperado;
-   
-  
+
+
   }
 
 
@@ -57,7 +61,7 @@ private http:HttpClient
 
 
   convertImageToBase64(data) {
-  
+
     const xhr = new XMLHttpRequest();
     xhr.open('GET', data, true);
     xhr.responseType = 'blob';
@@ -116,5 +120,17 @@ private http:HttpClient
       }
     });
   }
-  
+
+
+  openaAlert(texto, tipo): Observable<any> {
+    const dialogRef = this.dialog.open(AlertComponent, {
+      width: '250px',
+      enterAnimationDuration: '150ms',
+      exitAnimationDuration:'150ms',
+      data: {texto: texto, tipo: tipo},
+    });
+
+    return dialogRef.afterClosed();
+  }
+
 }

@@ -3,38 +3,33 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Route, Router } from '@angular/router';
 import * as moment from 'moment';
+import { UtilsService } from 'src/app/services/Utils.service';
+import { UserService } from 'src/app/services/user.service';
 
 export interface UserData {
-  id:string;
-  nombre:string;
-  ci:string;
-  cargo:string;
-  encargado: string;
-  estado:any;
+  id: number
+  nombre: string
+  type: string
+  src_foto: string
+  ci: string
+  apellido: string
+  celular: string
+  telefono?: string
+  email: string
+  n_domicilio: string
+  calle: string
+  direccion: string
+  id_encargado: number
+  encargado: Encargado
 }
-const DATA = [
-  {
-    "id":"2",
-    "nombre":"Juan Antonio Mercado",
-    "ci":"1249534863",
-    "cargo":"Admin",
-    "encargado":"Antonio  Alvarez",
-    "estado":1,
-    "tipo":'Afiliado',
-    "iconexion": moment(new Date()).format('hh:mm'),
-  },
-  {
-    "id":"1",
-    "nombre":"Brian Fernandez Mercado",
-    "ci":"1249534863",
-    "cargo":"Cajero",
-    "encargado":"Antonio Alvarez",
-    "estado":1,
-    "tipo":'Afiliado',
-    "iconexion": moment(new Date()).format('hh:mm'),
-  }
-  ]
+
+export interface Encargado {
+  id: number
+  nombre: string
+  apellido: string
+}
 
 @Component({
   selector: 'app-user-list',
@@ -47,14 +42,18 @@ export class UserListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  estado: any;
+  iduser: any;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver,
+    private Userservice:UserService,
+    private router:Router,
+    private utils:UtilsService
+    ) {
 
-     this.dataSource = new MatTableDataSource(DATA);
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnInit(): void{
+    this.getList();
   }
 
   applyFilter(event: Event) {
@@ -64,6 +63,63 @@ export class UserListComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  profile(id){
+    this.router.navigate(['home/perfil/',id])
+  }
+  getList(){
+      this.Userservice.listUserAll().subscribe(
+        async (params:any) => {
+          this.dataSource = new MatTableDataSource(params);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }, (error) =>{
+          console.log(error);
+
+        }
+      )
+  }
+
+  setestado(iduser){
+    this.iduser = iduser;
+
+    this.utils.openaAlert('Cambiar estado','edicion').subscribe(result => {
+      if (result) {
+       this.Userservice.setEstado(iduser).subscribe(
+        async (params:any) => {
+          console.log(params);
+          this.getList();
+          this.utils.openSnackBar('El estado fue cambiado correctamente');
+        }, err => {
+          this.utils.openSnackBar('Error en la conexión');
+        }
+       )
+      } else {
+        console.log('El diálogo fue cerrado con "No" o de alguna otra forma');
+      }
+    });
+    // const modal = document.getElementById('myModal');
+    // modal!.style.display = 'block';
+  }
+
+  btnSucces(){
+      this.Userservice.setEstado(this.iduser).subscribe(
+        async (params:any) => {
+          console.log(params);
+          this.getList();
+          const modal = document.getElementById('myModal');
+          modal!.style.display = 'none';
+        }, (error) =>{
+          console.log(error);
+
+        }
+      )
+  }
+
+
+  closeModal() {
+    const modal = document.getElementById('myModal');
+    modal!.style.display = 'none';
   }
 }
 

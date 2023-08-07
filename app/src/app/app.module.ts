@@ -52,7 +52,17 @@ import { PdfProfileComponent } from './PDF/pdf-profile/pdf-profile.component';
 import { PdfCredentialComponent } from './PDF/pdf-credential/pdf-credential.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LineComponent } from './reporte/line/line.component';
+
+
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { AlertComponent } from './alerts/alert/alert.component';
+
+// Registra la localización en español
+registerLocaleData(localeEs);
 // import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +104,10 @@ import { LineComponent } from './reporte/line/line.component';
 
 
     //Grafix
-    LineComponent
+    LineComponent,
+
+
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -110,9 +123,11 @@ import { LineComponent } from './reporte/line/line.component';
     QRCodeModule,
     NgQrScannerModule,
     NgxChartsModule
+
   ],
   providers: [
-    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+    { provide: LOCALE_ID, useValue: 'es'}
   ],
   bootstrap: [AppComponent]
 })

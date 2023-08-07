@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { EventidComponent } from './eventid.component';
+import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('EventidComponent', () => {
   let component: EventidComponent;
@@ -11,7 +13,8 @@ describe('EventidComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventidComponent ]
+      declarations: [ EventidComponent ],
+      imports:[AngularMaterialModule,BrowserAnimationsModule]
     })
     .compileComponents();
   }));

@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { PdfPagoComponent } from './pdf-pago.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 describe('PdfPagoComponent', () => {
   let component: PdfPagoComponent;
@@ -11,7 +12,8 @@ describe('PdfPagoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PdfPagoComponent ]
+      declarations: [ PdfPagoComponent ],
+      imports:[QRCodeModule]
     })
     .compileComponents();
   }));

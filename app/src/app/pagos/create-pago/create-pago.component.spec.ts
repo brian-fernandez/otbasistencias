@@ -4,6 +4,10 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CreatePagoComponent } from './create-pago.component';
+import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CreatePagoComponent', () => {
   let component: CreatePagoComponent;
@@ -11,7 +15,8 @@ describe('CreatePagoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreatePagoComponent ]
+      declarations: [ CreatePagoComponent ],
+      imports:[AngularMaterialModule,HttpClientTestingModule,FormsModule,ReactiveFormsModule,BrowserAnimationsModule]
     })
     .compileComponents();
   }));

@@ -51,15 +51,15 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <strong>Rsponsable:</strong>
-                    <p class="m-0">{{user.nombre}}</p>
+                    <p class="m-0">{{user?.nombre}}</p>
                 </div>
                 <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <strong>Cargo:</strong>
-                    <p class="m-0">{{user.cargo}}</p>
+                    <p class="m-0">{{user?.cargo}}</p>
                 </div>
                 <div class="col-sm-12 col-md-12 col-xl-12 d-flex">
                     <strong>C.I:</strong>
-                    <p class="m-0">{{user.CI}}</p>
+                    <p class="m-0">{{user?.CI}}</p>
                 </div>
             </div>
         </div>
@@ -78,8 +78,8 @@
                 </div>
                 <div class="col-11 col-ms-11 col-xl-11col-md-11">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Nombre: </strong>{{select.name}}</li>
-                        <li class="list-group-item"><strong>C.I: </strong>{{select.ci}}</li>
+                        <li class="list-group-item"><strong>Nombre: </strong>{{select?.name}}</li>
+                        <li class="list-group-item"><strong>C.I: </strong>{{select?.ci}}</li>
                     </ul>
                 </div>
 

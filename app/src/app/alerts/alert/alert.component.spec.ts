@@ -3,25 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { LineComponent } from './line.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertComponent } from './alert.component';
 
-describe('LineComponent', () => {
-  let component: LineComponent;
-  let fixture: ComponentFixture<LineComponent>;
+describe('AlertComponent', () => {
+  let component: AlertComponent;
+  let fixture: ComponentFixture<AlertComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LineComponent ],
-      imports:[NgxChartsModule,BrowserAnimationsModule]
-      
+      declarations: [ AlertComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LineComponent);
+    fixture = TestBed.createComponent(AlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

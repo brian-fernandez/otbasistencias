@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-auto col-xl-3 col-md-3 col-ms-3 col-xs-12  m-auto">
       <div class="imgbox m-auto d-flex">
-        <img src="./../../../assets/img/avatar.jpg" class=" m-auto img-div" alt="">
+        <img [src]="users?.src_foto" class=" m-auto img-div" alt="">
       </div>
     </div>
     <div class="col-auto col-xl-8 col-md-8 col-ms-8 col-xs-12  ">
@@ -10,27 +10,29 @@
         <div class=" col-xl-6 col-md-6 col-sm-6 col-xs-12 ">
           <p>Credenciales</p>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Nombre:</strong> Brian </li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Apellido:</strong> Fernandez Mercado</li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Dirección</strong> Avenida Petrolera Km 3 1/2</li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Calle:</strong> Calle 2</li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Celular</strong> 69489025</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Nombre:</strong> {{users?.nombre || '-'}} </li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Apellido:</strong> {{users?.apellido || '-'}}</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Dirección</strong> {{users?.direccion || '-'}}</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Calle:</strong> {{users?.calle || '-'}}</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Celular:</strong> {{users?.celular || '-'}}</li>
+
           </ul>
         </div>
         <div class=" col-xl-6 col-md-6 col-sm-6 col-xs-12 ">
           <p> </p>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>N° de domicilio:</strong> 0000 </li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Correo:</strong> brianxmister@gmail.com</li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Estado</strong> Activo</li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Tipo:</strong> Afiliado</li>
-            <li class="list-group-item p-0 pb-2 pt-2"><strong>Telefono</strong> 69489025</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>N° de domicilio:</strong> {{users?.n_domicilio || '-'}} </li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Correo:</strong> {{users?.email || '-'}}</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Estado</strong> {{users?.estado ? 'Activo' : 'No Activo' }}</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Tipo:</strong> {{users?.type || '-'}}</li>
+            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Telefono:</strong> {{users?.telefono || '-'}}</li>
 
-          
+
           </ul>
         </div>
       </div>
     </div>
+
     <div class="col-xl-1 col-md-1 col-ms-1 col-xs-12  ">
       <div class="m-auto text-center">
         <h3><strong>Contacto</strong></h3>
@@ -46,7 +48,6 @@
               <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
             </svg>
           </div>
-          
         </div>
       </div>
     </div>
@@ -68,7 +69,7 @@
         </svg> Editar Perfil</li>
       </ul>
     </div>
-    <div class="col-auto col-xl-9 col-md-9 col-ms-9 col-xs-12 ">
+    <div class="col-auto col-xl-9 col-md-9 col-ms-9 col-xs-12" *ngIf="users?.type==='afiliado'">
 
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -88,119 +89,153 @@
             <path fill-rule="evenodd" d="M4.174 1h-.57a1.5 1.5 0 0 0-1.5 1.5v12a1.5 1.5 0 0 0 1.5 1.5h9a1.5 1.5 0 0 0 1.5-1.5v-12a1.5 1.5 0 0 0-1.5-1.5h-.642c.055.156.085.325.085.5V2c0 .828-.668 1.5-1.492 1.5H5.581A1.496 1.496 0 0 1 4.09 2v-.5c0-.175.03-.344.085-.5Zm3.894 5.482c1.656-1.673 5.795 1.254 0 5.018-5.795-3.764-1.656-6.69 0-5.018Z"/>
           </svg> Lista de donaciones</button>
         </li>
-      
+
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-
-  
-          
-          <div class="mat-elevation-z8">
+          <div class="mat-elevation-z8" *ngIf="users?.inquilinos.length">
             <table mat-table [dataSource]="dataSource" matSort #sort1="matSort">
               <ng-container matColumnDef="Foto">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
-                <td mat-cell *matCellDef="let row"> 
-                  <img src="{{row.Foto}} " width="30" height="30" style="object-fit: cover;-radius: 50%;" alt="">
+                <td mat-cell *matCellDef="let row">
+                  <img *ngIf="row.img" src="{{row.img}} " width="30" height="30" style="object-fit: cover;-radius: 50%;" alt="">
+                  <div *ngIf="!row.img"  class="initials"  alt="">    {{ getInitials(row?.apellido) }}</div>
                 </td>
               </ng-container>
               <ng-container matColumnDef="Datos">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Datos </th>
                 <td mat-cell *matCellDef="let row"> <div class="row">
                   <div class="col-xl-12 col-md-12 col-sm-12">
-                    <p class="m-0 text-primary cursor icon-link">
-                      {{row.Data.nombre}}
+                    <p class="m-0 text-primary cursor icon-link" (click)="viewProfile(row.id)" >
+                      {{row.nombre}} {{row.apellido}}
                     </p>
                   </div>
                   <div class="col-xl-12 col-md-12 col-sm-12 d-flex">
-                    C.I:{{row.Data.ci}} <p class="m-0" [ngClass]="{'text-danger' : !row.Data.activo , 'text-success':row.Data.activo}">  {{row.Data.activo? 'Activo' : 'No Activo' }}</p>
+                    C.I:{{row.ci}} <p class="m-0" [ngClass]="{'text-danger' : !row.estado , 'text-success':row.estado}">  {{row.estado? 'Activo' : 'No Activo' }}</p>
                   </div>
-                </div> </td>
+                </div>
+               </td>
               </ng-container>
               <ng-container matColumnDef="Acciones">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
                 <td mat-cell *matCellDef="let row">
                   <div class="col-xl-12 col-md-12 col-sm-12 d-flex">
-                    <p class="cursor m-0" (click)="active(row.Data.activo,row.id)" [ngClass]="{'text-danger' :row.Data.activo , 'text-success':!row.Data.activo}">  {{row.Data.activo? 'Desactivar' : 'Activar' }}</p>
+                    <p class="cursor m-0" (click)="active(row.estado,row.id)" [ngClass]="{'text-danger' :row.estado , 'text-success':!row.estado}">  {{row.estado? 'Desactivar' : 'Activar' }}</p>
                      </div>
                 </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-         
+
             </table>
-          
+
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" #paginator1></mat-paginator>
           </div>
-
+          <div *ngIf="!users?.inquilinos.length" class="d-flex align-items-center flex-column justify-content-center content-data">
+            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none">
+              <path d="M13 35.75C13 34.888 13.3424 34.0614 13.9519 33.4519C14.5614 32.8424 15.388 32.5 16.25 32.5C17.112 32.5 17.9386 32.8424 18.5481 33.4519C19.1576 34.0614 19.5 34.888 19.5 35.75V39C19.5 39.862 19.1576 40.6886 18.5481 41.2981C17.9386 41.9076 17.112 42.25 16.25 42.25C15.388 42.25 14.5614 41.9076 13.9519 41.2981C13.3424 40.6886 13 39.862 13 39V35.75ZM32.5 22.75C32.5 21.888 32.8424 21.0614 33.4519 20.4519C34.0614 19.8424 34.888 19.5 35.75 19.5C36.612 19.5 37.4386 19.8424 38.0481 20.4519C38.6576 21.0614 39 21.888 39 22.75V39C39 39.862 38.6576 40.6886 38.0481 41.2981C37.4386 41.9076 36.612 42.25 35.75 42.25C34.888 42.25 34.0614 41.9076 33.4519 41.2981C32.8424 40.6886 32.5 39.862 32.5 39V22.75ZM22.75 29.25C22.75 28.388 23.0924 27.5614 23.7019 26.9519C24.3114 26.3424 25.138 26 26 26C26.862 26 27.6886 26.3424 28.2981 26.9519C28.9076 27.5614 29.25 28.388 29.25 29.25V39C29.25 39.862 28.9076 40.6886 28.2981 41.2981C27.6886 41.9076 26.862 42.25 26 42.25C25.138 42.25 24.3114 41.9076 23.7019 41.2981C23.0924 40.6886 22.75 39.862 22.75 39V29.25Z" fill="black" fill-opacity="0.46"/>
+              <path d="M13 4.875H9.75C8.02609 4.875 6.37279 5.55982 5.15381 6.77881C3.93482 7.99779 3.25 9.65109 3.25 11.375V45.5C3.25 47.2239 3.93482 48.8772 5.15381 50.0962C6.37279 51.3152 8.02609 52 9.75 52H42.25C43.9739 52 45.6272 51.3152 46.8462 50.0962C48.0652 48.8772 48.75 47.2239 48.75 45.5V11.375C48.75 9.65109 48.0652 7.99779 46.8462 6.77881C45.6272 5.55982 43.9739 4.875 42.25 4.875H39V8.125H42.25C43.112 8.125 43.9386 8.46741 44.5481 9.0769C45.1576 9.6864 45.5 10.513 45.5 11.375V45.5C45.5 46.362 45.1576 47.1886 44.5481 47.7981C43.9386 48.4076 43.112 48.75 42.25 48.75H9.75C8.88805 48.75 8.0614 48.4076 7.4519 47.7981C6.84241 47.1886 6.5 46.362 6.5 45.5V11.375C6.5 10.513 6.84241 9.6864 7.4519 9.0769C8.0614 8.46741 8.88805 8.125 9.75 8.125H13V4.875Z" fill="black" fill-opacity="0.46"/>
+              <path d="M30.875 3.25C31.306 3.25 31.7193 3.4212 32.024 3.72595C32.3288 4.0307 32.5 4.44402 32.5 4.875V8.125C32.5 8.55598 32.3288 8.9693 32.024 9.27405C31.7193 9.57879 31.306 9.75 30.875 9.75H21.125C20.694 9.75 20.2807 9.57879 19.976 9.27405C19.6712 8.9693 19.5 8.55598 19.5 8.125V4.875C19.5 4.44402 19.6712 4.0307 19.976 3.72595C20.2807 3.4212 20.694 3.25 21.125 3.25H30.875ZM21.125 0C19.8321 0 18.5921 0.513615 17.6779 1.42785C16.7636 2.34209 16.25 3.58207 16.25 4.875V8.125C16.25 9.41793 16.7636 10.6579 17.6779 11.5721C18.5921 12.4864 19.8321 13 21.125 13H30.875C32.1679 13 33.4079 12.4864 34.3221 11.5721C35.2364 10.6579 35.75 9.41793 35.75 8.125V4.875C35.75 3.58207 35.2364 2.34209 34.3221 1.42785C33.4079 0.513615 32.1679 0 30.875 0L21.125 0Z" fill="black" fill-opacity="0.46"/>
+            </svg>
+            <p class="data-none mt-2">Sin datos</p>
+          </div>
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-          <div class="row">
-            <div class="col-md-6 col-sm-12 col-xl-6">
-             <div class="d-flex">
-              <button type="button" class="btn btn-outline-secondary btn-sm">Crear Pago</button>
-             </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xl-6 end">
-             <div class="content">
-              <p class="cursor icon-link">Total a pagar: 30bs</p>
-             </div>
-            </div>
+       <div *ngIf="users?.multas.length">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-xl-6">
+           <div class="d-flex">
+            <button type="button" class="btn btn-outline-secondary btn-sm">Crear Pago</button>
+           </div>
           </div>
-
-          <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceMultas" matSort #sort2="matSort">
-              <ng-container matColumnDef="data">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-                <td mat-cell *matCellDef="let row"> 
-                  <div class="">
-                    <p class="m-0 cursor icon-link text-primary">{{row.data.titulo}}</p>
-                    <p>{{row.data.fecha}}</p>
-                  </div>
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="total">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
-                <td mat-cell *matCellDef="let row"> 
-                  <p>{{row.total}}</p>
-                </td>
-              </ng-container>
-          
-              <tr mat-header-row *matHeaderRowDef="displayedColumnsmultas"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumnsmultas;"></tr>
-         
-            </table>
-          
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" #paginator2></mat-paginator>
+          <div class="col-md-6 col-sm-12 col-xl-6 end">
+           <div class="content">
+            <p class="cursor icon-link">Total a pagar: {{users?.total_multa}} Bs</p>
+           </div>
           </div>
         </div>
+        <hr>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSourceMultas" matSort #sort2="matSort">
+            <ng-container matColumnDef="data">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+              <td mat-cell *matCellDef="let row">
+                <div class="">
+                  <p class="m-0 cursor icon-link text-primary">{{row.evento.titulo}}</p>
+                  <p>{{row.evento.fecha}}</p>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container  matColumnDef="total">
+              <th  mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+              <td style="width: 50% !important;" mat-cell *matCellDef="let row">
+                <p *ngIf="row.cancelado==0" class="f-alert">{{row.monto}}Bs</p>
+                <div *ngIf="row.cancelado==1" class="d-flex">
+                  <div class="row text-end">
+                    <div class="col-sm-12 col-md-12 col-xl-12 col-sm-12 f-darlight">Cancelado</div>
+                    <div class="col-sm-12 col-md-12 col-xl-12 col-sm-12 f-darlight">Responsable: {{row.pago.responsable.nombre}}</div>
+                    <div class="col-sm-12 col-md-12 col-xl-12 col-sm-12 f-darlight">Fecha: {{row.pago.fecha}}</div>
+                    <div class="col-sm-12 col-md-12 col-xl-12 col-sm-12 f-primary cursor" >Detalle del pago</div>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsmultas"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsmultas;"></tr>
+
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" #paginator2></mat-paginator>
+        </div>
+       </div>
+
+          <div *ngIf="!users?.multas.length" class="d-flex align-items-center flex-column justify-content-center content-data">
+            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi bi-pass" viewBox="0 0 16 16">
+              <path d="M5.5 5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z"/>
+              <path d="M8 2a2 2 0 0 0 2-2h2.5A1.5 1.5 0 0 1 14 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-13A1.5 1.5 0 0 1 3.5 0H6a2 2 0 0 0 2 2Zm0 1a3.001 3.001 0 0 1-2.83-2H3.5a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5h-1.67A3.001 3.001 0 0 1 8 3Z"/>
+            </svg>
+            <p class="data-none mt-2">Sin datos</p>
+          </div>
+
+
+        </div>
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-          <div class="mat-elevation-z8">
+          <div  *ngIf="users?.asistencia.length" class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSourceD" matSort #sort3="matSort">
               <ng-container matColumnDef="data">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-                <td mat-cell *matCellDef="let row"> 
+                <td mat-cell *matCellDef="let row">
                   <div class="">
-                    <p class="m-0 cursor icon-link text-primary">{{row.data.titulo}}</p>
-                    <p>{{row.data.fecha}}</p>
+                    <p class="m-0 cursor icon-link text-primary">{{row.titulo}}</p>
+                    <p>{{row.fecha}}</p>
                   </div>
                 </td>
               </ng-container>
               <ng-container matColumnDef="total">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
-                <td mat-cell *matCellDef="let row"> 
-                  <p class="text-success">{{row.total}}</p>
+                <td mat-cell *matCellDef="let row">
+                  <p class="text-success">{{row.donaciones}}</p>
                 </td>
               </ng-container>
-          
+
               <tr mat-header-row *matHeaderRowDef="displayedColumnsmultas"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumnsmultas;"></tr>
-         
+
             </table>
-          
+
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users" #paginator3></mat-paginator>
           </div>
+
+          <div *ngIf="!users?.asistencia.length" class="d-flex align-items-center flex-column justify-content-center content-data">
+            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi bi-box2-heart" viewBox="0 0 16 16">
+              <path d="M8 7.982C9.664 6.309 13.825 9.236 8 13 2.175 9.236 6.336 6.31 8 7.982Z"/>
+              <path d="M3.75 0a1 1 0 0 0-.8.4L.1 4.2a.5.5 0 0 0-.1.3V15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4.5a.5.5 0 0 0-.1-.3L13.05.4a1 1 0 0 0-.8-.4h-8.5Zm0 1H7.5v3h-6l2.25-3ZM8.5 4V1h3.75l2.25 3h-6ZM15 5v10H1V5h14Z"/>
+            </svg>
+            <p class="data-none mt-2">Sin datos</p>
+          </div>
         </div>
-        
+
       </div>
     </div>
   </div>

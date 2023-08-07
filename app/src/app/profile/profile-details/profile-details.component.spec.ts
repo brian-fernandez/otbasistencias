@@ -4,6 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ProfileDetailsComponent } from './profile-details.component';
+import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ProfileDetailsComponent', () => {
   let component: ProfileDetailsComponent;
@@ -11,7 +14,8 @@ describe('ProfileDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileDetailsComponent ]
+      declarations: [ ProfileDetailsComponent ],
+      imports:[AngularMaterialModule,HttpClientTestingModule,BrowserAnimationsModule]
     })
     .compileComponents();
   }));

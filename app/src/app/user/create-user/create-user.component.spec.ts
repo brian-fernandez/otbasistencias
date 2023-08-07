@@ -4,6 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CreateUserComponent } from './create-user.component';
+import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('CreateUserComponent', () => {
   let component: CreateUserComponent;
@@ -11,7 +14,8 @@ describe('CreateUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateUserComponent ]
+      declarations: [ CreateUserComponent ],
+      imports:[AngularMaterialModule,BrowserAnimationsModule,FormsModule,ReactiveFormsModule]
     })
     .compileComponents();
   }));

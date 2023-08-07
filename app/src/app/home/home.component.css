@@ -56,3 +56,13 @@
 .material-icons{
   font-size: 20px;
 }
+.initials{
+  text-align: center;
+    text-transform: uppercase;
+    align-items: center;
+    display: flex;
+    background: #333f83;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

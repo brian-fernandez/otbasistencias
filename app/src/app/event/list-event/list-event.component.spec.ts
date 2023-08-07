@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ListEventComponent } from './list-event.component';
+import { AngularMaterialModule } from 'src/app/angular-material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ListEventComponent', () => {
   let component: ListEventComponent;
@@ -11,7 +13,8 @@ describe('ListEventComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListEventComponent ]
+      declarations: [ ListEventComponent ],
+      imports:[AngularMaterialModule,BrowserAnimationsModule]
     })
     .compileComponents();
   }));

@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,10 +15,15 @@ export class HomeComponent {
     map(result => result.matches),
     shareReplay()
   );
+  data: any;
 
 constructor(private breakpointObserver: BreakpointObserver,
-  private router: Router) { }
+  private router: Router,private serviceauth:AuthService) { }
 
+
+  ngOnInit(){
+    this.getUser();
+  }
 
 
 dash() {
@@ -81,4 +87,22 @@ closed(){
 reporte(){
   this.router.navigateByUrl('home/reportes')
 }
+
+getUser(){
+  this.data = this.serviceauth.get();
+  console.log(this.data);
+
+}
+viewProfile(id)
+{
+  this.router.navigate(['home/perfil',id]);
+}
+
+getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((word) => word[0])
+    .join('');
+}
+
 }
