@@ -40,7 +40,7 @@ ngOnInit(){
 
   getUser(){
     this.data = this.serviceauth.get();
-    console.log(this.data);
-    
+   
+
   }
 }

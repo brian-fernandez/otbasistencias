@@ -4,61 +4,66 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { UtilsService } from '../services/Utils.service';
+import { UserService } from '../services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export interface UserData {
-  id:string;
-  titulo:string;
-  fecha:string;
-  categoria:string;
-  encargado: string;
-  estado:any;
-  descripcion:string;
-  idcategoria:number;
+  id: number
+  titulo: string
+  descripcion: string
+  fecha: string
+  estado: number
+  id_categoria: number
+  idevento: number
+  id_user: number
+  created_at: string
+  updated_at: string
 }
-const DATA = [
-  {
-    "id":"2",
-    "titulo":"Instalacion de gas",
-    "fecha":"2023/06/21",
-    "categoria":"GAS",
-    "idcategoria":2,
-    "encargado":"Antonio  Alvarez",
-    "estado":null,
-    "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae veniam eos sapiente consectetur officiis, ex aut tempora. Assumenda possimus doloribus ut culpa? Molestias alias dolorem qui ipsam nulla facere illo."
-  },
-  {
-    "id":"1",
-    "titulo":"Cambio de luz",
-    "fecha":"2023/05/23",
-    "categoria":"LUZ",
-    "idcategoria":3,
-    "encargado":"Antonio Alvarez",
-    "estado":2,
-    "descripcion":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae veniam eos sapiente consectetur officiis, ex aut tempora. Assumenda possimus doloribus ut culpa? Molestias alias dolorem qui ipsam nulla facere illo."
-  }
-  ]
+
 @Component({
   selector: 'app-proyectos',
   templateUrl: './proyectos.component.html',
   styleUrls: ['./proyectos.component.css']
 })
 export class ProyectosComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'asunto', 'categoria','fecha','creadopor','estado','acciones'];
+  displayedColumns: string[] = ['id', 'asunto', 'categoria', 'fecha', 'creadopor', 'estado', 'acciones'];
   dataSource: MatTableDataSource<UserData> | any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   edit: any;
   info: any;
-
+  listCategorias: any;
+  listEvents: any;
+  lg: FormGroup;
+  lgedit: FormGroup;
+  listAsuntos: any;
+  id_event: any;
   constructor(
-    private router:Router,
-    private utils:UtilsService
+    private router: Router,
+    private utils: UtilsService,
+    private userService: UserService,
+    private fb: FormBuilder
   ) {
-    this.dataSource = new MatTableDataSource(DATA);
-    console.log(this.dataSource);
-    
-   }
+    this.lgedit = this.fb.group({
+      tituloe: ['', Validators.required],
+      id_categoriae: ['', Validators.required],
+      ideventoe: [''],
+      descripcione: ['', Validators.required],
+      estadoe: [1]
+    })
+    this.lg = this.fb.group({
+      titulo: ['', Validators.required],
+      id_categoria: ['', Validators.required],
+      idevento: [''],
+      descripcion: ['', Validators.required],
+      estado: [0],
+      id_user: ['']
+    })
+  }
 
   ngOnInit() {
+    this.getListCategorias();
+    this.getListAsunto();
+    this.getLisEvents();
     this.edit = {
 
     }
@@ -66,9 +71,33 @@ export class ProyectosComponent implements OnInit {
 
     }
   }
+  profile(id){
+    this.router.navigate(['home/perfil/',id]);
+  }
+  showevent(id){
+    this.router.navigate(['home/evento',id])
+  }
+  getListCategorias() {
+    this.userService.getCategoria().subscribe(
+      async (params: any) => {
+        this.listCategorias = params;
+      }
+    )
+  }
+  getLisEvents() {
+    this.userService.getEventsActive().subscribe(
+      async (params: any) => {
+        this.listEvents = params;
+      }
+    )
+  }
+
+
+
+
+
   applyFilter(event: Event) {
-    console.log(event);
-    
+
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -76,46 +105,63 @@ export class ProyectosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  addnew(){
+  addnew() {
     this.router.navigateByUrl("home/nuevo-Usuario");
   }
   handleDateClick() {
     const modal = document.getElementById('myModal');
     modal!.style.display = 'block';
-    
+
   }
-  EditModal(any:any) {
-    this.edit = {
-      id:any.id,
-      titulo:any.titulo,
-      categoria:any.categoria,
-      fecha:any.fecha,
-      responsable:any.encargado,
-      descripcion:any.descripcion,
-      idcategoria:any.idcategoria
+  EditModal(any: any) {
+    this.id_event = any.id;
+   
+
+    if (this.lgedit.value.idevento) {
+      this.lgedit.value.estadoe=1;
+    }else{
+      this.lgedit.value.estadoe=0;
     }
-    console.log(this.edit);
-    
+    this.lgedit.setValue({
+      tituloe: any.titulo,
+      id_categoriae: any.categoria.id,
+      ideventoe:any.evento,
+      descripcione:any.descripcion,
+      estadoe:any.estado
+    });
+
     const modal = document.getElementById('myModalEdit');
     modal!.style.display = 'block';
-    
+
   }
-  modalInfo(any:any){
+  modalInfo(any: any) {
     this.info = {
-      id:any.id,
-      titulo:any.titulo,
-      categoria:any.categoria,
-      fecha:any.fecha,
-      responsable:any.encargado,
-      descripcion:any.descripcion,
-      idcategoria:any.idcategoria
+      id: any.id,
+      titulo: any.titulo,
+      categoria: any.categoria,
+      fecha: any.fecha,
+      encargado: any.encargado,
+      descripcion: any.descripcion,
+      idcategoria: any.idcategoria
     }
     const modal = document.getElementById('modalInfo');
     modal!.style.display = 'block'
   }
-  deltedModal(){
-    const modal = document.getElementById('modeDeleted');
-    modal!.style.display='block';
+  deltedModal(id) {
+
+    this.utils.openaAlert('¿Seguro que deseas eliminar el asunto?','eliminacion').subscribe(
+      async (params:any) => {
+            this.userService.deletedAsunto(id).subscribe(
+              async (params:any) => {
+                this.utils.openSnackBar('Asunto eliminado exitosamente');
+                  this.getListAsunto();
+              } ,(error)=>{
+                this.utils.openSnackBar('Error de conexión');
+              }
+            )
+      }
+    )
+
   }
   closeModal() {
     const modal = document.getElementById('myModal');
@@ -129,19 +175,66 @@ export class ProyectosComponent implements OnInit {
     const modal = document.getElementById('modeDeleted');
     modal!.style.display = 'none';
   }
-  closeModalInfo(){
+  closeModalInfo() {
     const modal = document.getElementById('modalInfo');
     modal!.style.display = 'none';
   }
-  addProyect(){
-    const modal = document.getElementById('myModal');
-    this.utils.openSnackBar('Se creo nuevo proyecto');
-     modal!.style.display = 'none';
+  addProyect() {
+
+    if (this.lg.value.idevento) {
+      this.lg.value.estado=1;
+    }else{
+      this.lg.value.estado=0;
+    }
+
+    let id = this.userService.get();
+
+    this.lg.value.id_user = id.id;
+
+
+    this.userService.createAsunto(this.lg).subscribe(
+      async (params) => {
+        const modal = document.getElementById('myModal');
+        this.utils.openSnackBar('Asunto creado exitosamente');
+        modal!.style.display = 'none';
+        this.lg.reset();
+          this.getListAsunto();
+      }, (error) => {
+        this.utils.openSnackBar('Error de conexión');
+      }
+    )
   }
-  EditProyect(){
+
+  getListAsunto() {
+    this.userService.getListEvents().subscribe(
+      async (params: any) => {
+        this.listAsuntos = params;
+
+        this.dataSource = new MatTableDataSource(this.listAsuntos);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    )
+  }
+
+  EditProyect() {
+
+    this.utils.openaAlert('¿Estas seguro de actualizar el siguient asunto?','alerta').subscribe(
+     async (params:any) => {
+      if (params) {
+        this.userService.updateAsunto(this.lgedit,this.id_event).subscribe(
+          async (params:any) => {
+              this.utils.openSnackBar('Asunto actualizado correctamente');
+              this.getListAsunto();
+          }, (error)=>{
+            this.utils.openSnackBar('Error de conexión');
+          }
+        )
+      }
+     }
+    )
     const modal = document.getElementById('myModalEdit');
-    this.utils.openSnackBar('Se edito el proyecto');
-     modal!.style.display = 'none';
+    modal!.style.display = 'none';
   }
 
 

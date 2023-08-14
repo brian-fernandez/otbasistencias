@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto&display=swap');
 
 ::ng-deep * {
-    ont-family: 'Poppins', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
 }
 
 html, body {font-family: 'Poppins', sans-serif !important;  height: 100%; }
@@ -12,6 +12,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --color-primary-otb:#3f51b5;
     --btn-primary:#3f51b5 !important;
 }
+
+.blue-snackbar {
+  background: #2196F3 !important;
+}
+.text-prima{
+  --bs-btn-color:#3E97FF;
+  --bs-btn-color: #fff;
+    --bs-btn-bg: #3E97FF;
+    --bs-btn-border-color: #3E97FF;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #64a4ec;
+    --bs-btn-hover-border-color: #64a4ec;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #64a4ec;
+    --bs-btn-active-border-color: #3a7cc8;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #9cbce1;
+    --bs-btn-disabled-border-color: #3E97FF;
+}
+
 .btn-primary{
     --bs-btn-color: #fff;
     --bs-btn-bg: #3f51b5;
@@ -49,4 +71,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .baseline{
     align-items: baseline !important;
+}
+
+
+.form-control:focus {
+  border-color: none;
+  box-shadow: none;;
 }

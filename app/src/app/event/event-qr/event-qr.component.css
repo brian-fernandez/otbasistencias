@@ -1,22 +1,29 @@
 .img-div{
-    width: 200px;
-    height: auto;
-    object-fit: cover;
-    
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+
 }
 
 .mat-column-Foto {
-    max-width: 30px;
-  }
-  .example-first-header-row th {
-    border-bottom: none;
-  }
+  max-width: 30px;
+}
+.example-first-header-row th {
+  border-bottom: none;
+}
 
-  input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-outer-spin-button,
 input.example-right-align::-webkit-inner-spin-button {
-  display: none;
+display: none;
 }
 
 .oculto{
-    display: none;
+  display: none;
+}
+.border-rad{
+  margin: 0px;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 5px;
+  margin-left: 5px;
 }

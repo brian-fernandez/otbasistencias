@@ -1,0 +1,30 @@
+<div class="box-shadow">
+  <div class="row">
+    <div class="col-6 col-md-6 col-xl-6">
+      <h5 *ngIf="dataEvent?.estado === 0"> Estado: <span class="text-success">En curso</span></h5>
+      <h5 *ngIf="dataEvent?.estado === 1"> Estado: <span class="text-warning">Pendiente</span></h5>
+      <h5 *ngIf="dataEvent?.estado === 2"> Estado: <span class="text-danger">Finalizado</span></h5>
+    </div>
+    <div class="col-6 col-md-6 col-xl-6 d-flex justify-content-end align-items-center">
+      <h5 class="text-center m-0"> {{ percentage?.toFixed(0) }}%</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-xl-12 col-sm-12 col-md-12">
+      <mat-progress-bar mode="determinate" [value]="percentage"></mat-progress-bar>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 col-md-6 col-xl-6">
+      <div class="">
+        <h5 class="m-0"><strong>Titulo: </strong>{{dataEvent?.nombre}}</h5>
+
+        <h5 class="m-0"><strong>Fecha: </strong>{{dataEvent?.fecha}}</h5>
+        <h5 class="m-0"><strong>Hora de inicio - finalización: </strong>{{dataEvent?.hora_inicio}} - {{dataEvent?.hora_fin}}</h5>
+      </div>
+    </div>
+    <div class="col-6 col-md-6 col-xl-6 d-flex justify-content-end align-items-center">
+      <button (click)="show()" class="btn btn-warning btn-sm">Administrar</button>
+    </div>
+  </div>
+</div>

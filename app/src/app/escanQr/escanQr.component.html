@@ -1,3 +1,69 @@
-<p>
-  <input type="text" (keydown)="handleQRCode($event)">
-</p>
+<div [ngClass]="{'oculto':result}">
+  <div class="row p-3 justify-content-center align-items-center d-flex w-100" >
+    <h3 class="text-center">Escanea el QR a 3cm de distancia para mejor lectura</h3>
+
+    <div class="col-xl-6 col-md-6 col-sm-6">
+      <qr-scanner
+      [debug]="false"
+      [canvasWidth]="100"
+      [canvasHeight]="100"
+      [stopAfterScan]="false"
+      [updateTime]="500">
+    </qr-scanner>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="result" class="p-2">
+
+  <div class="p-3">
+    <div class="row">
+      <h1>Afiliado encontrado</h1>
+      <div class="col-auto col-xl-3 col-md-12 col-ms-12 col-xs-12  m-auto">
+        <div class="imgbox m-auto d-flex">
+          <img  src="https://api.otb.otbuniversitarioalto.us/{{userData?.src_foto}}" class=" m-auto img-div" alt="">
+        </div>
+      </div>
+      <div class="col-auto col-xl-8 col-md-12 col-ms-12 col-xs-12  ">
+        <div class="row">
+          <div class=" col-xl-6 col-md-6 col-sm-6 col-xs-12 ">
+            <p>Credenciales</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Nombre:</strong> {{userData?.nombre}} </li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Apellido:</strong> {{userData?.apellido}}</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Dirección</strong> {{userData?.direccion}}</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Calle:</strong> {{userData?.calle}}</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Celular</strong> {{userData?.celular}}</li>
+            </ul>
+          </div>
+          <div class=" col-xl-6 col-md-6 col-sm-6 col-xs-12 ">
+            <p> </p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>N° de domicilio:</strong> {{userData?.n_domicilio}} </li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Correo:</strong> {{userData?.email}}</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Estado</strong> {{userData?.estado}}</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Tipo:</strong> <p class="border-rad" [ngClass]="{'text-bg-danger':userData?.estado===0,'text-bg-success':userData?.estado===1}">{{userData?.estado ?
+                'Activo' : 'No Activo' }}</p>  </li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Telefono</strong> {{userData?.telefono}}</li>
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="p-3">
+      <div class="row">
+
+        <!-- <div class="col-xl-2 col-sm-3 col-md-3 p-1">
+          <button (click)="removed() "class="btn btn-danger">Cancelar</button>
+        </div> -->
+        <div class="col-xl-2 col-sm-3 col-md-3 p-1">
+          <button (click)="add() "class="btn btn-success">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

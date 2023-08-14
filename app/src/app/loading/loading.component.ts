@@ -27,14 +27,14 @@ export class LoadingComponent implements OnInit {
 
   }
   init() {
-    console.log('entro a init');
-    
+
+
     try {
       const email =  localStorage.getItem('dataUser') || false;
       const password = localStorage.getItem('token') || false;
       if (email && password) {
         return this.router.navigateByUrl('/home/dashboard');
-      }  
+      }
       return this.router.navigateByUrl('/sesion');
     } catch (error) {
       return this.router.navigateByUrl('/sesion');

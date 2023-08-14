@@ -1,12 +1,12 @@
-<div class="p-5 ">
+<div class="p-2 ">
 
-  <div class="row">
+  <div class="row w-100 m-0">
     <div class="col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4">
       <div class="card-counter primary position-relative">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
           <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"/>
         </svg>
-        <span class="count-numbers">12</span>
+        <span class="count-numbers">{{userCount}}</span>
         <span class="count-name">Usuarios</span>
       </div>
     </div>
@@ -16,8 +16,8 @@
           <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
           <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
         </svg>
-        <span class="count-numbers">12</span>
-        <span class="count-name">Eventos</span>
+        <span class="count-numbers">{{eventCount?.cantidad_eventos}}</span>
+        <span class="count-name">Eventos de {{eventCount?.mes_actual}}</span>
       </div>
     </div>
     <div class=" col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4">
@@ -26,46 +26,53 @@
           <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
           <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
         </svg>
-        <span class="count-numbers">12</span>
-        <span class="count-name">Recaudado del mes</span>
+        <span class="count-numbers">{{montorecaudado?.cantidad_eventos?.total_recaudado}} bs</span>
+        <span class="count-name">Recaudacón del mes</span>
       </div>
     </div>
 
 
   </div>
-  <div class="row">
-    <div class="col-12 col-sm-12 col-xl-6 bg-light p-3 rounded-4">
+  <div class="row w-100 m-0">
+    <div class="col-12 col-sm-12 col-xl-8 bg-light p-3 rounded-4">
       <h3>Lista de residentes</h3>
       <mat-form-field>
         <mat-label>Buscador</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Nombre o Carnet" #input>
       </mat-form-field>
 
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+      <div class="mat-elevation-z8" >
+        <table mat-table [dataSource]="dataSource" matSort style="overflow-y: hidden;overflow: scroll;width: 100%;display: block;">
 
           <!-- ID Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          <ng-container matColumnDef="foto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
+            <td mat-cell *matCellDef="let row">
+             <div class="avatar">
+              <img width="30" src="https://api.otb.otbuniversitarioalto.us/{{row.src_foto}}" alt="">
+             </div>
+            </td>
           </ng-container>
-
+          <ng-container matColumnDef="ci">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Carnet </th>
+            <td mat-cell *matCellDef="let row"> {{row.ci}} </td>
+          </ng-container>
           <!-- Progress Column -->
-          <ng-container matColumnDef="progress">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-            <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+          <ng-container matColumnDef="ultconexion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ult.conexion </th>
+            <td mat-cell *matCellDef="let row"> {{row.ult_conexion | date:'MMM dd y HH:mm a'}} </td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td mat-cell *matCellDef="let row"> {{row.nombre}} {{row.apellido}} </td>
           </ng-container>
 
           <!-- Fruit Column -->
-          <ng-container matColumnDef="fruit">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
-            <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+            <td mat-cell *matCellDef="let row">   <p class="m-0" [ngClass]="{'text-success':row.estado===1,'text-danger':row.estado === 0 }" >{{row.estado===1?'Activo':'Inactivo'}}</p></td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -80,7 +87,7 @@
         <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of users"></mat-paginator>
       </div>
     </div>
-    <div class="col-12 col-sm-12 col-xl-6 bg-light p-3 rounded-4">
+    <div class="col-12 col-sm-12 col-xl-4 bg-light p-3 rounded-4" (click)="noti()">
       <h3>Validacion de credencial</h3>
       <div class="card mb-3 m-2 qr-information" style="max-width: 540px;">
         <div class="row g-0">
@@ -98,11 +105,8 @@
 
               <p class="card-text">A través de este servicio, se realiza un escaneo de la credencial para validar la información personal de la persona y verificar su estado de activo en los registros correspondientes al barrio.</p>
               <p class="card-text"><small class="text-body-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                </svg>
-                Recuerda que es necesario disponer de un dispositivo con capacidad para leer códigos QR para poder utilizar este servicio. Si estás utilizando un dispositivo móvil, asegúrate de tener activada la función de lectura de QR para poder aprovechar todas las funcionalidades correctamente. </small></p>
+
+                 </small></p>
             </div>
           </div>
         </div>
@@ -110,3 +114,4 @@
     </div>
     </div>
 </div>
+

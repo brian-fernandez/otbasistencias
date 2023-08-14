@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
     const email =  localStorage.getItem('dataUser') || false;
     const password =  localStorage.getItem('token')|| false;
     if (email && password) {
-      console.log('entro a if de guard');
+    
       return true;
     }
     return false;

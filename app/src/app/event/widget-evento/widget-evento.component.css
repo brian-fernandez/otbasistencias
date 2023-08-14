@@ -1,0 +1,22 @@
+.box-shadow{
+  border: 1px solid #0000001f;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 4px 3px 17px 7px rgba(0,0,0,0.1);
+    padding: 8px 20px !important;
+    animation: 200ms cajita forwards ease-in-out;
+}
+@keyframes cajita {
+  0%{
+    transform: translateY(-1px);
+  }
+  90%{
+    transform: translateY(2px);
+  }
+  100%{
+    transform: translateY(0px);
+  }
+}
+.mat-mdc-progress-bar{
+  color: aqua !important;
+}

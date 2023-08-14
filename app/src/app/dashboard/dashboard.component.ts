@@ -4,45 +4,28 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { UtilsService } from '../services/Utils.service';
+import { AuthService } from '../services/auth.service';
+import { datos } from '../alerts/alert/alert.component';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
+  id: number
+  nombre: string
+  src_foto: string
+  ci: string
+  apellido: string
+  celular: string
+  telefono?: string
+  email: string
+  n_domicilio: string
+  calle: string
+  direccion: string
+  ult_conexion: string
+  estado: number
 }
 
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
+
 
 @Component({
   selector: 'app-dashboard',
@@ -51,22 +34,26 @@ const NAMES: string[] = [
 })
 export class DashboardComponent {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['foto','ci', 'name', 'ultconexion', 'estado'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  listUser: any;
+  userCount: any;
+  eventCount: any;
+  montorecaudado: any;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
-     // Create 100 users
-     const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService, private userService: UserService,private router:Router) {
 
-     // Assign the data to the data source for the table to render
-     this.dataSource = new MatTableDataSource(users);
+
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
+  ngOnInit() {
+    this.getResident();
+    this.countUser();
+    this.countEvent();
+    this.monto();
   }
 
   applyFilter(event: Event) {
@@ -77,20 +64,51 @@ export class DashboardComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  noti() {
+    this.router.navigateByUrl('home/lector');
+  }
+
+
+  getResident() {
+    this.userService.getAfiliado().subscribe(
+      async (params: any) => {
+        this.listUser = params;
+        this.listUser.sort((a, b) => {
+          const fechaA = new Date(a.ult_conexion);
+          const fechaB = new Date(b.ult_conexion);
+          return fechaB.getTime() - fechaA.getTime();
+        });
+
+        this.dataSource = new MatTableDataSource(this.listUser);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }, (error) => {
+      }
+    )
+  }
+
+  countUser(){
+      this.userService.countActiveUsers().subscribe(
+        async (params:any) => {
+            this.userCount = params;
+        }
+      )
+  }
+  countEvent(){
+      this.userService.countEventsThisMonth().subscribe(
+        async (params:any) => {
+            this.eventCount = params;
+        }
+      )
+  }
+  monto(){
+      this.userService.montoRecaudadoMesActual().subscribe(
+        async (params:any) => {
+            this.montorecaudado = params;
+        }
+      )
+  }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
-}

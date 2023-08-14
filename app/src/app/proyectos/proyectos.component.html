@@ -17,13 +17,13 @@
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
               <path
                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>   Nuevo Proyecto</button>
+            </svg>   Nuevo Asuntos</button>
 
         </div>
       </div>
 
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort style="overflow-y: hidden;overflow: scroll;width: 100%;display: inline-block;">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
             <td mat-cell *matCellDef="let row"> {{row.id}} </td>
@@ -34,25 +34,26 @@
           </ng-container>
           <ng-container matColumnDef="categoria">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoria </th>
-            <td mat-cell *matCellDef="let row"> {{row.categoria}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.categoria.nombre}} </td>
           </ng-container>
           <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-            <td mat-cell *matCellDef="let row"> {{row.fecha}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de registro </th>
+            <td mat-cell *matCellDef="let row"> {{row.fecha | date:'MMM dd y HH:mm a'}} </td>
           </ng-container>
           <ng-container matColumnDef="creadopor">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Creado por </th>
-            <td mat-cell *matCellDef="let row"> {{row.encargado}} </td>
+            <td mat-cell *matCellDef="let row"  (click)="profile(row.encargado.id)"> <p class="text-primary cursor" >{{row.encargado.nombre}} {{row.encargado.apellido}}</p> </td>
           </ng-container>
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
             <td mat-cell *matCellDef="let row">
-              <p *ngIf="row.estado === null" class="m-0"
+              <p *ngIf="row.evento === null" class="m-0"
                 [ngClass]="{'text-success':row.estado,'text-secondary':row.estado === null}">
                 Sin asignación</p>
-              <div *ngIf="row.estado" class="m-0">
+
+              <div *ngIf="row.evento" class="m-0">
                 <p class="text-secondary m-0">Se asigno en el siguiente evento</p>
-                <p class="text-primary cursor">Reunion de emergencia</p>
+                <p class="text-primary cursor" (click)="showevent(row.evento.id)">{{row.evento.nombre}}</p>
               </div>
             </td>
           </ng-container>
@@ -63,7 +64,7 @@
           <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
             <td mat-cell *matCellDef="let row">
-              <button (click)="modalInfo(row)" class="btn" *ngIf="row.estado !==null">
+              <button (click)="modalInfo(row)" class="btn m-1" *ngIf="row.estado !==null">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye "
                   viewBox="0 0 16 16">
                   <path
@@ -71,14 +72,14 @@
                   <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                 </svg>
               </button>
-              <button (click)="EditModal(row)" class="btn" *ngIf="row.estado == null">
+              <button (click)="EditModal(row)" class="btn m-1" *ngIf="row.evento == null || row?.evento?.estado === 1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brush"
                   viewBox="0 0 16 16">
                   <path
                     d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04zM4.705 11.912a1.23 1.23 0 0 0-.419-.1c-.246-.013-.573.05-.879.479-.197.275-.355.532-.5.777l-.105.177c-.106.181-.213.362-.32.528a3.39 3.39 0 0 1-.76.861c.69.112 1.736.111 2.657-.12.559-.139.843-.569.993-1.06a3.122 3.122 0 0 0 .126-.75l-.793-.792zm1.44.026c.12-.04.277-.1.458-.183a5.068 5.068 0 0 0 1.535-1.1c1.9-1.996 4.412-5.57 6.052-8.631-2.59 1.927-5.566 4.66-7.302 6.792-.442.543-.795 1.243-1.042 1.826-.121.288-.214.54-.275.72v.001l.575.575zm-4.973 3.04.007-.005a.031.031 0 0 1-.007.004zm3.582-3.043.002.001h-.002z" />
                 </svg>
               </button>
-              <button (click)="deltedModal()" class="btn text-danger" *ngIf="row.estado == null">
+              <button  (click)="deltedModal(row.id)" class="btn m-1 text-danger" *ngIf="row?.evento?.estado === 1 || row?.evento==null">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-x-circle" viewBox="0 0 16 16">
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -118,47 +119,43 @@
               d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2Zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672Z" />
             <path
               d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5Z" />
-          </svg> Nuevo Proyecto
+          </svg> Nuevo Asuntos
         </h3>
         <button (click)="closeModal()" type="button" class="btn-close" aria-label="Close">
 
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form action="" [formGroup]="lg">
           <div class="mb-3">
             <label for=""> Asignar un titulo</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+            <input required formControlName="titulo" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+            <p *ngIf="lg.get('titulo').hasError('required')" class="text-danger"> El titulo es obligatorio </p>
           </div>
           <div class="mb-3">
             <label for=""> Asignar una categoria</label>
-            <select class="form-select" aria-label="Default select example">
-
-              <option value="otros" selected>Otros</option>
-              <option value="2">Gas</option>
-              <option value="3">Luz</option>
+            <select required formControlName="id_categoria" class="form-select" aria-label="Default select example">
+              <option *ngFor="let list of listCategorias" [value]="list.id" >{{list.nombre}}</option>
             </select>
           </div>
           <div class="mb-3">
             <label for=""> Asignar a un evento</label>
-            <select class="form-select" aria-label="Default select example">
-
-              <option value="otros" selected>Otros</option>
-              <option value="2">Reunion de emergencia | 2023/05/12</option>
-              <option value="3">Reunion de navidad | 2023/12/12</option>
+            <select  formControlName="idevento" class="form-select" aria-label="Default select example">
+              <option *ngFor="let events of listEvents" [value]="events.id" >{{events.nombre}} | {{events.fecha}}</option>
             </select>
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Descripcón</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea  formControlName="descripcion"  class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <p *ngIf="lg.get('descripcion').hasError('required')" class="text-danger"> La descripción es obligatorio </p>
           </div>
         </form>
 
       </div>
       <div class="modal-footer">
         <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button (click)="addProyect()" type="button" class="btn bg-success text-light"
+        <button [disabled]="!lg.valid"  (click)="addProyect()" type="button" class="btn bg-success text-light"
           data-dismiss="modal">Añadir</button>
         <!-- Add any other buttons you need -->
       </div>
@@ -180,43 +177,36 @@
               d="m11.798 8.271-3.182 1.97c-.27.166-.616-.036-.616-.372V9.1s-2.571-.3-4 2.4c.571-4.8 3.143-4.8 4-4.8v-.769c0-.336.346-.538.616-.371l3.182 1.969c.27.166.27.576 0 .742z" />
             <path
               d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm.694 2.09A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09l-.636 7a1 1 0 0 1-.996.91H2.826a1 1 0 0 1-.995-.91l-.637-7zM6.172 2a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z" />
-          </svg> Editar Proyecto
+          </svg> Editar Asuntos
         </h3>
         <button (click)="closeModalEdit()" type="button" class="btn-close" aria-label="Close">
 
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form action="" [formGroup]="lgedit">
           <div class="mb-3">
             <label for=""> Asignar un titulo</label>
-            <input [(ngModel)]="edit.titulo" [ngModelOptions]="{standalone: true}" type="text" class="form-control"
-              id="exampleFormControlInput1" placeholder="">
+            <input required formControlName="tituloe" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+            <p *ngIf="lgedit.get('tituloe').hasError('required')" class="text-danger"> El titulo es obligatorio </p>
           </div>
           <div class="mb-3">
             <label for=""> Asignar una categoria</label>
-            <select [(ngModel)]="edit.idcategoria" [ngModelOptions]="{standalone: true}" class="form-select"
-              aria-label="Default select example">
-
-              <option value="otros" selected>Otros</option>
-              <option value="2">Gas</option>
-              <option value="3">Luz</option>
+            <select required formControlName="id_categoriae" class="form-select" aria-label="Default select example">
+              <option *ngFor="let list of listCategorias" [value]="list.id" >{{list.nombre}}</option>
             </select>
           </div>
           <div class="mb-3">
             <label for=""> Asignar a un evento</label>
-            <select class="form-select" aria-label="Default select example">
-
-              <option value="0" selected>Sin asignacion</option>
-              <option value="2">Reunion de emergencia | 2023/05/12</option>
-              <option value="3">Reunion de navidad | 2023/12/12</option>
+            <select  formControlName="ideventoe" class="form-select" aria-label="Default select example">
+              <option *ngFor="let events of listEvents" [value]="events.id" >{{events.nombre}} | {{events.fecha}}</option>
             </select>
           </div>
 
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Descripcón</label>
-            <textarea [(ngModel)]="edit.descripcion" [ngModelOptions]="{standalone: true}" class="form-control"
-              id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea  formControlName="descripcione"  class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <p *ngIf="lgedit.get('descripcione').hasError('required')" class="text-danger"> La descripción es obligatorio </p>
           </div>
         </form>
 
@@ -231,7 +221,11 @@
   </div>
 </div>
 
-<div class="modal" id="modeDeleted" tabindex="-1">
+
+
+
+
+<!-- <div class="modal" id="modeDeleted" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -253,11 +247,13 @@
       <div class="modal-footer">
         <button (click)="closeModalDeleted()" type="button" class="btn btn-secondary"
           data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger">Eliminar</button>
+        <button  type="button" class="btn btn-danger">Eliminar</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+
 
 
 <div class="modal   modal-lg" id="modalInfo" tabindex="-1" role="dialog">
@@ -283,21 +279,28 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-3 col-xl-3 col-md-3">
-            Fecha: {{info?.fecha}}
+          <div class="col-sm-6 col-xl-6 col-md-6">
+            Fecha: {{info?.fecha | date:'MMM dd y HH:mm a'}}
           </div>
-          <div class="col-sm-3 col-xl-3 col-md-3">
-            Categoria: {{info?.categoria}}
+          <div class="col-sm-3 col-xl-3 col-md-3"> <p >
+            Categoria: {{info?.categoria?.nombre}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-md-12 col-sm-12" >
+            Creado por :  <p  class="text-primary cursor" (click)="profile(info.encargado.id)"> {{info?.encargado?.nombre}} {{info?.encargado?.apellido}}</p>
           </div>
         </div>
         <div class="row">
           <div class="col-xl-12 col-md-12 col-sm-12">
-            <p>Creado por : {{info?.responsable}}</p>
+            <p *ngIf="info.evento === null" class="m-0"
+            [ngClass]="{'text-success':info.estado,'text-secondary':info.estado === null}">
+            Sin asignación</p>
+
+          <div *ngIf="info.evento" class="m-0">
+            <p class="text-secondary m-0">Se asigno en el siguiente evento</p>
+            <p class="text-primary cursor" (click)="showevent(info.evento.id)">{{info?.evento?.nombre}}</p>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-12 col-md-12 col-sm-12">
-            <p>Asignado: Sin asignacion</p>
           </div>
         </div>
         <div class="row">

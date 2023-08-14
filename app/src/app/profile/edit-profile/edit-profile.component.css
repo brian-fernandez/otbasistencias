@@ -1,0 +1,50 @@
+.container-foto{
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+
+
+.editFoto{
+  width: 125px;
+    height: 125px;
+    border: 3px solid white;
+    object-fit: cover;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.1);
+}
+
+.button-edit{
+  display: block;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: white;
+  border-radius: 50%;
+  padding: 4px 5px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0,0,0,00.1);
+}
+.button-renovar ,.button-cancel{
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background: white;
+  border-radius: 50%;
+  padding: 4px 5px;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0,0,0,00.1);
+}
+.content-desactive{
+  border-style: dashed;
+  border: dashed 2px #ffc107;
+  background: #ffc10747;
+  border-radius: 10px;
+}
+
+.content-activate{
+  border-style: dashed;
+  border: dashed 2px #31932cc1;
+  background: #22b40c87;
+  border-radius: 10px;
+}

@@ -1,78 +1,400 @@
 <div class="p-3">
-  <div class="row">
-    <div class="col-md-6 col-sm-6 col-xl-6">
-      <h3 class="p-0 m-0">Cantidad de personas que viven en la OTB Universitario Alto</h3>
-      <ngx-charts-advanced-pie-chart [view]="view"  [scheme]="colorScheme" [results]="data1" [gradient]="gradient">
-      </ngx-charts-advanced-pie-chart>
-    </div>
-    <div class="col-md-6 col-sm-6 col-xl-6"></div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 col-sm-6 col-xl-6">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="p-0 m-0">Particapación en las reuniones </h3>
+  <div class="row w-100 m-0">
+    <div (click)="info=0" class=" col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4 cursor" >
+      <div class="card-counter success position-relative">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
+          <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
+          <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+        <span class="count-name">Graficos</span>
       </div>
     </div>
-      <ngx-charts-bar-vertical
-      (window:resize)="onResize($event)"
-      [view]="viewtwo"
-      [scheme]="colorScheme"
-      [results]="single"
-      [gradient]="gradient"
-      [xAxis]="showXAxis"
-      [yAxis]="showYAxis"
-      [legend]="showLegend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      >
-    </ngx-charts-bar-vertical>
+    <div class="col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4 cursor" (click)="cons(1)">
+      <div class="card-counter primary position-relative">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+          <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
+        </svg>
+
+        <span class="count-name">Consultas de usuarios</span>
+      </div>
     </div>
-    <div class="col-md-6 col-sm-6 col-xl-6">
-    <div class="row">
-      <div class="col-12">
-        <div class="d-flex baseline">
-          <h3 class="p-0 m-0">Particapación del mes   </h3>
-          <mat-form-field>
-            <mat-label>Selecciones el mes</mat-label>
-            <mat-select>
-              <mat-option value="one">Enero</mat-option>
-              <mat-option value="two">Febrero</mat-option>
-              <mat-option value="two">Marzo</mat-option>
-              <mat-option value="two">Abril</mat-option>
-              <mat-option value="two">Mayo</mat-option>
-              <mat-option value="two">Junio</mat-option>
-              <mat-option value="two">Julio</mat-option>
-              <mat-option value="two">Agosto</mat-option>
-              <mat-option value="two">Septiembre</mat-option>
-              <mat-option value="two">Octubre</mat-option>
-              <mat-option value="two">Noviembre</mat-option>
-              <mat-option value="two">Diciembre</mat-option>
+    <div class="col-12 col-sm-6 col-xl-4  p-1 bg-light rounded-4 cursor" (click)="cons(2)">
+      <div class="card-counter danger position-relative">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16">
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+          <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+        </svg>
+
+        <span class="count-name">Consultas de eventos</span>
+      </div>
+    </div>
+
+
+
+ <div *ngIf="info === 0">
+  <div class="row" style="justify-content: space-around;">
+    <div class="col-md-6 col-sm-6 col-xl-5 box-border m-0">
+      <h4 class="p-0 m-0">Cantidad de personas que viven en la OTB Universitario Alto</h4>
+      <div class="row">
+        <div class="col-md-2 col-sm-2 col-xl-2">
+          <div class="d-flex m-2 align-items-center flex-column">
+            <svg (click)="getUsersG()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+              class="bi bi-arrow-clockwise mt-2 cursor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+              <path
+                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+            </svg>
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filetype-pdf mt-2 cursor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+            </svg> -->
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-10 col-xl-10">
+          <ngx-charts-advanced-pie-chart [scheme]="colorScheme" [results]="data1" [gradient]="gradient">
+          </ngx-charts-advanced-pie-chart>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xl-5 box-border m-0">
+      <h4 class="p-0 m-0">Cantidad de personas activas en la OTB Universitario Alto</h4>
+      <div class="row">
+        <div class="col-md-2 col-sm-2 col-xl-2">
+          <div class="d-flex m-2 align-items-center flex-column">
+            <svg (click)="getUserActiveG()" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+              fill="currentColor" class="bi bi-arrow-clockwise mt-2 cursor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+              <path
+                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+            </svg>
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-filetype-pdf mt-2 cursor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+            </svg> -->
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-10 col-xl-10">
+          <ngx-charts-advanced-pie-chart [scheme]="colorScheme" [results]="data2" [gradient]="gradient">
+          </ngx-charts-advanced-pie-chart>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center m-0">
+    <div class="col-md-11 col-sm-11 col-xl-11 box-border ">
+      <div class="row">
+        <div class="col-xl-12 col-sm-12 col-xl-12">
+          <div class="d-flex baseline">
+            <svg (click)="getEventosPorMes(year)" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+              fill="currentColor" class="bi bi-arrow-clockwise m-2 cursor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+              <path
+                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+            </svg>
+            <h3 class="p-0 m-0">Eventos creados en el año </h3>
+
+            <select (change)="show(year)" [(ngModel)]="year" [value]="year" class="form-select w-25 ms-2"
+              aria-label="Default select example">
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-xl-12">
+          <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="data3" [gradient]="gradient" [xAxis]="showXAxis"
+            [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row justify-content-center m-0" >
+    <div class="col-md-11 col-sm-11 col-xl-11 box-border ">
+      <div class="row">
+        <div class="col-xl-12 col-sm-12 col-xl-12">
+          <div class="d-flex baseline">
+            <svg (click)="getEventosPorMes(year)" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+              fill="currentColor" class="bi bi-arrow-clockwise m-2 cursor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+              <path
+                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+            </svg>
+            <h3 class="p-0 m-0">Donaciones de los eventos del año </h3>
+
+            <select (change)="show2(year2)" [(ngModel)]="year2" [value]="year2" class="form-select w-25 ms-2"
+              aria-label="Default select example">
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xl-12 col-sm-12 col-xl-12">
+          <ngx-charts-bar-vertical
+          [results]="data4"
+          [xAxis]="true"
+          [yAxis]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          xAxisLabel="Mes"
+          yAxisLabel="Total"
+        >
+        </ngx-charts-bar-vertical>
+        </div>
+      </div>
+
+    </div>
+  </div>
+ </div>
+
+
+ <div class="p-2 box-border m-0" *ngIf="info===1">
+
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-xl-6 m-0">
+      <h3 class="p-3">Lista de usuarios</h3>
+      <div class="row p-3">
+        <div class="col-12">
+         <button (click)="pdfUser()" class="btn btn-warning"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+        </svg>
+        Descargar consulta</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-xl-6 m-0">
+      <h3>Consultas</h3>
+      <div class="row mt-2">
+        <div class="col-md-3 col-sm-3 col-3 m-0">
+          Tipo de usuarios
+        </div>
+        <div class="col-md-9 col-sm-9 col-12">
+          <mat-chip-listbox (change)="selecttipo($event)" aria-label="Fish selection">
+            <mat-chip-option selected>Todos</mat-chip-option>
+            <mat-chip-option>inquilino</mat-chip-option>
+            <mat-chip-option>afiliado</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+      </div>
+      <div class="row mt-2 m-0">
+        <div class="col-md-3 col-sm-3 col-12">
+          Estado
+        </div>
+        <div class="col-md-9 col-sm-9 col-12">
+          <mat-chip-listbox (change)="selectestado($event)" aria-label="Fish selection">
+            <mat-chip-option value="all" selected>Todos</mat-chip-option>
+            <mat-chip-option>Activo</mat-chip-option>
+            <mat-chip-option>No activo</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+      </div>
+      <div class="row mt-2 m-0">
+        <div class="col-md-3 col-sm-3 col-12">
+          Calle
+        </div>
+        <div class="col-md-9 col-sm-9 col-12">
+          <mat-form-field class="w-100">
+
+            <mat-select (selectionChange)="selectcalle($event)">
+              <mat-option value="">Todos</mat-option>
+              <mat-option value="calle 1">Calle 1</mat-option>
+              <mat-option value="calle 2">Calle 2</mat-option>
+              <mat-option value="calle 3">Calle 3</mat-option>
+              <mat-option value="calle 4">Calle 4</mat-option>
+              <mat-option value="calle 5">Calle 5</mat-option>
+              <mat-option value="calle 6">Calle 6</mat-option>
+              <mat-option value="calle 7">Calle 7</mat-option>
+              <mat-option value="calle 8">Calle 8</mat-option>
+              <mat-option value="calle 9">Calle 9</mat-option>
+              <mat-option value="calle 10">Calle 10</mat-option>
+              <mat-option value="calle 11">Calle 11</mat-option>
             </mat-select>
           </mat-form-field>
-         </div>
+            <!-- <select  class="form-select" aria-label="Default select example" formControlName="calle"> -->
+            <!-- <select  (selectionChange)="selectcalle($event)" class="form-select" aria-label="Default select example" >
+              <option value="calle 1">Todos</option>
+              <option value="calle 1">Calle 1</option>
+              <option value="calle 2">Calle 2</option>
+              <option value="calle 3">Calle 3</option>
+              <option value="calle 4">Calle 4</option>
+              <option value="calle 5">Calle 5</option>
+              <option value="calle 6">Calle 6</option>
+              <option value="calle 7">Calle 7</option>
+              <option value="calle 8">Calle 8</option>
+              <option value="calle 9">Calle 9</option>
+              <option value="calle 10">Calle 10</option>
+              <option value="calle 11">Calle 11</option>
+            </select> -->
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row mt-2 m-auto">
+      <div class="col-12">
+        <table mat-table [dataSource]="dataSourceuser" class="mat-elevation-z8" style="overflow: scroll; display: block;">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} {{element.apellido}} </td>
+          </ng-container>
+          <ng-container matColumnDef="carnet">
+            <th mat-header-cell *matHeaderCellDef> carnet </th>
+            <td mat-cell *matCellDef="let element"> {{element.ci}}  </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.estado? 'Activo': 'No activo'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef> Tipo </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="calle">
+            <th mat-header-cell *matHeaderCellDef> Calle </th>
+            <td mat-cell *matCellDef="let element"> {{element.calle}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
       </div>
     </div>
-      <ngx-charts-bar-vertical
-      [view]="viewtwo"
-      [scheme]="colorScheme"
-      [results]="single"
-      [gradient]="gradient"
-      [xAxis]="showXAxis"
-      [yAxis]="showYAxis"
-      [legend]="showLegend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      >
-    </ngx-charts-bar-vertical>
+  </div>
+
+
+
+
+ </div>
+
+
+ <div class="p-2 box-border m-0" *ngIf="info===2">
+
+  <div class="row w-100">
+    <div class="col-sm-6 col-md-6 col-xl-6">
+      <h3 class="p-3">Lista de eventos</h3>
+      <div class="row p-3 w-100">
+        <div class="col-12">
+         <button (click)="pdfEvento()" class="btn btn-warning"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+        </svg>
+        Descargar consulta</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-xl-6">
+      <h3>Consultas</h3>
+      <div class="row mt-2">
+        <div class="col-md-3 col-sm-3 col-12">
+          Rango de fechas
+        </div>
+        <div class="col-md-9 col-sm-9 col-12">
+          <mat-form-field>
+            <mat-label>Ingrese el rango de fechas</mat-label>
+            <mat-date-range-input  [rangePicker]="picker">
+              <input matStartDate (dateInput)="fechas('entrada', $event)" placeholder="Fecha inicial">
+              <input matEndDate (dateInput)="fechas('salida', $event)"   placeholder="Fecha Final">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Se requiere la fecha inicial</mat-error>
+            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Se requiere la fecha final</mat-error> -->
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-3 col-sm-3 col-12">
+          Rango de recaudación
+        </div>
+        <div class="col-md-9 col-sm-9 col-12">
+          <div>Valor seleccionado: {{ selectedValue }}Bs</div>
+        <input (change)="monto($event)" type="range" class="form-range" min="0" max="1000" step="10" id="customRange3" >
+
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-3 col-sm-3 col-12">
+          Estado
+        </div>
+        <div class="col-md-9 col-sm-9 col-12">
+          <mat-chip-listbox (change)="selectestadoEvent($event)" aria-label="Fish selection">
+            <mat-chip-option value="all" selected>Todos</mat-chip-option>
+            <mat-chip-option>Pendiente</mat-chip-option>
+            <mat-chip-option>Finalizado</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <table mat-table [dataSource]="dataEvento" class="mat-elevation-z8" style="overflow:scroll;display: block;">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+          </ng-container>
+          <ng-container matColumnDef="carnet">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.fecha}}  </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element">
+             <p *ngIf="element.estado === 0"> En curso</p>
+             <p *ngIf="element.estado === 1"> Pendiente</p>
+             <p *ngIf="element.estado === 2"> Finalizado</p>
+
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef> Monto recaudado (bs.) </th>
+            <td mat-cell *matCellDef="let element"> {{element.monto_recaudado || '-'}}  </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsEvent"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsEvent;"></tr>
+        </table>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <app-line></app-line>
 
-  </div>
+
+
+
+ </div>
 </div>

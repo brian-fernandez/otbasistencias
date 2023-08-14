@@ -107,7 +107,7 @@ states:State | any;
 
   private _filterStates(value: string): State[] {
     const filterValue = value?.toLowerCase();
-    console.log(filterValue);
+
 
     return this.states.filter(state => {
       const nombre = state.nombre?.toLowerCase();
@@ -128,7 +128,7 @@ states:State | any;
           map(state => (state ? this._filterStates(state) : this.states.slice())),
         );
       }, (error) =>{
-        console.log(error);
+
 
       }
     )
@@ -153,7 +153,7 @@ states:State | any;
       async (params:any) => {
         this.listcargo = params;
       }, (error) =>{
-        console.log(error);
+
 
       }
     )
@@ -172,7 +172,7 @@ states:State | any;
 
 
   openSnackBar() {
-    console.log(this.selectedValue);
+   
     if (this.selectedValue !== undefined) {
       this.userService.selectCargo(this.selectedValue,this.select.id).subscribe(
         async (params:any) => {

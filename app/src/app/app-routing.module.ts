@@ -23,6 +23,7 @@ import { CreatePagoComponent } from './pagos/create-pago/create-pago.component';
 import { PdfPagoComponent } from './PDF/pdf-pago/pdf-pago.component';
 import { EventidComponent } from './event/eventid/eventid.component';
 import { PdfCredentialComponent } from './PDF/pdf-credential/pdf-credential.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,7 @@ const routes: Routes = [
 
   {path: 'loading', component: LoadingComponent},
   {path: 'sesion', component: LoginComponent},
-  {path: 'pdf-credencial', component: PdfCredentialComponent, canActivate:[AuthGuard]},
+
   {path: 'home' , component:HomeComponent,
    children: [
     { path: 'nav', component: HomeComponent, canActivate: [AuthGuard]},
@@ -41,6 +42,7 @@ const routes: Routes = [
     {path: 'nuevo', component: UserCreateComponent, canActivate:[AuthGuard]},
     /* Perfil */
     {path: 'perfil/:id', component: ProfileDetailsComponent, canActivate:[AuthGuard]},
+    {path: 'edicion/:id', component: EditProfileComponent, canActivate:[AuthGuard]},
     /*User*/
     {path: 'lista-Usuario', component: ListUserComponent, canActivate:[AuthGuard]},
     {path: 'nuevo-Usuario', component: CreateUserComponent, canActivate:[AuthGuard]},
@@ -60,7 +62,7 @@ const routes: Routes = [
     {path: 'nuevo-pago', component: CreatePagoComponent, canActivate:[AuthGuard]},
     {path: 'nuevo-pago/:id', component: CreatePagoComponent, canActivate:[AuthGuard]},
 
-
+    {path: 'pdf-credencial/:id', component: PdfCredentialComponent, canActivate:[AuthGuard]},
     {path: 'pdf-pagos', component: PdfPagoComponent, canActivate:[AuthGuard]},
 
 
@@ -70,7 +72,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes , {useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

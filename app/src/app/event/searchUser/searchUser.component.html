@@ -1,20 +1,29 @@
-<div [ngClass]="{'oculto':result}">
-  <div class="row p-3" >
-    <h3 class="text-center">Escanea el QR a 3cm de distancia para mejor lectura</h3>
-    <div class="col-xl-3 col-md-3 col-sm-3"></div>
-    <div class="col-xl-6 col-md-6 col-sm-6">
-      <qr-scanner
-      [debug]="false"
-      [canvasWidth]="100"
-      [canvasHeight]="100"
-      [stopAfterScan]="false"
-      [updateTime]="500">
-    </qr-scanner>
-    </div>
-    <div class="col-xl-3 col-md-3 col-sm-3"></div>
-  </div>
-</div>
+<div class="p-2" *ngIf="!result">
+  <div mat-button mat-dialog-close><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+  </svg></div>
+  <div class="row">
 
+    <div class="col-sm-12 col-xl-12 col-md-12  p-3" *ngIf="!select">
+        <form class="example-form">
+            <mat-form-field class="example-full-width w-100">
+                <mat-label>Busca Afiliado</mat-label>
+                <input type="text" placeholder="C.I" aria-label="Busca al afiliado" matInput
+                    [formControl]="stateCtrl" [matAutocomplete]="auto">
+                    <mat-autocomplete #seleccion (optionSelected)="onOptionSelected($event)" autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option  *ngFor="let state of filteredStates  | async" (click)="send(state)"  [value]="state.ci"  >
+                        <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="https://api.otb.otbuniversitarioalto.us/{{state?.src_foto}}" height="25">
+                  <span>{{state.nombre}} {{state.apellido}}</span> |
+                  <small>{{state.ci}}</small>
+                      </mat-option>
+                    </mat-autocomplete>
+            </mat-form-field>
+        </form>
+
+    </div>
+
+</div>
+</div>
 <!-- perfilencontrado -->
 
 <div *ngIf="result" class="p-2">
@@ -80,4 +89,3 @@
     </div>
   </div>
 </div>
-

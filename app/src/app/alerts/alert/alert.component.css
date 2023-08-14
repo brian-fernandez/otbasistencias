@@ -1,10 +1,10 @@
 .border-svg-edicion{
-  border: 6px solid;
-    border-radius: 50%;
-    height: 115px;
-    width: 60%;
-    margin: auto;
-    text-align: center;
+  border: 4px solid;
+  border-radius: 50%;
+  height: 125px;
+  width: 45%;
+  margin: auto;
+  text-align: center;
     border-color: #facea8;
 }
 .border-svg-edicion > .svg-edicion{
@@ -15,50 +15,52 @@
     animation: forwards animacion 300ms ease-in-out;
 }
 .border-svg-eliminacion{
-  border: 6px solid;
-    border-radius: 50%;
-    height: 115px;
-    width: 60%;
-    margin: auto;
-    text-align: center;
+  border: 4px solid;
+  border-radius: 50%;
+  height: 125px;
+  width: 45%;
+  margin: auto;
+  text-align: center;
     border-color: #f27474;
 }
 .border-svg-eliminacion > .svg-eliminacion{
   color: #f27474;
-    width: 95px;
-    height: 80px;
-    margin: 10px;
+  width: 95px;
+  height: 80px;
+  margin: 10px;
+  animation: 1s;
     animation: forwards animacion 300ms ease-in-out;
 }
 .border-svg-aprobacion{
-  border: 6px solid;
-    border-radius: 50%;
-    height: 115px;
-    width: 60%;
-    margin: auto;
-    text-align: center;
+  border: 4px solid;
+  border-radius: 50%;
+  height: 125px;
+  width: 45%;
+  margin: auto;
+  text-align: center;
     border-color: #c9dae1;
 }
 .border-svg-aprobacion > .svg-aprobacion{
   color: #87adbd;
-    width: 95px;
+  width: 95px;
     height: 80px;
     margin: 10px;
+    animation: 1s;
     animation: forwards animacion 300ms ease-in-out;
 }
 
 .border-svg-alerta{
-  border: 6px solid;
-    border-radius: 50%;
-    height: 115px;
-    width: 60%;
-    margin: auto;
-    text-align: center;
-    border-color: #dfe1c9;
+  border: 4px solid;
+  border-radius: 50%;
+  height: 125px;
+  width: 45%;
+  margin: auto;
+  text-align: center;
+  border-color: #e7d342;
 
 }
 .border-svg-alerta > .svg-alerta{
-  color: #dadeab;
+  color: #e7d342;
     width: 95px;
     height: 80px;
     margin: 10px;

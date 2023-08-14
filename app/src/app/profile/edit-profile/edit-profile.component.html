@@ -1,3 +1,236 @@
-<p>
-  edit-profile works!
-</p>
+<div class="p-3">
+  <div class="container border bg-white shadow-sm p-3 bg-body-tertiary rounded">
+  <div class="d-flex  align-items-center">  <h3 class="m-0"><strong>Detalles del perfil</strong></h3>
+    <button (click)="perfil()" class=" btn btn-secondary ms-2  cursor">Ver perfil</button></div>
+    <hr>
+
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-sm-3">Foto</div>
+      <div class="col-xl-9 col-lg-9 col-sm-9">
+        <form action="" [formGroup]="userForm">
+        <div class="container-foto">
+          <img *ngIf="statusImg === 0" class="editFoto" src="https://api.otb.otbuniversitarioalto.us/{{image}}" alt="">
+          <img *ngIf="statusImg === 1" class="editFoto" [src]="image" alt="">
+        <div class="button-edit"  (click)="openFileDialog()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-pencil" viewBox="0 0 16 16">
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+          </svg></div>
+
+          <input #fileInput formControlName="src_foto" name="imagen" type="file" style="display: none;" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/gif">
+
+        <div *ngIf="statusImg==1" class="button-renovar" (click)="reloadimg()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+            <path
+              d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+          </svg></div>
+        </div>
+      </form>
+        <p class="text-black-50 mt-2"> Tipos de archivo permitidos: png, jpg, jpeg.</p>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center" >Nombre Completo <span>*</span></div>
+      <div class="col-xl-9 col-lg-9 col-sm-9">
+        <div class="row">
+          <div class="col-sm-12 col-xl-6 col-md-6">
+            <input type="text" class="form-control" [(ngModel)]="datauser.nombre" placeholder="Nombre">
+          </div>
+          <div class="col-sm-12 col-xl-6 col-md-6">
+            <input type="text" class="form-control" [(ngModel)]="datauser.apellido" placeholder="Apellido">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center">Contacto <span>*</span></div>
+      <div class="col-xl-9 col-lg-9 col-sm-9">
+        <div class="row">
+          <div class="col-sm-12 col-xl-6 col-md-6">
+            <input type="text" class="form-control"  [(ngModel)]="datauser.telefono" placeholder="Telefono">
+          </div>
+          <div class="col-sm-12 col-xl-6 col-md-6">
+            <input type="text" class="form-control" [(ngModel)]="datauser.celular" placeholder="Celular">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center">Direccion <span>*</span></div>
+      <div class="col-xl-9 col-lg-9 col-sm-9">
+        <div class="row">
+          <div class="col-sm-12 col-xl-6 col-md-6">
+            <select [value]="datauser.calle"  [(ngModel)]="datauser.calle" class="form-select" aria-label="Default select example">
+              <option selected>Seleccione la calle</option>
+              <option value="calle 1">Calle 1</option>
+              <option value="calle 2">Calle 2</option>
+              <option value="calle 3">Calle 3</option>
+              <option value="calle 4">Calle 4</option>
+              <option value="calle 5">Calle 5</option>
+              <option value="calle 6">Calle 6</option>
+              <option value="calle 7">Calle 7</option>
+              <option value="calle 8">Calle 8</option>
+              <option value="calle 9">Calle 9</option>
+              <option value="calle 10">Calle 10</option>
+              <option value="calle 11">Calle 11</option>
+            </select>
+
+          </div>
+          <div class="col-sm-12 col-xl-6 col-md-6">
+            <input type="text" class="form-control"  [(ngModel)]="datauser.n_domicilio" placeholder="Numero de domicilio">
+          </div>
+          <div class="col-sm-12 col-xl-6 col-md-6 mt-1">
+            <textarea type="text" class="form-control" [(ngModel)]="datauser.direccion" placeholder="Direccion"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center">Correo electronico </div>
+      <div class="col-xl-9 col-lg-9 col-sm-9">
+        <div class="row">
+          <div class="col-sm-12 col-xl-6 col-md-6">
+            <input type="email" class="form-control" [(ngModel)]="datauser.email" placeholder="Correo@gmail.com">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-xl-12 col-lg-12 col-sm-12 d-flex align-items-end justify-content-end">
+
+        <button class="btn btn-outline-dark m-2 btn-sm" (click)="reloaData()">Descartar</button>
+        <button class="btn text-prima text-light m-2 btn-sm"(click)="editUser()">Guardar cambios</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container border bg-white shadow-sm p-3 bg-body-tertiary rounded mt-3">
+    <h3><strong>Método de inicio de sesión</strong></h3>
+    <hr>
+
+    <div class="row mt-2">
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center">Carnet de identidad <span></span></div>
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center" *ngIf="changeci === 0"> {{carnetnuevo}} <span></span></div>
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex justify-content-center align-items-center" *ngIf="changeci === 1">
+        <div class="row">
+          <div class="col-sm-12 col-xl-12 col-md-12 "  >
+            <input type="number" [(ngModel)]="carnetnuevo" class="form-control"   placeholder="C.I">
+          </div>
+
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-sm-6 align-self-end" *ngIf="changeci === 1">
+        <div class="row">
+          <div class="col-sm-12 col-xl-12 col-md-12  d-flex justify-content-end">
+            <button class="btn text-prima text-light btn-sm" (click)="editCarnet()">Guardar cambios</button>
+          </div>
+          <div class="col-sm-12 col-xl-12 col-md-12  mt-2  d-flex justify-content-end">
+            <button class="btn btn-outline-dark btn-sm" (click)="changeci = 0">Descartar</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-sm-6 align-self-end" *ngIf="changeci === 0">
+        <div class="row">
+          <div class="col-sm-12 col-xl-12 col-md-12 align-self-end  d-flex justify-content-end">
+            <button class="btn text-prima text-light btn-sm" (click)="changeci = 1">Cambiar carnet</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center">Contraseña<span></span></div>
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex align-items-center" *ngIf="changepassword === 0">***********<span></span></div>
+      <div class="col-xl-3 col-lg-3 col-sm-3 d-flex justify-content-center align-items-center" *ngIf="changepassword === 1">
+        <form action="" [formGroup]="lg">
+          <div class="row">
+            <div class="col-sm-12 col-xl-12 col-md-12" >
+              <label for="">Nueva contraseña</label>
+              <input formControlName="password" type="password" class="form-control"  >
+            </div>
+            <div class="col-sm-12 col-xl-12 col-md-12" >
+              <label for="">Confirmar nueva contraseña</label>
+              <input formControlName="passwordrep" type="password" class="form-control"  >
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-sm-6 align-self-end" *ngIf="changepassword === 1">
+        <div class="row">
+          <div class="col-sm-12 col-xl-12 col-md-12  d-flex justify-content-end">
+            <button class="btn text-prima text-light btn-sm" (click)="changepasssowrd()">Guardar cambios</button>
+          </div>
+          <div class="col-sm-12 col-xl-12 col-md-12  mt-2  d-flex justify-content-end">
+            <button class="btn btn-outline-dark btn-sm" (click)="changepassword = 0">Descartar</button>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-sm-6 align-self-end" *ngIf="changepassword===0">
+        <div class="row">
+          <div class="col-sm-12 col-xl-12 col-md-12 align-self-end  d-flex justify-content-end">
+            <button class="btn text-prima text-light btn-sm" (click)="changepassword = 1">Cambiar contraseña</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div  *ngIf="user?.estado === 1" class="container border bg-white shadow-sm p-3 bg-body-tertiary rounded mt-3">
+    <h3><strong>Desactivar cuenta</strong></h3>
+    <hr>
+
+   <div  class="container p-4">
+    <div class="row p-3 content-desactive">
+      <div class="col-xl-1 col-lg-1 col-sm-1 align-items-center d-flex justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" class="bi bi-exclamation-triangle text-warning" viewBox="0 0 16 16">
+          <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+          <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+        </svg>
+      </div>
+      <div class="col-xl-11 col-lg-11 col-sm-10">
+        <div>
+        <p> Para mayor seguridad, esto no eliminar la cuenta solo desactivara la sesion del usuario para acceder al panel administrativo y a la aplicacion movíl</p></div>
+          <button (click)="setestado()" class="btn btn-warning">Desactivar</button>
+      </div>
+    </div>
+   </div>
+
+
+  </div>
+
+  <div  *ngIf="user?.estado === 0" class="container border bg-white shadow-sm p-3 bg-body-tertiary rounded mt-3">
+    <h3><strong>Activar cuenta</strong></h3>
+    <hr>
+
+   <div class="container p-4">
+    <div class="row p-3 content-activate">
+      <div class="col-xl-1 col-lg-1 col-sm-1 align-items-center d-flex justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" class="bi bi-exclamation-triangle text-success" viewBox="0 0 16 16">
+          <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+          <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+        </svg>
+      </div>
+      <div class="col-xl-11 col-lg-11 col-sm-10">
+        <div>
+        <p>Activa la sesion del usuario para acceder al panel administrativo y a la aplicacion movíl</p></div>
+          <button (click)="setestado()" class="btn btn-success">Activar</button>
+      </div>
+    </div>
+   </div>
+
+
+  </div>
+</div>

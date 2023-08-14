@@ -19,21 +19,21 @@ export class LineComponent implements OnInit {
   yAxisLabel: string = 'Cantidad';
   timeline: boolean = true;
   multi: { name: string; series: { name: string; value: number; }[]; }[];
-  
-  colorScheme: Color = { 
-    domain: ['#99CCE5', '#FF7F7F'], 
-    group: ScaleType.Ordinal, 
-    selectable: true, 
-    name: 'Customer Usage', 
+
+  colorScheme: Color = {
+    domain: ['#99CCE5', '#FF7F7F'],
+    group: ScaleType.Ordinal,
+    selectable: true,
+    name: 'Customer Usage',
 };
-  constructor() { 
+  constructor() {
     this.view = [innerWidth / 2.5, 400];
   }
 
   ngOnInit() {
     this.multi = [
       {
-        "name": "Donación",
+        "name": "2023",
         "series": [
           {
             "name": "Enero",
@@ -69,8 +69,8 @@ export class LineComponent implements OnInit {
           }
         ]
       },
-    
-     
+
+
     ];
   }
 

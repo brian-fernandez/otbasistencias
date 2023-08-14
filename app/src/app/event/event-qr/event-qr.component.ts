@@ -1,8 +1,11 @@
-import { Component, ViewChild, ViewEncapsulation, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, ViewChild, ViewEncapsulation, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { Keysecret } from 'src/app/config/secretKeys';
+import { UtilsService } from 'src/app/services/Utils.service';
 import { EncrDecrService } from 'src/app/services/encr-decr.service';
+import { UserService } from 'src/app/services/user.service';
+import { SearchUserComponent } from '../searchUser/searchUser.component';
 
 export interface UserData {
   id: string;
@@ -11,6 +14,9 @@ export interface UserData {
   cargo: string;
   foto: string;
   donacion: any;
+}
+export interface DialogData {
+  idAsunto:any
 }
 
 @Component({
@@ -21,33 +27,29 @@ export interface UserData {
 export class EventQrComponent implements OnInit {
   private Key = Keysecret.key;
   result: boolean;
+  userData: any;
+  bono: string;
   constructor(
     private encript: EncrDecrService,
-    private dialog: MatDialog
-  ) { }
+    public dialogRef: MatDialogRef<SearchUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private utils:UtilsService,
+    private userService:UserService
 
-  data = [
-    {
-      id: "1",
-      nombre: "Brian Fernandez Mercado",
-      ci: "123456789",
-      foto: "",
+  ) {
 
-    },
-    {
-      id: "2",
-      nombre: "Alejandro Antornio Hernandez",
-      ci: "123456789",
-      foto: "",
+   }
 
-    }
-  ]
+
 
   @ViewChild(QrScannerComponent) qrScannerComponent: QrScannerComponent;
-  ngOnInit() { }
+  ngOnInit() {
+    this.bono = "";
+    this.result = false;
+   }
   ngAfterViewInit(): void {
     this.qrScannerComponent.getMediaDevices().then(devices => {
-      console.log(devices);
+
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {
         if (device.kind.toString() === 'videoinput') {
@@ -56,37 +58,59 @@ export class EventQrComponent implements OnInit {
       }
       if (videoDevices.length > 0) {
         let choosenDev;
-        for (const dev of videoDevices) {
-          if (dev.label.includes('front')) {
-            choosenDev = dev;
-            break;
+        if (this.isMobileDevice()) {
+          for (const dev of videoDevices) {
+            if (!dev.label.includes('front')) {
+              choosenDev = dev;
+              break;
+            }
           }
+        } else {
+          choosenDev = videoDevices[0];
         }
         if (choosenDev) {
           this.qrScannerComponent.chooseCamera.next(choosenDev);
-        } else {
-          this.qrScannerComponent.chooseCamera.next(videoDevices[0]);
         }
       }
     });
-
     this.qrScannerComponent.capturedQr.subscribe(result => {
-      console.log(result);
-      const resultt = this.encript.get(this.Key, result)
-      for (let index = 0; index < this.data.length; index++) {
-        if (resultt == this.data[index].id) {
-          this.result = true;
-        }
 
-      }
+      const resultt = this.encript.get(this.Key, result);
+      this.userService.getId(resultt).subscribe(
+        async (params: any) => {
+          this.result = true;
+          this.userData = params.user;
+
+        }
+      );
     });
   }
 
-  removed() {
-    // this.qrScannerComponent.startScanning();
+
+
+  isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      window.navigator.userAgent
+    );
+  }
+
+
+  add(){
     this.result = false;
-  }
-  add() {
-    this.dialog.closeAll();
-  }
+    this.userService.registrarAsistencia(this.data.idAsunto,this.userData.id,this.bono).subscribe(
+     async (params:any) => {
+       this.dialogRef.close(true);
+     },err =>{
+       if (err.error.error === "El usuario ya está registrado en esta asistencia") {
+         this.utils.openSnackBar('El usuario ya está registrado en esta asistencia');
+       }else{
+         this.utils.openSnackBar('Error de conexión');
+       }
+     }
+    )
+ }
+
+ removed(){
+   this.result = false;
+ }
 }

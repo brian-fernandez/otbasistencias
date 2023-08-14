@@ -23,7 +23,8 @@ public dialog: MatDialog
     this._snackBar.open(text, 'Cerrar', {
       horizontalPosition: "start",
       verticalPosition: "bottom",
-      duration:2000
+      duration:2000,
+      panelClass: ['blue-snackbar']
     });
   }
 
@@ -80,6 +81,7 @@ public dialog: MatDialog
 
   convertPDF(html,titulo){
     const DATA: any = document.getElementById(html);
+
     const doc = new jsPDF('portrait', 'px', 'Letter');
     const options = {
       background: 'white',
@@ -108,6 +110,8 @@ public dialog: MatDialog
       }
       return doc;
     }).then((docResult) => {
+   
+
       switch (titulo) {
         case 1:
           docResult.save(`${new Date().toISOString()}_perfil.pdf`);
@@ -124,7 +128,7 @@ public dialog: MatDialog
 
   openaAlert(texto, tipo): Observable<any> {
     const dialogRef = this.dialog.open(AlertComponent, {
-      width: '250px',
+      width: '350px',
       enterAnimationDuration: '150ms',
       exitAnimationDuration:'150ms',
       data: {texto: texto, tipo: tipo},
@@ -132,5 +136,6 @@ public dialog: MatDialog
 
     return dialogRef.afterClosed();
   }
+
 
 }

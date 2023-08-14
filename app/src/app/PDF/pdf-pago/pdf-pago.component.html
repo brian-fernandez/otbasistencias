@@ -19,9 +19,9 @@
     <div class="row p-4">
       <div class="col-6 col-sm-6 col-xl-6 col-md-6 border border-black">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><strong>Fecha: </strong> 23-07-2022</li>
-          <li class="list-group-item"><strong>Señor(es): </strong>Brian Fernandez Mercado</li>
-          <li class="list-group-item"><strong>C.I: </strong>14696249</li>
+          <li class="list-group-item"><strong>Fecha: </strong> {{texto.fecha}}</li>
+          <li class="list-group-item"><strong>Señor(es): </strong>{{texto.user.nombre}} {{texto.user.apellido}}</li>
+          <li class="list-group-item"><strong>C.I: </strong>{{texto.user.ci}}</li>
         </ul>
       </div>
       <div class="col-6 col-sm-6 col-xl-6 col-md-6 "></div>
@@ -34,44 +34,28 @@
             <th scope="col-1" class="w-auto" style="width: 100px !important;">Codigo</th>
             <th scope="col-10">Detalle</th>
             <th scope="col-1" style="text-align: end;">Total</th>
-           
+
           </tr>
         </thead>
-        <tbody>
+        <tbody *ngFor="let pagos of texto.data">
           <tr>
-            <th scope="row">1</th>
-            <td>Pago 1</td>
-            <td class="text-end">10</td>
-   
+            <th scope="row">{{pagos.evento.id}}</th>
+            <td>{{pagos.evento.titulo}}</td>
+            <td class="text-end">{{pagos.monto}}</td>
+
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Pago 2</td>
-            <td class="text-end">10</td>
-          
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td >Pago 3</td>
-            <td class="text-end">10</td>
-          </tr>
-          <!-- <tr>
-            <th colspan="6">son {{convertirNumeroEnLetras(31)}} Bolivianos</th>
-            <td >Larry the Bird</td>
-            <td>@twitter</td>
-          </tr> -->
         </tbody>
       </table>
       <div class="row">
-        <div class="col-xl-6 col-md-6 col-sm-6 border border-black">Son {{convertirNumeroEnLetras(30)}} Bolivianos</div>
-        <div class="col-xl-6 col-md-6 col-sm-6 border">
+        <!-- <div class="col-xl-6 col-md-6 col-sm-6 border border-black">Son {{convertirNumeroEnLetras(texto.total)}} Bolivianos</div> -->
+        <div class="col-xl-12 col-md-12 col-sm-12 border">
           <div class="row">
             <div class="col-xl-6 col-md-6 col-sm-6 border text-end">
               <p class="m-0  d-block"></p>
             </div>
             <div class="col-xl-4 col-md-4 col-sm-4 border  bg-black text-light">Total en Bs.</div>
             <div class="col-xl-2 col-md-2 col-sm-2 border">
-              <p class="m-0 text-end">30</p>
+              <p class="m-0 text-end">{{texto.total}}</p>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CreateAfiliadoRoutingModule } from './create-afiliado-routing.module';
 import { CreateAfiliadoComponent } from './create-afiliado.component';
+import { FormControl } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { CreateAfiliadoComponent } from './create-afiliado.component';
   ],
   imports: [
     CommonModule,
-    CreateAfiliadoRoutingModule
+    CreateAfiliadoRoutingModule,
+    FormControl
+
   ]
 })
 export class CreateAfiliadoModule { }

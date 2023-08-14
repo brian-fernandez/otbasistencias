@@ -47,7 +47,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ListEventComponent } from './event/list-event/list-event.component';
 import { EventidComponent } from './event/eventid/eventid.component';
 import { EventQrComponent } from './event/event-qr/event-qr.component';
-import { NgQrScannerModule } from 'angular2-qrscanner';
+import { NgQrScannerModule, QrScannerComponent } from 'angular2-qrscanner';
 import { PdfProfileComponent } from './PDF/pdf-profile/pdf-profile.component';
 import { PdfCredentialComponent } from './PDF/pdf-credential/pdf-credential.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -58,7 +58,10 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { AlertComponent } from './alerts/alert/alert.component';
-
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { SearchUserComponent } from './event/searchUser/searchUser.component';
+import { WidgetEventoComponent } from './event/widget-evento/widget-evento.component';
+import { ToastrModule } from 'ngx-toastr';
 // Registra la localización en español
 registerLocaleData(localeEs);
 // import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -81,10 +84,12 @@ registerLocaleData(localeEs);
     ListEventComponent,
     EventidComponent,
     EventQrComponent,
-
+    WidgetEventoComponent,
     EscanQrComponent,
+    SearchUserComponent,
     //perfil,
     ProfileDetailsComponent,
+    EditProfileComponent,
     //user
     ListUserComponent,
     CreateUserComponent,
@@ -107,7 +112,8 @@ registerLocaleData(localeEs);
     LineComponent,
 
 
-    AlertComponent
+    AlertComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -122,7 +128,9 @@ registerLocaleData(localeEs);
     HttpClientModule,
     QRCodeModule,
     NgQrScannerModule,
-    NgxChartsModule
+    NgxChartsModule,
+    ToastrModule.forRoot(),
+
 
   ],
   providers: [

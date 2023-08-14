@@ -8,8 +8,13 @@ import { UtilsService } from 'src/app/services/Utils.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { Keysecret } from 'src/app/config/secretKeys';
 
-
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { HttpClient } from '@angular/common/http';
+import { EncrDecrService } from 'src/app/services/encr-decr.service';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 
 
@@ -74,26 +79,23 @@ dataSourceD: MatTableDataSource<Multas> | any;
   userData: any;
   id:any;
   users: any;
+  userDonaciones: any;
+  data: any;
+  foto: any;
+  private Key = Keysecret.key;
+  imagenDataUrl: string;
   constructor(
     private utils:UtilsService,
     private router:Router,
     private user:UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http:HttpClient,
+    private encrip:EncrDecrService
 
   ) {
-    // Create 100 users
-    // Assign the data to the data source for the table to render
-    // this.dataSource = new MatTableDataSource(DATA);
-    // this.dataSourceMultas = new MatTableDataSource(Multas);
-    // this.dataSourceD = new MatTableDataSource(DONACIONES);
-
   }
 
   ngAfterViewInit() {
-    // console.log('afterView');
-
-    // this.id  = this.route.snapshot.paramMap.get('id');
-    // this.getdata(this.id);
   }
 
   ngOnInit() {
@@ -101,13 +103,42 @@ dataSourceD: MatTableDataSource<Multas> | any;
    this.route.params.subscribe(params => {
     const id = params['id'];
     this.getdata(id);
+    this.getDonacion(id);
   });
    this.id  = this.route.snapshot.paramMap.get('id');
-   this.getdata(this.id)
+   this.getdata(this.id);
+
+   this.http.get('./../../../assets/icons/logo.png', { responseType: 'blob' })
+   .subscribe((blob: Blob) => {
+     const reader = new FileReader();
+     reader.onload = () => {
+       this.foto = reader.result as string;
+     };
+     reader.readAsDataURL(blob);
+   });
   }
 
-  active(type:any,id:any){
-    console.log(type, id);
+  active(id:any){
+
+      this.utils.openaAlert('Cambiar estado','edicion').subscribe(result => {
+        if (result) {
+         this.user.setEstado(id).subscribe(
+          async (params:any) => {
+
+            this.getdata(this.id);
+            this.utils.openSnackBar('El estado fue cambiado correctamente');
+          }, err => {
+            this.utils.openSnackBar('Error en la conexión');
+          }
+         )
+        } else {
+
+        }
+      });
+
+
+
+
   }
   pdfProfile(){
    this.protetip = true;
@@ -126,11 +157,8 @@ dataSourceD: MatTableDataSource<Multas> | any;
       parametro1: 'valor1',
       parametro2: 'valor2'
     };
-    this.router.navigate(['/pdf-credencial'], { state: datos });
-    var newWindow = window.open('', '_blank');
-    if (newWindow) {
-      var datosRecibidos = newWindow.window.history.state;
-  }
+    this.router.navigate(['home/pdf-credencial/',this.userData.user.id]);
+
 }
 
 getInitials(name: string): string {
@@ -146,22 +174,223 @@ getdata(id){
       this.userData = params;
       this.dataSource = this.userData.user.inquilinos;
       this.dataSourceMultas = this.userData.user.multas;
-      this.dataSourceD = this.userData.user.asistencia;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.dataSourceMultas.paginator = this.paginatorM;
       this.dataSourceMultas.sort = this.sortM;
-      this.dataSourceD.paginator = this.paginatorD;
-      this.dataSourceD.sort = this.sortD;
     }, (err) =>{
-      console.log(err);
+     
+    }
+    )
+  }
+
+  getDonacion(id){
+    this.user.getDonacion(id).subscribe(
+      async (params:any) => {
+
+
+        this.userDonaciones = params.aportes;
+
+
+        this.dataSourceD = this.userDonaciones;
+        this.dataSourceD.paginator = this.paginatorD;
+        this.dataSourceD.sort = this.sortD;
+
     }
   )
 }
-
 viewProfile(id){
   this.router.navigate(['home/perfil',id]);
   // this.getdata(id);
 }
 
+edit(){
+  this.router.navigate(['home/edicion/',this.id]);
 }
+
+gopago(){
+  this.router.navigate(['home/nuevo-pago']);
+}
+
+async gocredencial(){
+
+  // this.http.get('https://api.otb.otbuniversitarioalto.us/'+ this.userData.user.src_foto , { responseType: 'blob' })
+  // .subscribe((blob: Blob) => {
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     this.imagenDataUrl = reader.result as string;
+  //   };
+  //   reader.readAsDataURL(blob);
+  // });
+
+  const imagenBlob = await this.http.get('https://api.otb.otbuniversitarioalto.us/'+ this.userData.user.src_foto, { responseType: 'blob' }).toPromise();
+      const reader = new FileReader();
+      reader.readAsDataURL(imagenBlob);
+      reader.onload = () => {
+        const imagenBase64 = reader.result as string;
+
+
+  let idcode =  this.encrip.set(this.Key,this.userData.user.id);
+  let docDefinition:any;
+   docDefinition = {
+    pageSize: { width: 500, height: 320 },
+    content: [
+      // Cara Anversa
+      {
+        text: 'OTB Universitario Altos - Credencial',
+        style: 'header',
+        alignment: 'center',
+      },
+      {
+        columns: [
+          {
+            image: imagenBase64,
+            width: 100,
+            height: 100,
+          },
+          {
+            text: `Carnet: ${this.userData.user.ci}`,
+          },
+        ],
+        columnGap: 10,
+      },
+      {
+        columns: [
+          { text: 'Nombre:', width: 'auto' },
+          { text: this.userData.user.nombre, width: '*' },
+          { text: 'Apellido:', width: 'auto' },
+          { text: this.userData.user.apellido, width: '*' },
+        ],
+      },
+      {
+        columns: [
+          { text: 'Calle:', width: 'auto' },
+          { text: this.userData.user.calle, width: '*' },
+          { text: 'Número:', width: 'auto' },
+          { text: this.userData.user.numeroDomicilio, width: '*' },
+        ],
+      },
+      {
+        columns: [
+          { text: 'Teléfono:', width: 'auto' },
+          { text: this.userData.user.telefono, width: '*' },
+          { text: 'Celular:', width: 'auto' },
+          { text: this.userData.user.celular, width: '*' },
+        ],
+      },
+
+      // Cara Reversa
+      {
+        pageBreak: 'after',
+        text: 'OTB Universitario Altos - Credencial (Reverso)',
+        style: 'header',
+        alignment: 'center',
+      },
+      {
+        columns: [
+          {
+            qr: idcode,
+            fit: 100,
+            margin: [0, 10],
+          },
+          {
+            stack: [
+              { text: `Dirección: ${this.userData.user.direccion}` },
+            ],
+            width: '*',
+          },
+        ],
+      },
+    ],
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true,
+        margin: [0, 10, 0, 10],
+      },
+    },
+  };
+
+  const pdf = pdfMake.createPdf(docDefinition);
+  pdf.open();
+}
+}
+
+getpdfPagos(data){
+  let documentDefinition:any;
+  this.user.getpagoid(data).subscribe(
+    async (params:any) => {
+        this.data = params;
+
+       if (this.data) {
+        if(this.foto) {
+
+          documentDefinition = {
+
+
+
+           pageSize: 'A4',
+           content: [
+             { text: 'Pago', style: 'header',alignment: 'center' },
+             {
+               alignment: 'right',
+               stack: [
+                 { image: this.foto,width: 30, height: 30 },
+                 { text: 'OTB Barrio Universitario Alto\nAvenida Petrolera Km 3 1/2\nCochabamba - Bolivia' }
+               ],
+             },
+             {
+               alignment: 'left',
+               stack: [
+                 // { image: 'data:image/png;base64,iVBORw0KG... (tu imagen en base64)', width: 80, height: 80 },
+                 { text: `Fecha: ${this.data?.pago?.fecha}\nSeñor(es): ${this.data.multas[0]?.nombre} ${this.data.multas[0]?.apellido}\nC.I: ${this.data.multas[0]?.ci}`,margin: [ 0, 0, 10, 20 ] }
+               ],
+
+             },
+             {
+               table: {
+                 widths: ['auto', '*', 'auto'],
+                 body: [
+                   ['id', 'Detalle', 'total'],
+                   ...this.data.multas[0].multas.map(multa => [multa.id, `${multa.evento.titulo} - ${multa.evento.fecha}`, multa.monto]),
+                 ],
+               },
+             },
+             { text: `Total en Bs.: ${this.data.pago.total}`, style: 'total' },
+             {
+               columns: [
+                 { qr: this.data.pago.codigo, fit: 100, margin: [0, 5] },
+                 {
+                   stack: [
+                     { text: `Código: ${this.data.pago.codigo}` },
+                     { text: `Responsable: ${this.data.pago.responsable_id.nombre} ${this.data.pago.responsable_id.apellido}` },
+                   ],
+                   width: 400,
+                 },
+               ],
+             },
+           ],
+
+           styles: {
+             header: { fontSize: 18, bold: true, margin: [0, 10, 0, 10] },
+             total: { fontSize: 14, bold: true, margin: [0, 10, 0, 10] },
+           },
+         };
+         }
+
+         const pdf = pdfMake.createPdf(documentDefinition);
+         pdf.open();
+       }
+    } , error =>[
+      this.utils.openSnackBar('Error de conexión')
+    ]
+  )
+
+
+
+
+  }
+
+
+}
+

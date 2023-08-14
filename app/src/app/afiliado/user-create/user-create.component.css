@@ -8,7 +8,7 @@
     border: 1px solid  black;
 }
 @keyframes pulse {
-    
+
     0%{
         border: 1px solid  var(--color-primary-otb);
     }
@@ -71,7 +71,7 @@
     cursor: pointer;
     animation: moveButton 1s infinite;
   }
-  
+
   .particle {
     position: absolute;
     width: 10px;
@@ -80,7 +80,7 @@
     border-radius: 50%;
     animation: moveParticle 1s infinite, changeColor 2s infinite alternate;
   }
-  
+
   @keyframes moveButton {
     0% {
       transform: translateY(0);
@@ -92,7 +92,7 @@
       transform: translateY(0);
     }
   }
-  
+
   @keyframes moveParticle {
     0% {
       top: 0;
@@ -107,7 +107,7 @@
       left: 0;
     }
   }
-  
+
   @keyframes changeColor {
     0% {
       background-color: #ff4081;

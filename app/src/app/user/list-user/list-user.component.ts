@@ -84,21 +84,21 @@ export class ListUserComponent implements OnInit {
 
   active(type:any,id:any){
 
-    console.log(type, id);
+
 
   }
   getList() {
     this.userService.getlist().subscribe(
       (params: any) => {
         this.listUser = params;
-        console.log(this.listUser);
+
 
         this.dataSource = new MatTableDataSource(this.listUser);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       (error) => {
-        console.log(error);
+   
       }
     );
   }
@@ -145,5 +145,8 @@ export class ListUserComponent implements OnInit {
   closeModal() {
     const modal = document.getElementById('myModal');
     modal!.style.display = 'none';
+  }
+  editprofile(id){
+    this.router.navigate(['home/edicion/',id]);
   }
 }

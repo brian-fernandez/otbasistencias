@@ -74,7 +74,7 @@ export class UserListComponent {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         }, (error) =>{
-          console.log(error);
+
 
         }
       )
@@ -87,7 +87,7 @@ export class UserListComponent {
       if (result) {
        this.Userservice.setEstado(iduser).subscribe(
         async (params:any) => {
-          console.log(params);
+
           this.getList();
           this.utils.openSnackBar('El estado fue cambiado correctamente');
         }, err => {
@@ -95,22 +95,22 @@ export class UserListComponent {
         }
        )
       } else {
-        console.log('El diálogo fue cerrado con "No" o de alguna otra forma');
+      
       }
     });
-    // const modal = document.getElementById('myModal');
-    // modal!.style.display = 'block';
-  }
 
+  }
+  newuser(){
+  this.router.navigateByUrl('home/nuevo');
+}
   btnSucces(){
       this.Userservice.setEstado(this.iduser).subscribe(
         async (params:any) => {
-          console.log(params);
           this.getList();
           const modal = document.getElementById('myModal');
           modal!.style.display = 'none';
         }, (error) =>{
-          console.log(error);
+
 
         }
       )
@@ -120,6 +120,9 @@ export class UserListComponent {
   closeModal() {
     const modal = document.getElementById('myModal');
     modal!.style.display = 'none';
+  }
+  edit(id){
+    this.router.navigate(['home/edicion/'+id]);
   }
 }
 

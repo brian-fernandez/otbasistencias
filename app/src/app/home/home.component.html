@@ -12,7 +12,7 @@
         <span class="ff-20">Inicio</span>
       </button>
 
-      <mat-accordion>
+      <mat-accordion *ngIf="data.role.id === 2">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -28,7 +28,9 @@
           </button>
         </mat-expansion-panel>
       </mat-accordion>
-      <mat-accordion>
+
+
+      <mat-accordion *ngIf="data.role.id === 2 || data.role.id === 3">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -36,20 +38,20 @@
               Afiliados
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <button mat-button (click)="listAfiliado()" class=" w-100 justify-content-start d-flex p-3">
+          <button *ngIf="data.role.id === 3 || data.role.id === 2" mat-button (click)="listAfiliado()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Lista de Afiliado</span>
           </button>
-          <button mat-button (click)="createAfiliado()" class=" w-100 justify-content-start d-flex p-3">
+          <button *ngIf="data.role.id === 2" mat-button (click)="createAfiliado()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Crear Afiliado/Inquilino</span>
           </button>
         </mat-expansion-panel>
       </mat-accordion>
-      <button mat-button (click)="reporte()" class=" w-100 justify-content-start d-flex p-3">
+      <button  *ngIf="data.role.id === 2 || data.role.id === 3" mat-button (click)="reporte()" class=" w-100 justify-content-start d-flex p-3">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmarks"></mat-icon>
         <span class="ff-20">Reportes</span>
       </button>
 
-      <mat-accordion>
+      <mat-accordion  *ngIf="data.role.id === 2 || data.role.id === 4">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -66,27 +68,27 @@
         </mat-expansion-panel>
       </mat-accordion>
 
-      <mat-accordion>
+      <mat-accordion *ngIf="data.role.id === 2 || data.role.id === 3">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="folder"></mat-icon>
-              Proyectos
+              Asuntos
             </mat-panel-title>
           </mat-expansion-panel-header>
           <button mat-button (click)="listProyect()" class=" w-100 justify-content-start d-flex p-3">
-            <span class="">○ Lista de Proyectos</span>
+            <span class="">○ Lista de Asuntos</span>
           </button>
           <!-- <button mat-button (click)="createProyect()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Crear nuevo Proyecto</span>
           </button> -->
         </mat-expansion-panel>
       </mat-accordion>
-      <button mat-button (click)="qr()" class=" w-100 justify-content-start d-flex p-3">
+      <button *ngIf="data.role.id === 2 || data.role.id === 3 && data.role.id === 4" mat-button (click)="qr()" class=" w-100 justify-content-start d-flex p-3">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="qr_code_scanner"></mat-icon>
         <span class="ff-20">Escanear Credencial</span>
       </button>
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngIf="data.role.id === 2 || data.role.id === 3">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="calendar_month"></mat-icon>
@@ -105,8 +107,10 @@
 
   </mat-sidenav>
 
-  <mat-sidenav-content>
-    <mat-toolbar color="primary" class="d-flex justify-content-between">
+
+
+  <mat-sidenav-content >
+    <mat-toolbar style="z-index: 99;" color="primary" class="d-flex justify-content-between">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
@@ -116,10 +120,8 @@
           <h5 class="m-0 text-capitalize">{{data?.nombre}} {{data?.apellido}}</h5>
           <h6 class="m-0 text-end">{{data?.role?.nombre}}</h6>
         </div>
-        <img *ngIf="data?.src_foto" [src]="data?.src_foto" class="img-avatar m-1 ">
-        <div *ngIf="!data?.src_foto" class="initials img-avatar m-1">
-           {{ getInitials(data?.apellido) }}
-        </div>
+        <img *ngIf="data?.src_foto" src="https://api.otb.otbuniversitarioalto.us/{{data?.src_foto}}" class="img-avatar m-1 ">
+
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
           class="bi bi-caret-down-fill m-auto" viewBox="0 0 16 16">
           <path
@@ -131,6 +133,12 @@
         <button mat-menu-item (click)="closed()">Cerrar sesión</button>
       </mat-menu>
     </mat-toolbar>
+
+<app-widget-evento *ngIf="on" [dataEvents]="dataEvent" ></app-widget-evento>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
+
+
+
 </mat-sidenav-container>
+

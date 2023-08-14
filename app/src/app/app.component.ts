@@ -24,14 +24,14 @@ export class AppComponent implements OnInit {
 
   ionViewDidEnter(){
     this.getdata();
-    console.log(this.sesion);
+
 
   }
   getdata(){
     try {
       const email = this.Encryp.set(this.Key, localStorage.getItem('email')) || false;
       const password = this.Encryp.set(this.Key, localStorage.getItem('password')) || false;
-      console.log(email + '  ' + password);
+
 
       if (email && password) {
         return this.sesion = true;

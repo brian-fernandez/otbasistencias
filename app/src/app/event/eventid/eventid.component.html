@@ -1,133 +1,139 @@
 <div class="p-3">
-<!--  
-    <div class="row m-3" *ngIf="active">
-     <mat-progress-bar  mode="determinate" [value]="progress"></mat-progress-bar>
-     <p class="text-center">Descargando pdf.. {{ progress }}%</p>
-    </div>
- 
-    <div class="row d-flex baseline p-2">
-     <div class="col-auto"><p (click)="back()" class="cursor"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-         <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
-       </svg> Atras</p></div>
-    <div class="col-auto">
-     <button (click)="download()"  class="btn btn-warning"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
-         <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
-       </svg> Descargar</button>
-    </div>
-    </div> -->
-    <div class="row m-3">
-      <div class="row">
-        <div class="col-sm-6 col-md-6 col-xl-6">
-          Evento: Activo
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-6 justify-content-end d-flex">
-          <p class="text-center"> {{ percentage.toFixed(0) }}%</p>
-        </div>
-      </div>
-      <mat-progress-bar  mode="determinate" [value]="percentage"></mat-progress-bar>
-     
-     </div>
-    <div class="row  p-3">
-      <div class="row">
-        <div class="col-sm-6 col-md-6 col-xl-6">
-          <h2>Titulo: Reunión de emergencia</h2>
-          <hr>
-          <p><strong>Fecha: </strong>2023-07-05</p>
-          <p><strong>Hora de inicio - finalización: </strong>13:40 - 14:00</p>
-          <p><strong>Encargado: </strong>Brian Fernandez Mercado <strong>C.I: </strong> 14696249</p>
-        </div>
-        <div class="col-sm-6 col-md-6 col-xl-6">
-          <h2>Asuntos</h2>
-          <hr>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Instalacion de Gas</li>
-            <li class="list-group-item">Cambio de poste de luz</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="row m-3">
     <div class="row">
-      <div class="col-12 col-sm-12 col-xl-12 bg-light p-3 rounded-4">
-        
-          <div class="row d-flex align-items-center">
-              <div class="col-sm-6 col-md-6 col-xl-9">
-                  <mat-form-field class="w-100">
-                      <mat-label>Buscador</mat-label>
-                      <input matInput (keyup)="applyFilter($event)" placeholder="Nombre o Carnet" #input>
-                    </mat-form-field>
-              </div>
-              <div class="col-sm-6 col-md-6 col-xl-3 d-flex" style="justify-content: space-around">
-        
-                  <button (click)="openDialog()" type="button" class="btn btn-success btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
-                    <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
-                    <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
-                  </svg>   Camara</button>
-                  <button (click)="openDialog()" type="button" class="btn btn-success btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                  </svg>   Buscar</button>
-             
-              </div>
-          </div>
-  
-        <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" matSort>
-  
-            <!-- ID Column -->
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-            </ng-container>
-  
-            <!-- Progress Column -->
-            <ng-container matColumnDef="nombrecompleto">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
-              <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
-            </ng-container>
-  
-            <!-- Name Column -->
-            <ng-container matColumnDef="horae">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora de Entrada </th>
-              <td mat-cell *matCellDef="let row"> {{row.ci}} </td>
-            </ng-container>
-  
-            <!-- Fruit Column -->
-            <ng-container matColumnDef="horas">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora de Salida </th>
-              <td mat-cell *matCellDef="let row"> {{row.cargo}} </td>
-            </ng-container>
-            <ng-container matColumnDef="estado">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Donación </th>
-              <td mat-cell *matCellDef="let row">
-                
-                <p class="m-0" [ngClass]="{'text-success':row.estado===1,'text-danger':row.estado !== 1 }" >{{row.estado===1?'A tiempo':'Llego tarde'}}</p>
-                
+      <div class="col-sm-6 col-md-6 col-xl-6">
+        <h2 *ngIf="dataEvent?.estado === 0"> Estado: <span class="text-success">En curso</span></h2>
+        <h2 *ngIf="dataEvent?.estado === 1"> Estado: <span class="text-warning">Pendiente</span></h2>
+        <h2 *ngIf="dataEvent?.estado === 2"> Estado: <span class="text-danger">Finalizado</span></h2>
+      </div>
+      <div class="col-sm-6 col-md-6 col-xl-6 justify-content-end d-flex">
+        <p class="text-center"> {{ percentage.toFixed(0) }}%</p>
+      </div>
+    </div>
+    <mat-progress-bar mode="determinate" [value]="percentage"></mat-progress-bar>
 
-              
-              </td>
-            </ng-container>
-        
-            <ng-container matColumnDef="encargado">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Encargado de registro </th>
-              <td mat-cell *matCellDef="let row"> {{row.encargado}} </td>
-            </ng-container>
-            <ng-container matColumnDef="donacion">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Donacion </th>
-              <td mat-cell *matCellDef="let row"> {{row.donacion}} </td>
-            </ng-container>
-            
-  
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4">El dato no existe"{{input.value}}"</td>
-            </tr>
-          </table>
-  
-          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+  <div class="row  p-3">
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-xl-6">
+        <h2>{{dataEvent?.nombre}}</h2>
+        <hr>
+        <p><strong>Fecha: </strong>{{dataEvent?.fecha}}</p>
+        <p><strong>Hora de inicio - finalización: </strong>{{dataEvent?.hora_inicio}} - {{dataEvent?.hora_fin}}</p>
+        <p><strong>Encargado: </strong> {{dataEvent?.encargado?.nombre}} {{dataEvent?.encargado?.apellido}} </p>
+      </div>
+      <div class="col-sm-6 col-md-6 col-xl-6">
+        <h2>Asuntos</h2>
+        <hr>
+        <div *ngIf="dataAsunto?.length > 0">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let data of dataAsunto" >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{data?.titulo}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p class="p-2">{{data?.descripcion}}</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+        </div>
+
+        <div class="" *ngIf="dataAsunto?.length == 0">
+          Sin asuntos asignados
         </div>
       </div>
-    
+
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-xl-12 bg-light p-3 rounded-4">
+
+      <div class="row d-flex align-items-center">
+        <div class="col-sm-6 col-md-6 col-xl-9">
+          <mat-form-field class="w-100">
+            <mat-label>Buscador</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Nombre o Carnet" #input>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6 col-md-6 col-xl-3 d-flex" style="justify-content: space-around">
+
+          <button [disabled]="dataEvent?.estado === 1 || dataEvent?.estado === 2" (click)="openDialog()" type="button" class="btn btn-success btn-sm"><svg
+              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera"
+              viewBox="0 0 16 16">
+              <path
+                d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+              <path
+                d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+            </svg>   Camara</button>
+          <button [disabled]="dataEvent?.estado === 1 || dataEvent?.estado === 2" (click)="searchUser()" type="button" class="btn btn-success btn-sm"><svg
+              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>   Buscar</button>
+
+        </div>
       </div>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort style="overflow-y: hidden;overflow: scroll;width: 100%;display: inline-block;">
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="foto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="img-avatar"><img src="https://api.otb.otbuniversitarioalto.us/{{row?.usuario?.src_foto}}" alt=""></div>
+            </td>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="nombrecompleto">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
+            <td mat-cell *matCellDef="let row">
+              <p class="text-primary cursor" (click)="viewprofile(row.usuario.id)">{{row.usuario.nombre}} {{row.usuario.apellido}}</p>
+            </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="hora_de_registro">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora de registro </th>
+            <td mat-cell *matCellDef="let row"> {{row.hora}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+            <td mat-cell *matCellDef="let row">
+
+              <p class="m-0" [ngClass]="{'text-success':row.estado===1,'text-danger':row.estado === 0 }">
+                {{row.estado===1?'A tiempo':'No asistio'}}</p>
+
+
+
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="donacion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Donacion </th>
+            <td mat-cell *matCellDef="let row" > <p *ngIf="row.bono"> {{row.bono.cantidad || '-'}} </p></td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">El dato no existe"{{input.value}}"</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </div>
+
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import esLocale from "@fullcalendar/core/locales/es";
@@ -7,7 +7,10 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/Utils.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -27,8 +30,9 @@ export interface Pago {
 })
 
 export class CreateEventComponent {
-  
- 
+  @ViewChild('liveToast') liveToast: ElementRef | undefined;
+
+
 
 
   createShow: boolean;
@@ -39,15 +43,22 @@ export class CreateEventComponent {
     { id: 3, asunto: 'Arreglo en la calle 2', categoria: "OTROS" },
     { id: 4, asunto: 'Plantacion de nuevos arboles', categoria: "MEDIO-AMBIENTE" },
   ];
+  lg: any;
   observador: boolean;
+  mintime: string;
+  check: any;
+  listAsunto: any;
   constructor(
     private router: Router,
     private utils: UtilsService,
-    private _formBuilder: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService,
+    private auth: AuthService,
+    private toastr: ToastrService
   ) {
 
   }
-  toppings:any;
+  toppings: any;
   calendarOptions!: CalendarOptions;
   events: any;
   data: any;
@@ -59,10 +70,21 @@ export class CreateEventComponent {
 
 
   ngOnInit() {
+    this.getListEvent();
+    this.timeupdate()
+    this.getListAsunto()
+    this.lg = this.fb.group({
+      nombre: ['', Validators.required],
+      fecha: [''],
+      hora_inicio: ['', Validators.required],
+      hora_fin: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      lugar: ['',Validators.required],
+      obligatorio: [],
+      obligatorio_cant: ['10'],
+
+    })
     this.observador = false;
-    this.toppings = this._formBuilder.group({
-      check: false
-    });
     for (const pago of this.pagosPendientes) {
       pago.seleccionado = false;
     }
@@ -87,79 +109,181 @@ export class CreateEventComponent {
       headerToolbar: {
         start: 'dayGridMonth,timeGridWeek,timeGridDay',
       },
-      eventClassNames: function (eventInfo) {
-        if (moment(eventInfo.event.end).isBefore(moment())) {
+      eventClassNames (eventInfo):any {
+
+        if (eventInfo.event.extendedProps['estado'] === 2) {
 
           return 'bg-danger text-light'; // Clase CSS para eventos pasados
-        } else {
+        }
+
+        if (eventInfo.event.extendedProps['estado'] === 0) {
           return 'bg-success text-light '; // Clase CSS para eventos futuros
+        }
+        if (eventInfo.event.extendedProps['estado'] === 1) {
+          return 'bg-warning text-dark '; // Clase CSS para eventos futuros
         }
       },
     }
-
-
-
-    this.events = [
-      { title: 'Reunion 1 para el reparo de agua', start: '2023-06-14T10:00:00', end: '2023-06-14T11:25:00' },
-      { title: 'eventoooooooo', start: '2023-06-30T02:00:00', end: '2023-06-30T02:44:00' },
-      // { title: 'event 2', date: '2023-06-06' },
-      {
-        title: 'event 2', start: '2023-06-30T02:00:00', end: '2023-06-30T03:44:00', extendedProps: {
-          id: '1',
-          titulo: 'evento',
-          descripcion: '',
-          fecha: '2023-06-02',
-          hora_fin: '18:30:00',
-          hora_inicio: '19:30:00',
-          obligatorio: 1,
-          cantMulta: '30'
-        }
-      }
-    ]
   }
+
+  getListEvent(){
+    this.userService.getlistEvent().subscribe(
+      async (params:any) => {
+        this.events = params.map(event => {
+          const start = `${event.fecha}T${event.hora_inicio}`;
+          const end = `${event.fecha}T${event.hora_fin}`;
+          return {
+            title: event.nombre,
+            start: start,
+            end: end,
+            extendedProps:{id:event.id,estado:event.estado}
+          };
+        });
+
+
+      }
+    )
+  }
+
+getListAsunto(){
+  this.userService.getListEvents().subscribe(
+    async (params:any) => {
+      this.listAsunto = params;
+      for (const pago of this.listAsunto) {
+        pago.seleccionado = false;
+      }
+
+
+    }
+  )
+}
+
+
+  timeupdate() {
+    this.mintime = moment(new Date()).format('HH:mm a');
+    setTimeout(() => {
+      this.timeupdate();
+    }, 1000);
+  }
+
   pagosSeleccionados: Pago[] = [];
-  toggleSeleccion(pago: Pago): void {
+
+  toggleSeleccion(pago: any): void {
     pago.seleccionado = !pago.seleccionado;
 
     if (pago.seleccionado) {
-      this.pagosSeleccionados.push(pago);
+      this.pagosSeleccionados.push(pago.id);
     } else {
-      const index = this.pagosSeleccionados.indexOf(pago);
+      const index = this.pagosSeleccionados.indexOf(pago.id);
       if (index !== -1) {
         this.pagosSeleccionados.splice(index, 1);
       }
     }
-    console.log(this.pagosSeleccionados);
+
+
+
   }
 
   handleDateClick(arg: any) {
-    // this.data = arg;
-    // const modal = document.getElementById('myModal');
-    // modal!.style.display = 'block';
     this.data = arg;
-    this.createShow = true;
-
+    let datos = arg.date;
+    let tiempo = moment(new Date()).format('YYYY-MM-DD');
+    datos = moment(datos).format('YYYY-MM-DD');
+    if (moment(tiempo).isAfter(datos)) {
+      return this.utils.openSnackBar('La fecha es anterio a la actual');
+    } {
+      return this.createShow = true;
+    }
   }
 
   closeModal() {
-    console.log('entro a close');
-
-    // Close the modal
-    const modal = document.getElementById('myModal');
-    modal!.style.display = 'none';
+    this.createShow = false;
   }
   show(arg: any) {
-    console.log(arg.event.extendedProps.id);
-
-    // this.router.navigateByUrl('/home/evento/'+arg.event.extendedProps.id);
     this.router.navigate(['/home/evento/', arg.event.extendedProps.id]);
   }
-  obligacion(event){
+  obligacion(event) {
+
+
     if (event.checked) {
-      this.observador = event.checked;
-    }else{
-      this.observador = false;
+      this.check = event.checked;
+      this.lg.value.obligatorio = true;
+      this.lg.get('obligatorio_cant').setValidators(Validators.required);
+    } else {
+      this.check = false;
+      this.lg.value.obligatorio = false;
+      this.lg.get('obligatorio_cant').clearValidators()
     }
-    
+
   }
+
+
+  enabled(): any {
+    if (this.lg.valid) {
+      return false;
+    } {
+      return true;
+    }
+  }
+
+  sendEvent() {
+   let tiempo = moment(new Date()).format('HH:mm');
+    let endtiempo = moment(tiempo, 'HH:mm');
+    let timepo_inicio = moment(this.lg.value.hora_inicio, "HH:mm");
+    if (moment(endtiempo).isAfter(timepo_inicio)) {
+      this.utils.openSnackBar('La hora de inicio es menor a la hora actual');
+
+    } else {
+
+      this.utils.openaAlert('¿Estas seguro de crear el siguiente evento?', 'aprobacion').subscribe(
+        async (params: any) => {
+          if (params) {
+            this.lg.value.fecha = this.data.dateStr;
+            this.userService.newEvent(this.lg, this.user.id,this.pagosSeleccionados).subscribe(
+              async (params: any) => {
+                this.sendNoti(params);
+                this.createNoti(params);
+                this.utils.openSnackBar('Evento creado exitosamente');
+                this.router.navigateByUrl('home/eventos');
+              }, (error) => {
+
+                if (error.error.message) {
+                  this.utils.openSnackBar(error.error.message + ' Evento: ' +error.error.evento_existente.nombre);
+                }else{
+                  this.utils.openSnackBar('Error de conexión');
+                }
+
+              })
+          }
+        }
+      )
+    }
+
+
+  }
+
+  sendNoti(data) {
+    this.auth.getKey().subscribe(
+      async (params: any) => {
+        params.forEach(element => {
+          this.userService.senNotif(data.evento, element).subscribe(
+            async (params: any) => {
+            }
+          );
+        });
+      }
+    )
+  }
+
+  createNoti(data) {
+    this.userService.createNotification(data.evento, 'evento').subscribe(
+      async (params: any) => {
+
+      }, erro => {
+
+      }
+    )
+  }
+
+
 }

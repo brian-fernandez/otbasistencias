@@ -1,212 +1,203 @@
-<div class="container-fluid p-0 m-0" > 
-    <hr>
-    <div class="row">
+<div class="container-fluid p-0 m-0">
+  <hr>
+  <div class="row">
 
-        <form class="example-form" *ngIf="!id">
-            <mat-form-field class="example-full-width w-100" >
-              <mat-label>Busca Afiliado</mat-label>
-              <input type="text"
-                     placeholder="C.I"
-                     aria-label="Busca al afiliado"
-                     matInput
-                     [formControl]="myControl"
-                     [matAutocomplete]="auto"
-                     >
-              <mat-autocomplete (optionSelected)="onOptionSelected($event)" autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </form>
-
-          <div *ngIf="id" >
-            Afiliado
-            <div class="d-flex align-items-center">
-                <img src="../../../assets/img/avatar.jpg" width="30" height="30" alt="" style="border-radius: 50%;object-fit: cover;margin-right: 5px;">
-                <p class="m-0">Brian Fernandez Mercado | 14696249</p>
-                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="closed" class="text-danger cursor" (click)="id = false">Volver</mat-icon>
-            </div>
-          </div>
-          <hr class="m-1">
-        <div class="col-ms-12 col-md-12 col-xl-6" *ngIf="id">
-            <h5>Formulario</h5>
-            <form class="form-floating">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-
-                        <label for="">Nombre</label>
-                        <input type="text" class="form-control no-border" [(ngModel)]="data.name"
-                            [ngModelOptions]="{standalone: true}">
-
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Apellido Completo</label>
-                        <input type="text" class="form-control no-border" id="floatingInputInvalid"
-                            [(ngModel)]="data.lastname" [ngModelOptions]="{standalone: true}">
-                  
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-
-                        <label for="">Correo</label>
-                        <input type="text" class="form-control no-border" [(ngModel)]="data.email"
-                            [ngModelOptions]="{standalone: true}">
-
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Carnet de identidad</label>
-                        <input matInput #input maxlength="8" type="phone" class="form-control no-border"
-                            id="floatingInputInvalid" [(ngModel)]="data.ci" [ngModelOptions]="{standalone: true}">
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Dirección</label>
-                        <input type="text" class="form-control no-border" [(ngModel)]="data.addres"
-                            [ngModelOptions]="{standalone: true}">
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Numero de Domicilio</label>
-                        <input type="text" class="form-control no-border" id="floatingInputInvalid"
-                            [(ngModel)]="data.addresnumber" [ngModelOptions]="{standalone: true}">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Calle</label>
-                          <select class="form-select" aria-label="Default select example" [(ngModel)]="data.street"
-                          [ngModelOptions]="{standalone: true}">
-                            <option value="1">Calle 1</option>
-                            <option value="2">Calle 2</option>
-                            <option value="3">Calle 3</option>
-                            <option value="4">Calle 4</option>
-                            <option value="5">Calle 5</option>
-                            <option value="6">Calle 6</option>
-                            <option value="7">Calle 7</option>
-                            <option value="8">Calle 8</option>
-                            <option value="9">Calle 9</option>
-                            <option value="10">Calle 10</option>
-                            <option value="11">Calle 11</option>
-
-                          </select>
-                    </div>
-
-                  
-                    <div class="col-sm-6 col-md-6 col-xl-6">
-                        <label for="">Contraseña</label>
-                        <input type="password" class="form-control no-border" [(ngModel)]="data.password"
-                            [ngModelOptions]="{standalone: true}">
-
-                    </div>
-
-                </div>
-                <hr>
-              
-            </form>
-            <div>
-                <button class="btn btn-primary mb-2" >Crear</button>
-                <div class="particle"></div>
-            </div>
-        </div>
-        
-        <div class="col-ms-12 col-md-12 col-xl-6" *ngIf="id">
-            <h5>Contacto</h5>
-            <div class="row mt-2">
-                <div class="col-sm-6 col-md-6 col-xl-6">
-                    <label for="">Telefono</label>
-                    <input type="text" class="form-control no-border" [(ngModel)]="data.phone"
-                        [ngModelOptions]="{standalone: true}">
-
-                </div>
-                <div class="col-sm-6 col-md-6 col-xl-6">
-                    <label for="">Celular</label>
-                    <input type="text" class="form-control no-border" id="floatingInputInvalid"
-                        [(ngModel)]="data.callphone" [ngModelOptions]="{standalone: true}">
-                </div>
-            </div>
-            <div class=" row mt-2">
-                <div class="col-sm-12 col-md-12 col-xl-12">
-                    <label for="">Foto</label>
-                    <input type="file" class="form-control no-border" (change)="onFileSelected($event)"
-                        [(ngModel)]="data.photo" [ngModelOptions]="{standalone: true}">
-                </div>
-            </div>
-          <div style="display: none;">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Vista Frontal credencial</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Vista Posterior credencial</button>
-                </li>
-              </ul>
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                    <div class="credential box" id="div1">
-                        <div class="container">
-                            <div class="row  mt-3 p-1">
-                                <hr style="padding-top: 40px;opacity: 0;">
-                                <div class="col-md-6 col-sm-6 col-xl-5  p-3">
-                                    <div *ngIf="imagenUrl">
-                                        <img [src]="imagenUrl" class="avatar m-auto ps-2 d-flex" alt="Imagen seleccionada">
-                                        <div class="row m-auto">
-                                            <div class="col-md-12 col-sm-12 col-xl-12 m-auto ">
-                                                <p class="m-0"><strong>C.I:</strong> {{data.ci}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xl-7  p-3 info-text">
-                                    <p class="m-0"><strong>Nombre:</strong> {{data.name}}</p>
-                                    <p class="m-0"><strong>Apellido:</strong> {{data.lastname}}</p>
-                             
-                                    <p class="m-0 text-truncate" style="max-width: 150px;"><strong>Calle: </strong> <a>{{data.street}}</a> </p>
-                                    <p class="m-0"><strong>Numero de Domicilio:</strong> {{data.addresnumber}}</p>
-                                    <p class="m-0"><strong>Telefono:</strong> {{data.phone}}</p>
-                                    <p class="m-0"><strong>Celular:</strong> {{data.callphone}}</p>
-                                </div>
-                            </div>
-                        </div>
-    
-                    </div>
-
-                </div>
-                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                        <div class="credentialPost box" id="div1">
-                            <div class="container">
-                                <div class="row  mt-3">
-                                    <hr style="padding-top: 40px;opacity: 0;">
-                                    <div class="col-md-12 col-sm-12 col-xl-12 p-3">
-                                        <div >
-                                            <img src="../../../assets/img/qrexample.png" class="avatarQr m-auto d-block" alt="Imagen seleccionada">
-                                            
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-12 col-sm-12col-xl-12 p-3 info-text p-3">
-                                        <p class="m-0 text-center aling-center p-3" *ngIf="data.name">{{data.addres}}</p>
-                                    </div>
-                                </div>
-                            </div>
-        
-                        </div>
-
-                    </div>
-                </div>
-
-              </div>
-          </div>
-
-
-        
-
-            
-
-        </div>
+    <form class="example-form" *ngIf="!id">
+      <mat-form-field class="example-full-width w-100">
+        <mat-label>Busca Afiliado</mat-label>
+        <input type="text" placeholder="C.I" aria-label="Busca al afiliado" matInput [formControl]="stateCtrl"
+          [matAutocomplete]="auto">
+        <mat-autocomplete (optionSelected)="onOptionSelected($event)"   autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option #option *ngFor="let state of filteredStates | async"  (click)="senduser(state)"  [value]="state.ci">
+                        <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="https://api.otb.otbuniversitarioalto.us/{{state.src_foto}}" height="25">
+            <span>{{state.nombre}} {{state.apellido}}</span> |
+            <small>{{state.ci}}</small>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <div *ngIf="id">
+      Afiliado
+      <div class="d-flex align-items-center">
+        <img src="https://api.otb.otbuniversitarioalto.us/{{dataAfiliado?.src_foto}}" width="30" height="30" alt=""
+          style="border-radius: 50%;object-fit: cover;margin-right: 5px;">
+        <p class="m-0">{{dataAfiliado?.nombre}} {{dataAfiliado?.apellido}} | {{dataAfiliado?.ci}}</p>
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="closed" class="text-danger cursor"
+          (click)="cancelSelect()">Volver</mat-icon>
+      </div>
     </div>
-</div> 
+    <hr class="m-1" *ngIf="id">
+
+    <form class="form-floating" [formGroup]="lg" *ngIf="id">
+      <div class="row">
+        <div class="col-ms-12 col-md-12 col-xl-6">
+          <h5>Formulario</h5>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+
+              <label for="">Nombre</label>
+              <input type="text" formControlName="nombre" class="form-control no-border"
+                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*">
+              <p *ngIf="lg.get('nombre').hasError('required')" class="text-danger"> El nombre es obligatorio </p>
+              <p *ngIf="lg.get('nombre').hasError('pattern')" class="text-danger"> El nombre debe contener solo letras.
+              </p>
+
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Apellido Paterno</label>
+              <input type="text" class="form-control no-border" id="floatingInputInvalid" formControlName="apellidop"
+                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*">
+              <p *ngIf="lg.get('apellidop').hasError('required')" class="text-danger"> El apellido paterno es
+                obligatorio </p>
+              <p *ngIf="lg.get('apellidop').hasError('pattern')" class="text-danger"> El apellido debe contener solo
+                letras.</p>
+
+
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Apellido Materno</label>
+              <input type="text" class="form-control no-border" id="floatingInputInvalid" formControlName="apellidom"
+                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*">
+              <p *ngIf="lg.get('apellidom').hasError('required')" class="text-danger"> El apellido materno es
+                obligatorio </p>
+              <p *ngIf="lg.get('apellidom').hasError('pattern')" class="text-danger"> El apellido debe contener solo
+                letras.</p>
+
+
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+
+              <label for="">Correo</label>
+              <input type="email" class="form-control no-border" formControlName="email">
+              <p *ngIf="lg?.controls?.['email'].errors" class="text-danger"> El email no es valido </p>
+
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Carnet de identidad</label>
+              <input matInput #input maxlength="8" type="phone" class="form-control no-border" id="floatingInputInvalid"
+                formControlName="ci" pattern="[0-9]+">
+              <p *ngIf="lg.get('ci').hasError('required')" class="text-danger"> El carnet es requerido</p>
+              <p *ngIf="lg.get('ci').hasError('maxlength')">El maximo es de 8 digitos</p>
+              <p *ngIf="lg.get('ci').hasError('pattern')" class="text-danger"> Por favor, ingresa un número de carnet
+                válido.</p>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Calle</label>
+              <select class="form-select" aria-label="Default select example" formControlName="calle">
+                <option value="calle 1">Calle 1</option>
+                <option value="calle 2">Calle 2</option>
+                <option value="calle 3">Calle 3</option>
+                <option value="calle 4">Calle 4</option>
+                <option value="calle 5">Calle 5</option>
+                <option value="calle 6">Calle 6</option>
+                <option value="calle 7">Calle 7</option>
+                <option value="calle 8">Calle 8</option>
+                <option value="calle 9">Calle 9</option>
+                <option value="calle 10">Calle 10</option>
+                <option value="calle 11">Calle 11</option>
+              </select>
+            </div>
+
+
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Numero de Domicilio</label>
+              <input type="text" class="form-control no-border" id="floatingInputInvalid" formControlName="n_domicilio">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-12 col-md-12 col-xl-12">
+              <label for="">Dirección</label>
+              <textarea type="text" class="form-control no-border" formControlName="direccion"> </textarea>
+            </div>
+          </div>
+
+
+          <div class="row mt-2">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Telefono</label>
+              <input type="text" class="form-control no-border" formControlName="telefono" pattern="[0-9]+">
+              <p *ngIf="lg.get('telefono').hasError('maxlength')">El maximo es de 8 digitos</p>
+              <p *ngIf="lg.get('telefono').hasError('minlength')">El minimo es de 8 digitos</p>
+              <p *ngIf="lg.get('telefono').hasError('pattern')" class="text-danger"> Por favor, ingresa un número de
+                teléfono válido.</p>
+
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Celular</label>
+              <input type="text" class="form-control no-border" formControlName="celular" pattern="[0-9]+">
+              <p *ngIf="lg.get('celular').hasError('required')" class="text-danger"> El celular es requerido</p>
+              <p *ngIf="lg.get('celular').hasError('maxlength')">El maximo es de 7 digitos</p>
+              <p *ngIf="lg.get('celular').hasError('minlength')">El minimo es de 7 digitos</p>
+              <p *ngIf="lg.get('celular').hasError('pattern')" class="text-danger"> Por favor, ingresa un número de
+                celular válido.</p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Contraseña</label>
+              <input type="password" class="form-control no-border" formControlName="contraseña">
+              <p class="text-danger" *ngIf="lg.get('contraseña').hasError('required')">
+                La contraseña es obligatoria.
+              </p>
+
+            </div>
+            <div class="col-sm-6 col-md-6 col-xl-6">
+              <label for="">Confirmar contraseña </label>
+              <input type="password" class="form-control no-border" formControlName="repcontraseña">
+              <p class="text-danger" *ngIf="lg.get('repcontraseña').hasError('required')">
+                Debes confirmar la contraseña.
+              </p>
+              <p class="text-danger" *ngIf="lg.hasError('mismatchedPasswords')">
+                Las contraseñas no coinciden.
+              </p>
+            </div>
+          </div>
+          <hr>
+
+
+          <div>
+            <button class="btn btn-primary mb-2" (click)="send()">Crear</button>
+            <div class="particle"></div>
+          </div>
+        </div>
+
+        <div class="col-ms-12 col-md-12 col-xl-6">
+          <div class=" row mt-2">
+            <div class="col-sm-12 col-md-12 col-xl-12">
+              <h5>Foto</h5>
+              <div class="d-flex body-img">
+
+                <img class="m-auto img-avatar" width="230" height="220" [src]="image" alt="">
+
+                <div *ngIf="statusImg===0" class="button-edit" (click)="openFileDialog()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-upload" viewBox="0 0 16 16">
+                    <path
+                      d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                    <path
+                      d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                  </svg>
+                </div>
+                <div *ngIf="statusImg===1" class="button-renovar text-danger" (click)="reloadimg()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-trash3" viewBox="0 0 16 16">
+                    <path
+                      d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                  </svg>
+                </div>
+              </div>
+              <input #fileInput style="display: none;" type="file" class="form-control no-border"
+                (change)="onFileSelected($event)" formControlName="src_foto" accept="image/jpeg, image/png, image/gif">
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
