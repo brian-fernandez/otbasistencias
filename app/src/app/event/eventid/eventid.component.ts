@@ -8,8 +8,11 @@ import { EventQrComponent } from '../event-qr/event-qr.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
 import { SearchUserComponent } from '../searchUser/searchUser.component';
+import { HttpClient } from '@angular/common/http';
 
-
+const pdfMake = require('pdfmake/build/pdfmake');
+const pdfFonts = require('pdfmake/build/vfs_fonts');
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const moments = require('moment');
 require('moment-timezone');
 export interface UserData {
@@ -24,7 +27,8 @@ export interface UserData {
   updated_at: string
   deleted_at: any
   usuario: Usuario
-  bono: any
+  bono: any,
+  descripcion: any
 }
 
 export interface Usuario {
@@ -43,7 +47,7 @@ export interface Usuario {
 export class EventidComponent implements OnInit {
   active: boolean;
   progress: number;
-  displayedColumns: string[] = ['foto', 'nombrecompleto', 'hora_de_registro', 'estado', 'donacion'];
+  displayedColumns: string[] = ['foto', 'nombrecompleto','Carnet', 'hora_de_registro', 'estado', 'donacion'];
   dataSource: MatTableDataSource<UserData> | any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -56,12 +60,15 @@ export class EventidComponent implements OnInit {
   dataAsunto: any;
   dataAsistencia: any;
   id: any;
+  descrip: any;
+  logo: string;
 
   constructor(private router: Router,
-    private userService:UserService,
+    private userService: UserService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
-    ) {
+    private route: ActivatedRoute,
+    private http:HttpClient
+  ) {
 
 
   }
@@ -71,42 +78,52 @@ export class EventidComponent implements OnInit {
       this.id = params['id'];
       this.getEvento(this.id);
     });
-
+    this.http.get('https://i.ibb.co/Lr9dq7K/Frame-1-2.png', { responseType: 'blob' })
+    .subscribe((blob: Blob) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.logo = reader.result as string;
+      };
+      reader.readAsDataURL(blob);
+    });
   }
 
-    getEvento(id){
-      this.userService.getEventoAsistencia(id).subscribe(
-        async (params:any) => {
-          this.dataEvent = params;
-          this.timestart = this.dataEvent.hora_inicio;
-          this.timeendt = this.dataEvent.hora_fin;
-          if (this.dataEvent.estado === 0) {
-            this.updateProgress();
-          }
-          if (this.dataEvent.estado === 1) {
-            this.percentage = 0;
-          }
-          if (this.dataEvent.estado === 2 ) {
-             this.percentage = 100;
-          }
+  getEvento(id) {
+    this.userService.getEventoAsistencia(id).subscribe(
+      async (params: any) => {
+        this.dataEvent = params;
+        this.descrip = params.descripcion;
+        console.log(this.dataEvent);
 
-
-
-
-
-
-          this.dataAsunto = params.asuntos;
-
-
-          this.dataAsistencia = params.asistencias;
-
-
-          this.dataSource = new MatTableDataSource(this.dataAsistencia);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+        this.timestart = this.dataEvent.hora_inicio;
+        this.timeendt = this.dataEvent.hora_fin;
+        if (this.dataEvent.estado === 0) {
+          this.updateProgress();
         }
-      )
-    }
+        if (this.dataEvent.estado === 1) {
+          this.percentage = 0;
+        }
+        if (this.dataEvent.estado === 2) {
+          this.percentage = 100;
+        }
+
+
+
+
+
+
+        this.dataAsunto = params.asuntos;
+
+
+        this.dataAsistencia = params.asistencias;
+
+
+        this.dataSource = new MatTableDataSource(this.dataAsistencia);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    )
+  }
 
 
 
@@ -134,7 +151,7 @@ export class EventidComponent implements OnInit {
 
       if (this.percentage < 100) {
         setTimeout(() => this.updateProgress(), 1000);
-      }else{
+      } else {
         this.getEvento(this.id);
       }
     } else {
@@ -183,8 +200,8 @@ export class EventidComponent implements OnInit {
   }
 
 
-  viewprofile(id){
-    this.router.navigate(['home/perfil/',id]);
+  viewprofile(id) {
+    this.router.navigate(['home/perfil/', id]);
   }
 
 
@@ -195,7 +212,7 @@ export class EventidComponent implements OnInit {
     const dialogRef = this.dialog.open(EventQrComponent, {
       width: '90%',
       height: '500px',
-      data: {idAsunto: this.id,},
+      data: { idAsunto: this.id, },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -203,7 +220,7 @@ export class EventidComponent implements OnInit {
       if (result === true) {
 
 
-          this.getEvento(this.id);
+        this.getEvento(this.id);
       }
     });
 
@@ -212,12 +229,10 @@ export class EventidComponent implements OnInit {
 
 
   searchUser() {
-    console.log('hola');
-
     const dialogRef = this.dialog.open(SearchUserComponent, {
       width: '90%',
       height: '500px',
-      data: {idAsunto: this.id,},
+      data: { idAsunto: this.id, },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -225,9 +240,116 @@ export class EventidComponent implements OnInit {
       if (result === true) {
 
 
-          this.getEvento(this.id);
+        this.getEvento(this.id);
       }
     });
 
+  }
+
+
+  pdf() {
+
+    let eventoData = this.dataEvent;
+    console.log(eventoData);
+
+
+    const asistenciaRows = eventoData.asistencias.map((asistencia, index) => {
+      let estadoText = asistencia.estado === 0 ? 'No asistio' : 'Asistio';
+      let fechaText = asistencia.estado === 0 ? '-' : asistencia.fecha;
+
+      return [
+        { text: (index + 1).toString(), style: 'tableCell' }, // Columna de contador
+        { text: `${asistencia.usuario.nombre} ${asistencia.usuario.apellido}`, style: 'tableCell' },
+        { text: `${asistencia.usuario.ci}`, style: 'tableCell' },
+        { text: estadoText, style: 'tableCell' },
+        { text: fechaText, style: 'tableCell' }
+      ];
+    });
+    const tableLayout = {
+      hLineWidth: function (i, node) {
+        return (i === 0 || i === node.table.body.length) ? 0 : 1;
+      },
+      vLineWidth: function (i) {
+        return 0;
+      },
+      hLineColor: function (i, node) {
+        return (i === 0 || i === node.table.body.length) ? 'white' : 'gray';
+      },
+      paddingLeft: function(i) { return 5; },
+      paddingRight: function(i) { return 5; },
+      paddingTop: function(i) { return 2; },
+      paddingBottom: function(i) { return 2; }
+    };
+    const tableHeaders = [
+      { text: '#', style: 'tableHeader' },
+      { text: 'Nombre completo', style: 'tableHeader' },
+      { text: 'C.I', style: 'tableHeader' },
+      { text: 'Estado', style: 'tableHeader' },
+
+      { text: 'Fecha', style: 'tableHeader' }
+    ];
+
+    const tableBody = asistenciaRows;
+
+    const tableContent = [tableHeaders, ...tableBody];
+
+
+
+    let documentDefinition:any;
+
+     documentDefinition = {
+      content: [
+        {
+          alignment: 'right',
+          stack: [
+            { image: this.logo,width: 30, height: 30 },
+            { text: 'OTB Barrio Universitario Alto\nAvenida Petrolera Km 3 1/2\nCochabamba - Bolivia' }
+          ],
+        },
+        { text: 'Detalles del Evento', style: 'header', alignment: 'center' },
+        { text: `Nombre: ${eventoData.nombre}` },
+        { text: `Fecha: ${eventoData.fecha} : ${eventoData.hora_inicio} - ${eventoData.hora_fin} ` },
+        { text: `Lugar: ${eventoData.lugar}` },
+        { text: 'Descripción:', style: 'subheader' },
+        { text: eventoData.descripcion },
+        { text: 'Lista de asistencia:', style: 'subheader' },
+        {
+          style: 'tableExample',
+          table: {
+            widths: ['auto', 'auto', 'auto','*', '*'], // Anchos de las columnas
+            headerRows: 1,
+            body: tableContent,
+            layout: tableLayout
+          }
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableExample: {
+          margin: [0, 5, 0, 15]
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 12,
+          color: 'black'
+        },
+        tableCell: {
+          fontSize: 10,
+          color: 'black'
+        }
+      }
+    };
+
+    const pdfDoc = pdfMake.createPdf(documentDefinition);
+    pdfDoc.open();
   }
 }

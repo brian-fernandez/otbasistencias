@@ -33,7 +33,7 @@ public dialog: MatDialog
     let objetoRecuperado: any = null;
 
     if (miObjetoRecuperado !== null) {
-      objetoRecuperado = JSON.parse(miObjetoRecuperado);
+      objetoRecuperado = miObjetoRecuperado;
     }
     return this.user= objetoRecuperado;
 
@@ -80,10 +80,19 @@ public dialog: MatDialog
   }
 
   convertPDF(html,titulo){
+
+//     const canvasWidth = 3000; // Cambia esto al ancho deseado
+// const canvasHeight =3000; // Cambia esto a la altura deseada
+    const canvasWidth = 2412; // Cambia esto al ancho deseado
+const canvasHeight =6392; // Cambia esto a la altura deseada
+const canvas = document.createElement('canvas');
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
     const DATA: any = document.getElementById(html);
 
-    const doc = new jsPDF('portrait', 'px', 'Letter');
+    const doc = new jsPDF('portrait', 'pt', 'letter'); // Cambiar 'px' por 'pt' y 'Letter' por 'letter'
     const options = {
+      canvas:canvas,
       background: 'white',
       scale: 3
     };
@@ -110,8 +119,6 @@ public dialog: MatDialog
       }
       return doc;
     }).then((docResult) => {
-   
-
       switch (titulo) {
         case 1:
           docResult.save(`${new Date().toISOString()}_perfil.pdf`);

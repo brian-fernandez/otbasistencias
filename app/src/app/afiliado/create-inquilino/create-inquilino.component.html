@@ -9,7 +9,7 @@
           [matAutocomplete]="auto">
         <mat-autocomplete (optionSelected)="onOptionSelected($event)"   autoActiveFirstOption #auto="matAutocomplete">
           <mat-option #option *ngFor="let state of filteredStates | async"  (click)="senduser(state)"  [value]="state.ci">
-                        <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="https://api.otb.otbuniversitarioalto.us/{{state.src_foto}}" height="25">
+                        <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="{{state.src_foto}}" height="25">
             <span>{{state.nombre}} {{state.apellido}}</span> |
             <small>{{state.ci}}</small>
           </mat-option>
@@ -19,7 +19,7 @@
     <div *ngIf="id">
       Afiliado
       <div class="d-flex align-items-center">
-        <img src="https://api.otb.otbuniversitarioalto.us/{{dataAfiliado?.src_foto}}" width="30" height="30" alt=""
+        <img src="{{dataAfiliado?.src_foto}}" width="30" height="30" alt=""
           style="border-radius: 50%;object-fit: cover;margin-right: 5px;">
         <p class="m-0">{{dataAfiliado?.nombre}} {{dataAfiliado?.apellido}} | {{dataAfiliado?.ci}}</p>
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="closed" class="text-danger cursor"

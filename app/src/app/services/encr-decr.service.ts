@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 @Injectable({
   providedIn: 'root'
 })
 export class EncrDecrService {
 
-  constructor() { }
+  constructor(
+    private router:Router
+  ) { }
 
-  set(keys:any, value:any){
-    var key = CryptoJS.enc.Utf8.parse(keys);
+  set(keys:any, value:any):any{
+    try {
+      var key = CryptoJS.enc.Utf8.parse(keys);
     var iv = CryptoJS.enc.Utf8.parse(keys);
     var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(value.toString()),key,
     {
@@ -19,9 +23,13 @@ export class EncrDecrService {
 
     });
     return encrypted.toString();
+    } catch (error) {
+        this.router.navigateByUrl('loading')
+    }
   }
 
-  get(keys:any,value:any){
+  get(keys:any,value:any):any{
+   try {
     var key = CryptoJS.enc.Utf8.parse(keys);
     var iv = CryptoJS.enc.Utf8.parse(keys);
     var deecrypted = CryptoJS.AES.decrypt(value,key,
@@ -33,6 +41,10 @@ export class EncrDecrService {
 
     });
     return deecrypted.toString(CryptoJS.enc.Utf8);
-  }
 
+   } catch (error) {
+    this.router.navigateByUrl('loading')
+   }
+
+}
 }

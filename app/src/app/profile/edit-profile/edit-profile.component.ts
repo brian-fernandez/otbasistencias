@@ -125,9 +125,14 @@ export class EditProfileComponent implements OnInit {
           }
           this.userService.editUser(this.id,formData,this.datauser.src_foto).subscribe(
             async (params:any) => {
+              if (this.datauser.statusId === 1) {
+                const formData2 = new FormData();
+                formData2.append('key', "eb7e36f522b9441a645e4f1714c121b4");
+                formData2.append('image', this.datauser.src_foto);
+                this.uploadImg(formData2,this.id);
+              }
               this.utils.openSnackBar(params.message);
-              this.getUser(this.id);
-              this.statusImg = 0;
+
             }, err => {
 
 
@@ -137,7 +142,27 @@ export class EditProfileComponent implements OnInit {
       } )
 
     }
+    uploadImg(img,id){
 
+
+      this.userService.subdominioimg(img).subscribe(
+        async (params:any) => {
+          console.log(params);
+
+          this.userService.uploadImg(params.data.url,id).subscribe(
+            async (params:any) => {
+              this.getUser(this.id);
+              this.statusImg = 0;
+
+
+            }
+          )
+
+        }
+      )
+
+
+    }
     editCarnet(){
       this.utils.openaAlert('¿Seguro que desea guardar los cambios?','alerta').subscribe(result =>{
         if (result) {
@@ -170,7 +195,7 @@ export class EditProfileComponent implements OnInit {
           }
          )
         } else {
-        
+
         }
       });
 

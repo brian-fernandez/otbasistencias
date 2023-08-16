@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/Utils.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -19,6 +19,7 @@ export class CreateAfiliadoComponent {
   lg:FormGroup;
   statusImg:any;
   image: string;
+  idcreate: any;
   constructor(private sanitizer: DomSanitizer,
     private fb:FormBuilder,
     private userService:UserService,
@@ -114,10 +115,21 @@ this.statusImg=0;
         if (result) {
           this.userService.registerAfiliado(formData).subscribe(
             async (params:any) => {
+              console.log(params);
 
-                this.router.navigate(['/home/perfil/',params.id]);
+              if (this.data.statusId === 1) {
+                const formData2 = new FormData();
+                formData2.append('key', "eb7e36f522b9441a645e4f1714c121b4");
+                formData2.append('image', this.data.src_foto);
+                this.uploadImg(formData2,params.id);
+                this.idcreate = params.id;
+              }else{
+                this.router.navigate(['/home/perfil/',this.idcreate.id]);
+              }
+
+
             } ,(error)=>{
-              this.router.navigate(['/home/lista']);
+
 
 
             }
@@ -125,6 +137,28 @@ this.statusImg=0;
         }
       }
     )
+
+  }
+
+  uploadImg(img,id){
+
+
+    this.userService.subdominioimg(img).subscribe(
+      async (params:any) => {
+        this.userService.uploadImg(params.data.url,id).subscribe(
+          async (params:any) => {
+            console.log(params);
+
+            this.router.navigate(['/home/perfil/',this.idcreate.id]);
+
+          },err =>{
+            this.router.navigate(['/home/perfil/',this.idcreate.id]);
+          }
+        )
+
+      }
+    )
+
 
   }
 }

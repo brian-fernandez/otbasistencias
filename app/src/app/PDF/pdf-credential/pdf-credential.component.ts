@@ -5,6 +5,7 @@ import { EncrDecrService } from 'src/app/services/encr-decr.service';
 import { UserService } from 'src/app/services/user.service';
 import { Keysecret } from "./../../config/secretKeys";
 import { HttpClient } from '@angular/common/http';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-pdf-credential',
   templateUrl: './pdf-credential.component.html',
@@ -23,7 +24,17 @@ export class PdfCredentialComponent implements OnInit {
     private route: ActivatedRoute,
     private UserService:UserService,
     private encript:EncrDecrService,
-    private http:HttpClient) { }
+    private http:HttpClient,
+    private breakpointObserver: BreakpointObserver) {
+
+
+        this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.HandsetPortrait]).subscribe(result => {
+          if (result.matches) {
+           console.log('holaa');
+
+          }
+        });
+    }
   data:any;
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -56,8 +67,18 @@ export class PdfCredentialComponent implements OnInit {
           this.data = params.user;
 
           this.myAngularxQrCode = this.encript.set(this.Key,this.data.id);
+          // this.UserService.imageGet().subscribe(
+          //   async (params:any) => {
+          //     console.log(params);
 
-          this.http.get('https://api.otb.otbuniversitarioalto.us/'+ this.data?.src_foto , { responseType: 'blob' })
+          //     this.imagenDataUrl = params;
+
+          //   }, error =>{
+          //     console.log(error);
+
+          //   })
+          // )
+          this.http.get(this.data.src_foto , { responseType: 'blob' })
           .subscribe((blob: Blob) => {
             const reader = new FileReader();
             reader.onload = () => {

@@ -33,6 +33,7 @@ export class CreateInquilinoComponent {
   statusImg: number;
   filteredStates: Observable<any>;
   dataAfiliado: any;
+  idcreate: any;
 
   constructor(
     private fb: FormBuilder,
@@ -172,8 +173,16 @@ cancelSelect(){
         if (result) {
           this.userService.registerAfiliado(formData).subscribe(
             async (params: any) => {
+              if (this.data.statusId === 1) {
+                const formData2 = new FormData();
+                formData2.append('key', "eb7e36f522b9441a645e4f1714c121b4");
+                formData2.append('image', this.data.src_foto);
+                this.uploadImg(formData2,params.id);
+                this.idcreate = params.id;
+              }else{
+                this.router.navigate(['/home/perfil/',this.idcreate.id]);
+              }
 
-              this.router.navigate(['/home/perfil/', params.id]);
             }, (error) => {
 
             }
@@ -183,5 +192,28 @@ cancelSelect(){
     )
 
   }
+  uploadImg(img,id){
 
+
+    this.userService.subdominioimg(img).subscribe(
+      async (params:any) => {
+        console.log(params);
+
+        this.userService.uploadImg(params.data.url,id).subscribe(
+          async (params:any) => {
+            this.router.navigate(['/home/perfil/', this.idcreate]);
+              console.log(params);
+
+          }
+        ),error =>{
+
+            this.router.navigate(['/home/perfil/',this.idcreate.id]);
+
+        }
+
+      }
+    )
+
+
+  }
 }

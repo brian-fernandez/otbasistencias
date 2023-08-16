@@ -32,7 +32,7 @@
             <!-- Progress Column -->
             <ng-container matColumnDef="nombre">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-              <td mat-cell *matCellDef="let row"> <p class="text-primary cursor" (click)="showprofile(row.usuarios_con_multas[0].id)">{{row.usuarios_con_multas[0].nombre}}  {{row.usuarios_con_multas[0].apellido}}</p> </td>
+              <td mat-cell *matCellDef="let row"> <p class="text-primary cursor" (click)="showprofile(row.usuarios_con_multas[0].id)">{{row.usuarios_con_multas[0]?.nombre}}  {{row.usuarios_con_multas[0]?.apellido}}</p> </td>
             </ng-container>
 
             <!-- Name Column -->

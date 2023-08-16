@@ -4,11 +4,14 @@ import { UrlPathService } from './urlPath.service';
 import { UtilsService } from './Utils.service';
 import { Observable, catchError, of, tap, throwError } from 'rxjs';
 import * as moment from 'moment';
+import { EncrDecrService } from './encr-decr.service';
+import { Keysecret } from '../config/secretKeys';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private Key = Keysecret.key;
   path: any;
   errorNoInternetMsg: string;
   user: any;
@@ -16,26 +19,30 @@ export class UserService {
   pathUser: any;
   httpOptionsForm: { headers: HttpHeaders; };
   httpOptionsTokenPush: { headers: HttpHeaders; };
+  token: string;
 
 
 
   constructor(
     private http: HttpClient,
     private paths: UrlPathService,
-    private utils: UtilsService) {
+    private utils: UtilsService,
+    private Encrypt:EncrDecrService) {
+    this.token =  localStorage.getItem('token');
+      this.token =  this.Encrypt.get(this.Key,this.token);
 
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+localStorage.getItem('token')
+        'Authorization': 'Bearer ' + this.token
       })
     }
     this.httpOptionsForm = {
       headers: new HttpHeaders({
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json',
-        'Authorization': 'Bearer '+localStorage.getItem('token')
+        'Authorization': 'Bearer ' + this.token
       })
     }
     this.httpOptionsTokenPush = {
@@ -54,36 +61,49 @@ export class UserService {
   }
 
 
+  updateToken() {
+    this.token =  localStorage.getItem('token');
+      this.token =  this.Encrypt.get(this.Key,this.token);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
+      })
+    };
+    return httpOptions;
+  }
   guard(data) {
 
     localStorage.setItem('dataUser', JSON.stringify(data));
 
   }
 
+  verificarUsuario(id): Observable<any> {
+
+
+    return this.http.post(this.pathUser + 'usuarios/verificarUsuario/'+ id,{})
+      .pipe(
+        tap((responseData: any) => {
+          return of (responseData); // Retornar la respuesta del servidor
+        }),
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+
+  }
   registerAfiliado(data): Observable<any> {
-    // let body={
-    //   "nombre": data.value.nombre ,
-    //   "apellido": data.value.apellido,
-    //   "direccion": data.value.direccion,
-    //   "celular": data.value.celular,
-    //   "telefono": data.value.telefono,
-    //   "email":  data.value.email,
-    //   "n_domicilio":  data.value.n_domicilio,
-    //   "calle":  data.value.calle,
-    //   "password":  data.value.contraseña,
-    //   "ci":  data.value.ci
-    // }
 
 
     return this.http.post(this.pathUser + 'usuarios/createUser', data)
-    .pipe(
-      tap((responseData: any) => {
-        return responseData; // Retornar la respuesta del servidor
-      }),
-      catchError((error) => {
-        return throwError(error);
-      })
-    );
+      .pipe(
+        tap((responseData: any) => {
+          return of (responseData); // Retornar la respuesta del servidor
+        }),
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
 
   }
 
@@ -93,7 +113,7 @@ export class UserService {
   }
 
   getId(id: any): Observable<any> {
-    return this.http.post(this.pathUser + 'usuario/show/' + id, {}, this.httpOptions)
+    return this.http.post(this.pathUser + 'usuario/show/' + id, {}, this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -114,7 +134,7 @@ export class UserService {
 
     }
 
-    return this.http.post(this.pathUser + 'usuario/changePassword', body, this.httpOptions)
+    return this.http.post(this.pathUser + 'usuario/changePassword', body, this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -127,7 +147,7 @@ export class UserService {
   }
 
   getUserEdit(id) {
-    return this.http.post(this.pathUser + 'usuario/showUser/' + id, {}, this.httpOptions)
+    return this.http.post(this.pathUser + 'usuario/showUser/' + id, {}, this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -141,7 +161,7 @@ export class UserService {
   }
 
   getMultasUserid(id): Observable<any> {
-    return this.http.post(this.pathUser + 'usuario/listaMultas/' + id, {}, this.httpOptions)
+    return this.http.post(this.pathUser + 'usuario/listaMultas/' + id, {}, this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -157,7 +177,7 @@ export class UserService {
     const body = {
       "ci": carnet
     }
-    return this.http.post(this.pathUser + 'usuario/updateCarnet/' + id, body, this.httpOptions)
+    return this.http.post(this.pathUser + 'usuario/updateCarnet/' + id, body, this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -170,7 +190,7 @@ export class UserService {
   }
 
   editUser(id, data, foto): Observable<any> {
-    return this.http.post(this.pathUser + 'usuarios/edicionUsuario/' + id, data )
+    return this.http.post(this.pathUser + 'usuarios/edicionUsuario/' + id, data)
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -184,7 +204,7 @@ export class UserService {
 
 
   getlist() {
-    return this.http.get(this.pathUser + 'usuario/listUser', this.httpOptions)
+    return this.http.get(this.pathUser + 'usuario/listUser', this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -197,7 +217,7 @@ export class UserService {
       );
   }
   getAfiliado() {
-    return this.http.get(this.pathUser + 'usuario/listAfiliado', this.httpOptions)
+    return this.http.get(this.pathUser + 'usuario/listAfiliado', this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -210,7 +230,7 @@ export class UserService {
       );
   }
   getAfiliadoPagos() {
-    return this.http.get(this.pathUser + 'usuario/listAfiliadosPagos', this.httpOptions)
+    return this.http.get(this.pathUser + 'usuario/listAfiliadosPagos', this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -224,7 +244,7 @@ export class UserService {
   }
 
   listCargo() {
-    return this.http.get(this.pathUser + 'cargo/list', this.httpOptions)
+    return this.http.get(this.pathUser + 'cargo/list', this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -236,7 +256,7 @@ export class UserService {
   }
 
   listUserAll() {
-    return this.http.get(this.pathUser + 'usuario/listAfiliadoAll', this.httpOptions)
+    return this.http.get(this.pathUser + 'usuario/listAfiliadoAll', this.updateToken())
       .pipe
       (
         tap((data: any) => {
@@ -252,7 +272,7 @@ export class UserService {
     const body = {
       "cargo_id": idrol
     }
-    return this.http.put(this.pathUser + 'cargo/asignar/' + idusuario + '/asignarRol', body, this.httpOptions)
+    return this.http.put(this.pathUser + 'cargo/asignar/' + idusuario + '/asignarRol', body, this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -264,7 +284,7 @@ export class UserService {
   }
 
   setEstado(id): Observable<any> {
-    return this.http.post(this.pathUser + 'usuario/' + id + '/activate',{}, this.httpOptions)
+    return this.http.post(this.pathUser + 'usuario/' + id + '/activate', {}, this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -278,8 +298,8 @@ export class UserService {
 
   //eventos
 
-  getEventosEnCurso():Observable<any>{
-    return this.http.get(this.pathUser + 'eventos/getEventosEnCurso', this.httpOptions)
+  getEventosEnCurso(): Observable<any> {
+    return this.http.get(this.pathUser + 'eventos/getEventosEnCurso', this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -292,7 +312,7 @@ export class UserService {
   }
 
   getlistEvent(): Observable<any> {
-    return this.http.get(this.pathUser + 'eventos/showlist', this.httpOptions)
+    return this.http.get(this.pathUser + 'eventos/showlist', this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);
@@ -325,7 +345,7 @@ export class UserService {
       body.obligatorio_cant = data.value.obligatorio_cant;
     }
 
-    return this.http.post(this.pathUser + 'eventos/create', body, this.httpOptions)
+    return this.http.post(this.pathUser + 'eventos/create', body, this.updateToken())
       .pipe(
         tap((data: any) => {
 
@@ -349,7 +369,7 @@ export class UserService {
     const body = {
       "to": key,
       "notification": {
-        "body": fecha + '\n' + hora_inicio + ' - ' + hora_fin + '\n ' + data.lugar + ' \n' + data.descripcion,
+        "body": fecha + '\n' + hora_inicio + ' - ' + hora_fin + '\n ' + data.lugar  + ' \n' + data.descripcion,
         "idEvent": data.id,
         "content_available": true,
         "priority": "high",
@@ -383,7 +403,7 @@ export class UserService {
       "id_ty": data.id
     }
 
-    return this.http.post(this.pathUser + 'usuario/createNotificaton', body, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'usuario/createNotificaton', body, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -399,7 +419,7 @@ export class UserService {
 
   getCategoria(): Observable<any> {
 
-    return this.http.get(this.pathUser + 'eventos/listcategorias', this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'eventos/listcategorias', this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -411,7 +431,7 @@ export class UserService {
 
   getEventsActive(): Observable<any> {
 
-    return this.http.get(this.pathUser + 'eventos/showlistActive', this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'eventos/showlistActive', this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -432,7 +452,7 @@ export class UserService {
       "idevento": data.value.idevento,
       "fecha": new Date()
     }
-    return this.http.post(this.pathUser + 'eventos/createAsunto', body, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'eventos/createAsunto', body, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -451,7 +471,7 @@ export class UserService {
       "id_categoria": data.value.id_categoriae,
       "idevento": data.value.ideventoe,
     }
-    return this.http.post(this.pathUser + 'eventos/updateAsunto/' + id, body, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'eventos/updateAsunto/' + id, body, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -462,7 +482,7 @@ export class UserService {
 
   deletedAsunto(id): Observable<any> {
 
-    return this.http.delete(this.pathUser + 'eventos/deletedAsunto/' + id, this.httpOptions).pipe(
+    return this.http.delete(this.pathUser + 'eventos/deletedAsunto/' + id, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -474,7 +494,7 @@ export class UserService {
 
   getListEvents(): Observable<any> {
 
-    return this.http.get(this.pathUser + 'eventos/listAsuntos', this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'eventos/listAsuntos', this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -488,7 +508,7 @@ export class UserService {
 
   getEventoAsistencia(id): Observable<any> {
 
-    return this.http.get(this.pathUser + 'eventos/eventId/' + id, this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'eventos/eventId/' + id, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -507,7 +527,7 @@ export class UserService {
 
     }
 
-    return this.http.post(this.pathUser + 'eventos/crearAsistencia', body, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'eventos/crearAsistencia', body, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -520,7 +540,7 @@ export class UserService {
 
   //pagos
   getPagos(): Observable<any> {
-    return this.http.get(this.pathUser + 'eventos/getMultas', this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'eventos/getMultas', this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -530,7 +550,7 @@ export class UserService {
   }
 
   newPagos(data): Observable<any> {
-    return this.http.post(this.pathUser + 'usuario/pagarMultas', data, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'usuario/pagarMultas', data, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -540,7 +560,7 @@ export class UserService {
   }
 
   getpagoid(id): Observable<any> {
-    return this.http.get(this.pathUser + 'usuario/pagos/' + id + '/multas', this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'usuario/pagos/' + id + '/multas', this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -555,7 +575,7 @@ export class UserService {
 
 
   getDonacion(id): Observable<any> {
-    return this.http.post(this.pathUser + 'usuario/listaAportes/' + id,{}, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'usuario/listaAportes/' + id, {}, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -569,8 +589,8 @@ export class UserService {
 
   //reportes
 
-  getUsersReportsG(){
-    return this.http.get(this.pathUser + 'eventos/getUsersChartData', this.httpOptions).pipe(
+  getUsersReportsG() {
+    return this.http.get(this.pathUser + 'eventos/getUsersChartData', this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -579,9 +599,9 @@ export class UserService {
     )
 
   }
-  getActiveUsersChartData(){
+  getActiveUsersChartData() {
 
-    return this.http.get(this.pathUser + 'eventos/getActiveUsersChartData', this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'eventos/getActiveUsersChartData', this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -590,9 +610,9 @@ export class UserService {
     )
   }
 
-  getEventosPorMes(year){
+  getEventosPorMes(year) {
 
-    return this.http.get(this.pathUser + 'eventos/getEventosPorMes/'+year, this.httpOptions).pipe(
+    return this.http.get(this.pathUser + 'eventos/getEventosPorMes/' + year, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -601,8 +621,8 @@ export class UserService {
     )
   }
 
-  getBonosPorMes(year){
-    return this.http.get(this.pathUser + 'eventos/getBonosPorMes/'+year, this.httpOptions).pipe(
+  getBonosPorMes(year) {
+    return this.http.get(this.pathUser + 'eventos/getBonosPorMes/' + year, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -612,14 +632,14 @@ export class UserService {
   }
 
 
-  getUsersByFilters(data):Observable<any>{
+  getUsersByFilters(data): Observable<any> {
     const body = {
-      tipo : data.tipo ,
+      tipo: data.tipo,
       estado: data.estado,
       calle: data.calle,
     }
 
-    return this.http.post(this.pathUser + 'usuario/getUsersByFilters',body, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'usuario/getUsersByFilters', body, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
@@ -627,66 +647,98 @@ export class UserService {
       })
     )
   }
-  getEventsWithAttendance(data):Observable<any>{
+  getEventsWithAttendance(data): Observable<any> {
     const body = {
-      estado:data.estado,
-      monto_recaudado_min:data.monto_recaudado_min,
-      monto_recaudado_max:"1000",
-      fecha_inicio : moment(data.fecha_inicio).format('YYYY-MM-DD'),
+      estado: data.estado,
+      monto_recaudado_min: data.monto_recaudado_min,
+      monto_recaudado_max: "1000",
+      fecha_inicio: moment(data.fecha_inicio).format('YYYY-MM-DD'),
       fecha_fin: moment(data.fecha_final).format('YYYY-MM-DD')
     }
 
 
 
-    return this.http.post(this.pathUser + 'usuario/getEventsWithAttendance',body, this.httpOptions).pipe(
+    return this.http.post(this.pathUser + 'usuario/getEventsWithAttendance', body, this.updateToken()).pipe(
       tap((data: any) => {
         return of(data);
       }), catchError((error) => {
         return throwError(error);
       })
-      )
+    )
+  }
+
+
+
+  countActiveUsers(): Observable<any> {
+
+
+    return this.http.get(this.pathUser + 'usuario/countActiveUsers', this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
+  }
+  countEventsThisMonth(): Observable<any> {
+
+
+    return this.http.get(this.pathUser + 'usuario/countEventsThisMonth', this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
+  }
+  montoRecaudadoMesActual(): Observable<any> {
+
+
+    return this.http.get(this.pathUser + 'usuario/montoRecaudadoMesActual', this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
+  }
+
+  uploadImg(img, id): Observable<any> {
+
+    const body = {
+      "src_foto":img
     }
+    return this.http.post(this.pathUser + 'usuarios/updateProfileImage/' + id, body, this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
 
+  }
 
+  imageGet(): Observable<any> {
+    return this.http.get('https://res.cloudinary.com/dhiakxvol/image/upload/v1692078245/samples/usuarios/16794942523147_t6zydr.jpg', this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
 
-    countActiveUsers():Observable<any>{
+  }
 
+  subdominioimg(img) {
 
-        return this.http.get(this.pathUser + 'usuario/countActiveUsers', this.httpOptions).pipe(
-          tap((data: any) => {
-            return of(data);
-          }), catchError((error) => {
-            return throwError(error);
-          })
-        )
-      }
-      countEventsThisMonth():Observable<any>{
-
-
-        return this.http.get(this.pathUser + 'usuario/countEventsThisMonth', this.httpOptions).pipe(
-          tap((data: any) => {
-            return of(data);
-          }), catchError((error) => {
-            return throwError(error);
-          })
-        )
-      }
-      montoRecaudadoMesActual():Observable<any>{
-
-
-        return this.http.get(this.pathUser + 'usuario/montoRecaudadoMesActual', this.httpOptions).pipe(
-          tap((data: any) => {
-            return of(data);
-          }), catchError((error) => {
-            return throwError(error);
-          })
-        )
-      }
-
-
-
-
-
+    return this.http.post('https://api.imgbb.com/1/upload',img).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
+  }
 }
 
 

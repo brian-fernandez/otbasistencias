@@ -13,7 +13,7 @@
                  >
           <mat-autocomplete #seleccion (optionSelected)="onOptionSelected($event)" autoActiveFirstOption #auto="matAutocomplete">
             <mat-option  *ngFor="let state of filteredStates  | async" (click)="send(state)"  [value]="state.ci"  >
-              <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="https://api.otb.otbuniversitarioalto.us/{{state.src_foto}}" height="25">
+              <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="{{state.src_foto}}" height="25">
         <span>{{state.nombre}} {{state.apellido}}</span> |
         <small>{{state.ci}}</small>
             </mat-option>
@@ -41,7 +41,7 @@
                 </svg> Añadir rol</button>
 
               </li>
-              <li class="list-group-item m-auto"><img src="https://api.otb.otbuniversitarioalto.us/{{select.src_foto}}" style="width: 100%;height: 250px;" alt=""></li>
+              <li class="list-group-item m-auto"><img src="{{select.src_foto}}" style="width: 100%;height: 250px;" alt=""></li>
             </ul>
 
           </div>

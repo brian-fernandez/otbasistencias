@@ -82,3 +82,11 @@ line-height: 120%; /* 31.2px */
     background: #F8F8F8;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.07);
 }
+
+
+
+@media only screen and (max-width: 600px) {
+  .bbt {
+    display: none !important;
+  }
+}

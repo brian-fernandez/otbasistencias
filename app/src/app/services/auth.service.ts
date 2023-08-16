@@ -12,6 +12,7 @@ export class AuthService {
   errorNoInternetMsg: string;
   user: any;
   httpOptions: { headers: any; };
+  httpOptions2: { headers: any; };
   pathUser: string;
   constructor(
     private http: HttpClient,
@@ -22,6 +23,14 @@ export class AuthService {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'key=AAAAA9lcCxc:APA91bHJ06IzJz6fGj2HmcKJOEFeHAOaUnR0yIAZ5a8mI0bCm1tNJHyVxHEu4cglPu14IGAjnFkRFDCHImDcHOcSSEWrx0aSlJFWLePll1ibbA99EMkqdykqRExGWdSJJ9uMaHIsSqer'
+      })
+    }
+
+    this.httpOptions2 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
       })
     }
 
@@ -52,18 +61,18 @@ export class AuthService {
 
   guard(data) {
 
-    localStorage.setItem('dataUser', JSON.stringify(data));
+    localStorage.setItem('dataUser', data);
 
   }
 
 
   get() {
-    return JSON.parse(localStorage.getItem('dataUser'));
+    return localStorage.getItem('dataUser');
   }
 
   getKey(): Observable<any> {
 
-    return this.http.get(this.pathUser + 'usuario/sendNotification',)
+    return this.http.get(this.pathUser + 'usuario/sendNotification', this.httpOptions2)
       .pipe(
         tap((data: any) => {
           return of(data);

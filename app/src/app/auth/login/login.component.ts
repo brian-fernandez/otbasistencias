@@ -43,14 +43,18 @@ export class LoginComponent  implements OnInit {
     this.auth.login(this.login.ci,this.login.password).subscribe(
       async (params:any) => {
 
-         this.auth.guard(params.user)
-          localStorage.setItem('token',params.access_token);
+          localStorage.setItem('dataUser',this.Encrypt.set(this.Key,params.user.id));
+          localStorage.setItem('token',this.Encrypt.set(this.Key,params.access_token));
           this.utils.openSnackBar('Bienvenido ' + params.user.nombre);
+          console.log('entro');
+
           this.router.navigateByUrl('/loading');
+
       }, (error) =>{
         if (error.error.message) {
           this.utils.openSnackBar(error.error.message);
         }else{
+
           this.utils.openSnackBar('Credenciales erroneas');
         }
 

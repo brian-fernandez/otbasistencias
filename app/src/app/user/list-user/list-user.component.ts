@@ -98,7 +98,7 @@ export class ListUserComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       (error) => {
-   
+
       }
     );
   }
@@ -147,6 +147,6 @@ export class ListUserComponent implements OnInit {
     modal!.style.display = 'none';
   }
   editprofile(id){
-    this.router.navigate(['home/edicion/',id]);
+    this.router.navigate(['home/perfil/',id]);
   }
 }

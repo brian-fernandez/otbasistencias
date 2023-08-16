@@ -49,7 +49,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Foto </th>
             <td mat-cell *matCellDef="let row">
              <div class="avatar">
-              <img width="30" src="https://api.otb.otbuniversitarioalto.us/{{row.src_foto}}" alt="">
+              <img width="30" src="{{row.src_foto}}" alt="">
              </div>
             </td>
           </ng-container>
@@ -87,9 +87,9 @@
         <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of users"></mat-paginator>
       </div>
     </div>
-    <div class="col-12 col-sm-12 col-xl-4 bg-light p-3 rounded-4" (click)="noti()">
+    <div class="col-12 col-sm-12 col-xl-4 bg-light p-3 rounded-4" >
       <h3>Validacion de credencial</h3>
-      <div class="card mb-3 m-2 qr-information" style="max-width: 540px;">
+      <div class="card mb-3 m-2 qr-information" style="max-width: 540px;" (click)="noti()">
         <div class="row g-0">
           <div class="col-md-4 m-auto p-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100" fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">

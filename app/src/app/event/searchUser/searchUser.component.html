@@ -12,7 +12,7 @@
                     [formControl]="stateCtrl" [matAutocomplete]="auto">
                     <mat-autocomplete #seleccion (optionSelected)="onOptionSelected($event)" autoActiveFirstOption #auto="matAutocomplete">
                       <mat-option  *ngFor="let state of filteredStates  | async" (click)="send(state)"  [value]="state.ci"  >
-                        <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="https://api.otb.otbuniversitarioalto.us/{{state?.src_foto}}" height="25">
+                        <img alt="" style="width: 30px; height: 30px; object-fit: cover; border-radius: 50%;margin-right: 5px;" class="example-option-img" src="{{state?.src_foto}}" height="25">
                   <span>{{state.nombre}} {{state.apellido}}</span> |
                   <small>{{state.ci}}</small>
                       </mat-option>
@@ -35,7 +35,7 @@
       <h1>Afiliado encontrado</h1>
       <div class="col-auto col-xl-3 col-md-12 col-ms-12 col-xs-12  m-auto">
         <div class="imgbox m-auto d-flex">
-          <img  src="https://api.otb.otbuniversitarioalto.us/{{userData?.src_foto}}" class=" m-auto img-div" alt="">
+          <img  src="{{userData?.src_foto}}" class=" m-auto img-div" alt="">
         </div>
       </div>
       <div class="col-auto col-xl-8 col-md-12 col-ms-12 col-xs-12  ">
