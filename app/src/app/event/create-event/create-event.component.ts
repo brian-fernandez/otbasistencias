@@ -89,7 +89,7 @@ export class CreateEventComponent {
       pago.seleccionado = false;
     }
 
-    this.user = this.utils.credentials();
+    this.idreponsable();
     this.createShow = false;
     this.dataEvent = {
 
@@ -125,7 +125,13 @@ export class CreateEventComponent {
       },
     }
   }
-
+  idreponsable(){
+    this.userService.get().subscribe(
+      async (params:any) => {
+          this.user = params;
+      }
+    )
+  }
   getListEvent(){
     this.userService.getlistEvent().subscribe(
       async (params:any) => {

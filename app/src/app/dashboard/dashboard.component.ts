@@ -109,6 +109,10 @@ export class DashboardComponent {
         }
       )
   }
+
+  showperfil(id){
+    this.router.navigate(['home/perfil/',id]);
+  }
 }
 
 

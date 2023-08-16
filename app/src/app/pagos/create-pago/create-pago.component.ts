@@ -77,6 +77,7 @@ export class CreatePagoComponent implements OnInit {
   verify: boolean;
   dataPago: any;
   foto: any;
+  userId: any;
   constructor(private utils: UtilsService, private userService: UserService, private router: Router,private http:HttpClient) {
     this.maxDate.setDate(this.maxDate.getDate());
 
@@ -96,7 +97,7 @@ export class CreatePagoComponent implements OnInit {
       };
       reader.readAsDataURL(blob);
     });
-
+    this.idreponsable();
   }
   listAfiliado() {
     this.userService.getAfiliadoPagos().subscribe(
@@ -202,10 +203,18 @@ export class CreatePagoComponent implements OnInit {
 
   }
 
+idreponsable(){
+  this.userService.get().subscribe(
+    async (params:any) => {
+        this.userId = params;
+    }
+  )
+}
+
   newPago(): any {
-    const user = this.userService.get();
+
     this.dataenviar = {
-      id_responsable: user.id,
+      id_responsable: this.userId.id,
       total_pago: this.montoTotal,
       multas_pagadas: this.multasseleccionadas
     }
@@ -281,7 +290,7 @@ export class CreatePagoComponent implements OnInit {
 
 
     let documentDefinition:any;
-  
+
 
     if(this.foto) {
 

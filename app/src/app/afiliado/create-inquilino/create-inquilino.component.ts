@@ -34,6 +34,7 @@ export class CreateInquilinoComponent {
   filteredStates: Observable<any>;
   dataAfiliado: any;
   idcreate: any;
+  idUset: any;
 
   constructor(
     private fb: FormBuilder,
@@ -81,7 +82,7 @@ export class CreateInquilinoComponent {
       startWith(''),
       map(value => this._filter(value || '')),
     );
-
+      this.idreponsable();
   }
 
 
@@ -140,11 +141,22 @@ cancelSelect(){
     this.data.statusId = 0;
   }
 
+  idreponsable(){
+    this.userService.get().subscribe(
+      async (params:any) => {
+          this.idUset = params;
+      } ,(error)=>{
+
+      }
+    )
+  }
+
+
   send() {
 
     this.data.cargo = 1;
     this.data.type = 'inquilino'
-    let id = this.userService.get()
+
 
 
 
@@ -160,7 +172,7 @@ cancelSelect(){
     formData.append('email', this.lg.value.email);
     formData.append('password', this.lg.value.contraseña);
     formData.append('inquilino_de', this.dataAfiliado.id);
-    formData.append('id_encargado', id.id);
+    formData.append('id_encargado', this.idUset.id);
     formData.append('ci', this.lg.value.ci);
     formData.append('type', this.data.type);
     formData.append('celular', this.lg.value.celular);
@@ -180,11 +192,16 @@ cancelSelect(){
                 this.uploadImg(formData2,params.id);
                 this.idcreate = params.id;
               }else{
-                this.router.navigate(['/home/perfil/',this.idcreate.id]);
+                this.router.navigate(['/home/lista']);
               }
 
             }, (error) => {
-
+              if (error.error.error.email[0]) {
+                this.UtilsService.openSnackBar('El correo electronico ya esta en uso.')
+            }
+            if (error.error.error.ci[0]) {
+              this.UtilsService.openSnackBar('El carnet de identidad ya esta en uso.')
+          }
             }
           )
         }
@@ -201,13 +218,13 @@ cancelSelect(){
 
         this.userService.uploadImg(params.data.url,id).subscribe(
           async (params:any) => {
-            this.router.navigate(['/home/perfil/', this.idcreate]);
+            this.router.navigate(['/home/lista']);
               console.log(params);
 
           }
         ),error =>{
 
-            this.router.navigate(['/home/perfil/',this.idcreate.id]);
+
 
         }
 

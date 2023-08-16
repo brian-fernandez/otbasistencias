@@ -3,21 +3,26 @@ import { Injectable } from '@angular/core';
 import { UrlPathService } from './urlPath.service';
 import { UtilsService } from './Utils.service';
 import { Observable, catchError, of, tap, throwError } from 'rxjs';
+import { EncrDecrService } from './encr-decr.service';
+import { Keysecret } from '../config/secretKeys';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private Key = Keysecret.key;
   path: any;
   errorNoInternetMsg: string;
   user: any;
   httpOptions: { headers: any; };
   httpOptions2: { headers: any; };
   pathUser: string;
+  token: string;
   constructor(
     private http: HttpClient,
     private paths: UrlPathService,
-    private utils: UtilsService) {
+    private utils: UtilsService,
+    private Encrypt:EncrDecrService) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -65,9 +70,40 @@ export class AuthService {
 
   }
 
+  updateToken() {
+    this.token =  localStorage.getItem('token');
+      this.token =  this.Encrypt.get(this.Key,this.token);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
+      })
+    };
+    return httpOptions;
+  }
 
   get() {
-    return localStorage.getItem('dataUser');
+    let user = localStorage.getItem('dataUser');
+    user = this.Encrypt.get(this.Key,user);
+    this.getUserid(user).subscribe(
+      async (params:any) => {
+        return params;
+      }
+    )
+    return
+  }
+
+  getUserid(id):Observable<any>{
+
+    return this.http.post(this.pathUser + 'usuario/showUser/'+id,{}, this.updateToken())
+    .pipe(
+      tap((responseData: any) => {
+        return of (responseData); // Retornar la respuesta del servidor
+      }),
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
   }
 
   getKey(): Observable<any> {

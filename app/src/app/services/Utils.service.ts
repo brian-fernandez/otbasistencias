@@ -1,24 +1,48 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AlertComponent } from '../alerts/alert/alert.component';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, tap, throwError } from 'rxjs';
+import { Keysecret } from '../config/secretKeys';
+import { EncrDecrService } from './encr-decr.service';
+import { UrlPathService } from './urlPath.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
+  private Key = Keysecret.key;
   user: any;
   base64String: string;
+  token: string;
+  pathUser: string;
 
 constructor(
 private _snackBar:MatSnackBar,
 private http:HttpClient,
-public dialog: MatDialog
-) { }
+public dialog: MatDialog,
+private paths: UrlPathService,
+private Encrypt:EncrDecrService
+) {
+  this.pathUser = this.paths.baseApiUrlUser;
+}
+
+
+updateToken() {
+  this.token =  localStorage.getItem('token');
+    this.token =  this.Encrypt.get(this.Key,this.token);
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    })
+  };
+  return httpOptions;
+}
+
   openSnackBar(text:any) {
     this._snackBar.open(text, 'Cerrar', {
       horizontalPosition: "start",
@@ -33,14 +57,34 @@ public dialog: MatDialog
     let objetoRecuperado: any = null;
 
     if (miObjetoRecuperado !== null) {
-      objetoRecuperado = miObjetoRecuperado;
+      objetoRecuperado = this.Encrypt.get(this.Key,miObjetoRecuperado);
     }
-    return this.user= objetoRecuperado;
+
+    this.getUserid(objetoRecuperado).subscribe(
+      async (params:any) => {
+        console.log(params);
+
+        return params;
+      }
+    )
+
+
 
 
   }
 
+  getUserid(id):Observable<any>{
 
+    return this.http.post(this.pathUser + 'usuario/showUser/'+id,{}, this.updateToken())
+    .pipe(
+      tap((responseData: any) => {
+        return of (responseData); // Retornar la respuesta del servidor
+      }),
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
+  }
 
 
   cargarImagenComoBase64(url: string): Promise<string> {

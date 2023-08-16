@@ -20,6 +20,7 @@ export class CreateAfiliadoComponent {
   statusImg:any;
   image: string;
   idcreate: any;
+  id: any;
   constructor(private sanitizer: DomSanitizer,
     private fb:FormBuilder,
     private userService:UserService,
@@ -61,6 +62,7 @@ this.statusImg=0;
    this.data = {
 
    }
+   this.idresposable();
   }
 
   openFileDialog(): void {
@@ -79,13 +81,22 @@ this.statusImg=0;
     this.data.statusId = 0;
   }
 
+  idresposable(){
+    this.userService.get().subscribe(
+      async (params:any) => {
+          this.id = params;
+      }
+     )
+     console.log(this.id);
+  }
 
   send(){
 
    this.data.cargo = 1;
    this.data.inquilino = '' ;
    this.data.type = 'afiliado'
-   let id =  this.userService.get()
+
+
 
 
 
@@ -102,7 +113,7 @@ this.statusImg=0;
     formData.append('email', this.lg.value.email);
     formData.append('password', this.lg.value.contraseña);
     formData.append('inquilino_de', this.data.inquilino);
-    formData.append('id_encargado', id.id);
+    formData.append('id_encargado', this.id.id);
     formData.append('ci', this.lg.value.ci);
     formData.append('type', this.data.type);
     formData.append('celular', this.lg.value.celular);
@@ -124,12 +135,19 @@ this.statusImg=0;
                 this.uploadImg(formData2,params.id);
                 this.idcreate = params.id;
               }else{
-                this.router.navigate(['/home/perfil/',this.idcreate.id]);
+                this.router.navigate(['/home/lista']);
               }
 
 
             } ,(error)=>{
 
+
+              if (error.error.error.email[0]) {
+                  this.UtilsService.openSnackBar('El correo electronico ya esta en uso.')
+              }
+              if (error.error.error.ci[0]) {
+                this.UtilsService.openSnackBar('El carnet de identidad ya esta en uso.')
+            }
 
 
             }
@@ -149,10 +167,10 @@ this.statusImg=0;
           async (params:any) => {
             console.log(params);
 
-            this.router.navigate(['/home/perfil/',this.idcreate.id]);
+            this.router.navigate(['/home/ista']);
 
           },err =>{
-            this.router.navigate(['/home/perfil/',this.idcreate.id]);
+
           }
         )
 

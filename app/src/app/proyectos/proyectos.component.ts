@@ -37,6 +37,7 @@ export class ProyectosComponent implements OnInit {
   lgedit: FormGroup;
   listAsuntos: any;
   id_event: any;
+  id: any;
   constructor(
     private router: Router,
     private utils: UtilsService,
@@ -64,6 +65,7 @@ export class ProyectosComponent implements OnInit {
     this.getListCategorias();
     this.getListAsunto();
     this.getLisEvents();
+    this.idreponsable();
     this.edit = {
 
     }
@@ -115,7 +117,7 @@ export class ProyectosComponent implements OnInit {
   }
   EditModal(any: any) {
     this.id_event = any.id;
-   
+
 
     if (this.lgedit.value.idevento) {
       this.lgedit.value.estadoe=1;
@@ -151,14 +153,16 @@ export class ProyectosComponent implements OnInit {
 
     this.utils.openaAlert('¿Seguro que deseas eliminar el asunto?','eliminacion').subscribe(
       async (params:any) => {
-            this.userService.deletedAsunto(id).subscribe(
-              async (params:any) => {
-                this.utils.openSnackBar('Asunto eliminado exitosamente');
-                  this.getListAsunto();
-              } ,(error)=>{
-                this.utils.openSnackBar('Error de conexión');
-              }
-            )
+         if (params) {
+          this.userService.deletedAsunto(id).subscribe(
+            async (params:any) => {
+              this.utils.openSnackBar('Asunto eliminado exitosamente');
+                this.getListAsunto();
+            } ,(error)=>{
+              this.utils.openSnackBar('Error de conexión');
+            }
+          )
+         }
       }
     )
 
@@ -179,6 +183,16 @@ export class ProyectosComponent implements OnInit {
     const modal = document.getElementById('modalInfo');
     modal!.style.display = 'none';
   }
+
+  idreponsable(){
+    this.userService.get().subscribe(
+      async (params:any) => {
+          this.id = params;
+      }
+    )
+  }
+
+
   addProyect() {
 
     if (this.lg.value.idevento) {
@@ -187,9 +201,7 @@ export class ProyectosComponent implements OnInit {
       this.lg.value.estado=0;
     }
 
-    let id = this.userService.get();
-
-    this.lg.value.id_user = id.id;
+      this.lg.value.id_user = this.id.id;
 
 
     this.userService.createAsunto(this.lg).subscribe(
@@ -221,6 +233,8 @@ export class ProyectosComponent implements OnInit {
 
     this.utils.openaAlert('¿Estas seguro de actualizar el siguient asunto?','alerta').subscribe(
      async (params:any) => {
+      console.log(params);
+
       if (params) {
         this.userService.updateAsunto(this.lgedit,this.id_event).subscribe(
           async (params:any) => {
