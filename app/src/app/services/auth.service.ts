@@ -108,7 +108,7 @@ export class AuthService {
 
   getKey(): Observable<any> {
 
-    return this.http.get(this.pathUser + 'usuario/sendNotification', this.httpOptions2)
+    return this.http.get(this.pathUser + 'usuario/sendNotification', this.updateToken())
       .pipe(
         tap((data: any) => {
           return of(data);

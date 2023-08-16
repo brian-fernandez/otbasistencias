@@ -35,15 +35,14 @@ export class LoadingComponent implements OnInit {
       async (params: any) => {
         this.very = params;
         if (this.very) {
-          console.log(':p');
+
           this.router.navigateByUrl('home/dashboard');
         } else {
-          console.log('no entro');
+
           this.router.navigateByUrl('/sesion');
         }
       },
       (error) => {
-        console.error('Error al verificar usuario:', error);
         this.router.navigateByUrl('/sesion');
       }
     );

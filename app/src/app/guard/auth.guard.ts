@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
           }
         }),
         catchError((error) => {
-          console.error('Error al verificar usuario en canActivate:', error);
+       
           this.router.navigateByUrl('/sesion');
           return of(false);
         })

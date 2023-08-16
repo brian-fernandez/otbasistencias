@@ -144,7 +144,7 @@ this.openWidget();
   }
 
   setrouter (){
-    console.log('entro');
+
 
     const currentUrl = this.router.url;
     const patterns = [
@@ -164,7 +164,7 @@ this.openWidget();
 
     setTimeout(() => {
       localStorage.setItem('router',currentUrl);
-      console.log(this.on);
+
 
       this.setrouter();
 
@@ -205,7 +205,7 @@ this.openWidget();
           this.dataEvent = params.eventos_en_curso;
           const currentUrl = this.router.url;
           const matchesPattern = patterns.some(pattern => pattern.test(currentUrl));
-          console.log(matchesPattern && this.dataEvent.length > 0);
+
 
           if ( this.dataEvent.length > 0 && !matchesPattern) {
             this.on = true;
