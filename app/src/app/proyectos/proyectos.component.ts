@@ -233,8 +233,6 @@ export class ProyectosComponent implements OnInit {
 
     this.utils.openaAlert('¿Estas seguro de actualizar el siguient asunto?','alerta').subscribe(
      async (params:any) => {
-      console.log(params);
-
       if (params) {
         this.userService.updateAsunto(this.lgedit,this.id_event).subscribe(
           async (params:any) => {

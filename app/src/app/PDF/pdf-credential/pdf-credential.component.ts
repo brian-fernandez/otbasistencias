@@ -30,7 +30,7 @@ export class PdfCredentialComponent implements OnInit {
 
         this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.HandsetPortrait]).subscribe(result => {
           if (result.matches) {
-           console.log('holaa');
+
 
           }
         });
@@ -67,17 +67,7 @@ export class PdfCredentialComponent implements OnInit {
           this.data = params.user;
 
           this.myAngularxQrCode = this.encript.set(this.Key,this.data.id);
-          // this.UserService.imageGet().subscribe(
-          //   async (params:any) => {
-          //     console.log(params);
 
-          //     this.imagenDataUrl = params;
-
-          //   }, error =>{
-          //     console.log(error);
-
-          //   })
-          // )
           this.http.get(this.data.src_foto , { responseType: 'blob' })
           .subscribe((blob: Blob) => {
             const reader = new FileReader();

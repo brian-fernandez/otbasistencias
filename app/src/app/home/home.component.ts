@@ -42,7 +42,7 @@ export class HomeComponent {
     this.getUser();
     this.openWidget();
 
-    console.log('hola');
+    console.log('Proyecto de Grado Universidad Privada Domingo Savio (UPDS) 2023 - Creado por Brian Fernandez Mercado');
 
   }
 
@@ -180,7 +180,6 @@ this.openWidget();
   }
 
   openWidget() {
-    console.log('entro 22');
 
     const patterns = [
       /^\/home\/evento\//,      // Patrón 1: "/home/evento/"
@@ -215,9 +214,12 @@ this.openWidget();
           }
         },
         (error) => {
-          console.error('Error al obtener eventos en curso:', error);
+          // console.error('Error al obtener eventos en curso:', error);
+          oldConsoleError(error);
         }
       );
+    } , (error) =>{
+      oldConsoleError(error);
     });
 
 
@@ -235,3 +237,7 @@ this.openWidget();
   }
 
 }
+function oldConsoleError(message: any) {
+  throw new Error('Function not implemented.');
+}
+

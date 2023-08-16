@@ -87,7 +87,7 @@ this.statusImg=0;
           this.id = params;
       }
      )
-     console.log(this.id);
+
   }
 
   send(){
@@ -126,8 +126,6 @@ this.statusImg=0;
         if (result) {
           this.userService.registerAfiliado(formData).subscribe(
             async (params:any) => {
-              console.log(params);
-
               if (this.data.statusId === 1) {
                 const formData2 = new FormData();
                 formData2.append('key', "eb7e36f522b9441a645e4f1714c121b4");
@@ -165,7 +163,7 @@ this.statusImg=0;
       async (params:any) => {
         this.userService.uploadImg(params.data.url,id).subscribe(
           async (params:any) => {
-            console.log(params);
+
 
             this.router.navigate(['/home/ista']);
 

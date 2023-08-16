@@ -114,12 +114,12 @@ export class UserService {
   get():Observable<any> {
     let user = localStorage.getItem('dataUser');
     user = this.Encrypt.get(this.Key,user);
-    console.log('id '+ user);
+
 
     return this.http.post(this.pathUser + 'usuario/showUser/' + user, {}, this.updateToken())
       .pipe(
         tap((data: any) => {
-          console.log(data);
+
           return of(data);
 
         }),

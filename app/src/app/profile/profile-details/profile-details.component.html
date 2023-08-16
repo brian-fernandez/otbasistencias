@@ -209,6 +209,8 @@
               </div>
             </div>
             <hr class="m-0">
+
+
             <div class="mat-elevation-z8">
               <table mat-table [dataSource]="dataSourceMultas" matSort #sort2="matSort">
                 <ng-container matColumnDef="data">
@@ -242,7 +244,7 @@
               </table>
 
               <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"
-                #paginator2></mat-paginator>
+                #paginator2 ></mat-paginator>
             </div>
           </div>
 

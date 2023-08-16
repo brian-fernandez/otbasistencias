@@ -62,7 +62,7 @@ updateToken() {
 
     this.getUserid(objetoRecuperado).subscribe(
       async (params:any) => {
-        console.log(params);
+
 
         return params;
       }

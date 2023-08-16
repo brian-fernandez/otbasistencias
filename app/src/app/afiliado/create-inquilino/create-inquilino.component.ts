@@ -214,12 +214,12 @@ cancelSelect(){
 
     this.userService.subdominioimg(img).subscribe(
       async (params:any) => {
-        console.log(params);
+
 
         this.userService.uploadImg(params.data.url,id).subscribe(
           async (params:any) => {
             this.router.navigate(['/home/lista']);
-              console.log(params);
+  
 
           }
         ),error =>{
