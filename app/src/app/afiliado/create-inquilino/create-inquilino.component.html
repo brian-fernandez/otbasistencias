@@ -38,24 +38,23 @@
 
               <label for="">Nombre</label>
               <input type="text" formControlName="nombre" class="form-control no-border"
-                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*">
+              pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$">
               <p *ngIf="lg.get('nombre').hasError('required')" class="text-danger"> El nombre es obligatorio </p>
-              <p *ngIf="lg.get('nombre').hasError('pattern')" class="text-danger"> El nombre debe contener solo letras.
-              </p>
+              <p *ngIf="lg.get('nombre').hasError('pattern')" class="text-danger"> El nombre debe contener solo letras.</p>
 
             </div>
             <div class="col-sm-6 col-md-6 col-xl-6">
-              <label for="">Apellido Paterno</label>
-              <input type="text" class="form-control no-border" id="floatingInputInvalid" formControlName="apellidop"
-                pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*">
-              <p *ngIf="lg.get('apellidop').hasError('required')" class="text-danger"> El apellido paterno es
+              <label for="">Apellido Completo</label>
+              <input type="text" class="form-control no-border" id="floatingInputInvalid" formControlName="apellido"
+              pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$">
+              <p *ngIf="lg.get('apellido').hasError('required')" class="text-danger"> El apellido es
                 obligatorio </p>
-              <p *ngIf="lg.get('apellidop').hasError('pattern')" class="text-danger"> El apellido debe contener solo
+              <p *ngIf="lg.get('apellido').hasError('pattern')" class="text-danger"> El apellido debe contener solo
                 letras.</p>
 
 
             </div>
-            <div class="col-sm-6 col-md-6 col-xl-6">
+            <!-- <div class="col-sm-6 col-md-6 col-xl-6">
               <label for="">Apellido Materno</label>
               <input type="text" class="form-control no-border" id="floatingInputInvalid" formControlName="apellidom"
                 pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*">
@@ -65,7 +64,7 @@
                 letras.</p>
 
 
-            </div>
+            </div> -->
           </div>
           <div class="row mt-2">
             <div class="col-sm-6 col-md-6 col-xl-6">
@@ -77,8 +76,7 @@
             </div>
             <div class="col-sm-6 col-md-6 col-xl-6">
               <label for="">Carnet de identidad</label>
-              <input matInput #input maxlength="8" type="phone" class="form-control no-border" id="floatingInputInvalid"
-                formControlName="ci" pattern="[0-9]+">
+              <input matInput #input maxlength="8" type="phone" class="form-control no-border" id="floatingInputInvalid"   formControlName="ci" pattern="[0-9]+">
               <p *ngIf="lg.get('ci').hasError('required')" class="text-danger"> El carnet es requerido</p>
               <p *ngIf="lg.get('ci').hasError('maxlength')">El maximo es de 8 digitos</p>
               <p *ngIf="lg.get('ci').hasError('pattern')" class="text-danger"> Por favor, ingresa un número de carnet
@@ -122,8 +120,8 @@
             <div class="col-sm-6 col-md-6 col-xl-6">
               <label for="">Telefono</label>
               <input type="text" class="form-control no-border" formControlName="telefono" pattern="[0-9]+">
-              <p *ngIf="lg.get('telefono').hasError('maxlength')">El maximo es de 8 digitos</p>
-              <p *ngIf="lg.get('telefono').hasError('minlength')">El minimo es de 8 digitos</p>
+              <p *ngIf="lg.get('telefono').hasError('maxlength')">El maximo es de 7 digitos</p>
+              <p *ngIf="lg.get('telefono').hasError('minlength')">El minimo es de 7 digitos</p>
               <p *ngIf="lg.get('telefono').hasError('pattern')" class="text-danger"> Por favor, ingresa un número de
                 teléfono válido.</p>
 
@@ -132,8 +130,8 @@
               <label for="">Celular</label>
               <input type="text" class="form-control no-border" formControlName="celular" pattern="[0-9]+">
               <p *ngIf="lg.get('celular').hasError('required')" class="text-danger"> El celular es requerido</p>
-              <p *ngIf="lg.get('celular').hasError('maxlength')">El maximo es de 7 digitos</p>
-              <p *ngIf="lg.get('celular').hasError('minlength')">El minimo es de 7 digitos</p>
+              <p *ngIf="lg.get('celular').hasError('maxlength')">El maximo es de 8 digitos</p>
+              <p *ngIf="lg.get('celular').hasError('minlength')">El minimo es de 8 digitos</p>
               <p *ngIf="lg.get('celular').hasError('pattern')" class="text-danger"> Por favor, ingresa un número de
                 celular válido.</p>
             </div>
@@ -162,7 +160,7 @@
 
 
           <div>
-            <button class="btn btn-primary mb-2" (click)="send()">Crear</button>
+            <button [disabled]="!lg.valid" class="btn btn-primary mb-2" (click)="send()">Crear</button>
             <div class="particle"></div>
           </div>
         </div>
@@ -193,7 +191,7 @@
                 </div>
               </div>
               <input #fileInput style="display: none;" type="file" class="form-control no-border"
-                (change)="onFileSelected($event)" formControlName="src_foto" accept="image/jpeg, image/png, image/gif">
+                (change)="onFileSelected($event)"  accept="image/jpeg, image/png">
             </div>
           </div>
         </div>

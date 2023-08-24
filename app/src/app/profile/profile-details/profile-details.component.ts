@@ -25,7 +25,14 @@ export interface UserData {
   apellido: string;
   estado: String
 }
-
+export interface Inquilinoss {
+  id: number
+  nombre: string
+  estado: number
+  apellido: string
+  img: string
+  ci: string
+}
 export interface Multas {
   id: any;
   monto: any;
@@ -45,6 +52,37 @@ export interface Multas {
     }
   }
 
+}
+
+
+export interface Multass {
+  id: number
+  monto: string
+  cancelado: number
+  asistencia: Asistencia
+  evento: Evento
+  pago: any
+}
+
+export interface Asistencia {
+  id: number
+  fecha: string
+}
+
+export interface Evento {
+  id: number
+  fecha: string
+  titulo: string
+}
+
+
+
+
+export interface Donaciones {
+  donaciones: string
+  titulo: string
+  id: number
+  fecha: string
 }
 
 
@@ -183,7 +221,7 @@ export class ProfileDetailsComponent implements AfterViewInit {
     this.user.getId(id).subscribe(
       async (params: any) => {
         this.users = params.user;
-        console.log(this.userData);
+
 
         this.userData = params;
 
@@ -196,12 +234,12 @@ export class ProfileDetailsComponent implements AfterViewInit {
             reader.readAsDataURL(blob);
           });
 
-        this.dataSource = this.userData.user.inquilinos;
+        this.dataSource =  new MatTableDataSource<Inquilinoss>(this.userData.user.inquilinos);
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
-        this.dataSourceMultas = this.userData.user.multas;
+        this.dataSourceMultas = new MatTableDataSource<Multass>(this.userData.user.multas);
 
         this.dataSourceMultas.paginator = this.paginatorM;
         this.dataSourceMultas.sort = this.sortM;
@@ -223,7 +261,8 @@ export class ProfileDetailsComponent implements AfterViewInit {
         this.userDonaciones = params.aportes;
 
 
-        this.dataSourceD = this.userDonaciones;
+
+        this.dataSourceD = new MatTableDataSource<Donaciones>(this.userDonaciones);
         this.dataSourceD.paginator = this.paginatorD;
         this.dataSourceD.sort = this.sortD;
 
@@ -250,10 +289,10 @@ export class ProfileDetailsComponent implements AfterViewInit {
 
     this.user.imageGet().subscribe(
       async (params: any) => {
-        console.log(params);
+
 
       }, error => {
-        console.log(error);
+
 
       }
     )
@@ -360,19 +399,16 @@ export class ProfileDetailsComponent implements AfterViewInit {
         this.data = params;
 
         if (this.data) {
-          if (this.foto) {
+          if (this.logo) {
 
             documentDefinition = {
-
-
-
               pageSize: 'A4',
               content: [
                 { text: 'Pago', style: 'header', alignment: 'center' },
                 {
                   alignment: 'right',
                   stack: [
-                    { image: this.foto, width: 30, height: 30 },
+                    { image: this.logo, width: 30, height: 30 },
                     { text: 'OTB Barrio Universitario Alto\nAvenida Petrolera Km 3 1/2\nCochabamba - Bolivia' }
                   ],
                 },
@@ -431,7 +467,8 @@ export class ProfileDetailsComponent implements AfterViewInit {
 
   GetpdfProfile() {
     let userProfile = this.userData.user;
-    console.log(userProfile);
+
+
 
 
 
@@ -453,10 +490,10 @@ export class ProfileDetailsComponent implements AfterViewInit {
             width: '*',
             stack: [
               { text: `Nombre Completo:${userProfile.nombre} ${userProfile.apellido}`, style: 'profileName' },
-              { text: `Email: ${userProfile.email}`, style: 'profileData' },
-              { text: `Teléfono: ${userProfile.telefono}`, style: 'profileData' },
-              { text: `Celular: ${userProfile.celular}`, style: 'profileData' },
-              { text: `Dirección: ${userProfile.direccion}`, style: 'profileData' },
+              { text: `Email: ${userProfile.email || '-'}`, style: 'profileData' },
+              { text: `Teléfono: ${userProfile.telefono || '-' }`, style: 'profileData' },
+              { text: `Celular: ${userProfile.celular || '-'}`, style: 'profileData' },
+              { text: `Dirección: ${userProfile.direccion || '-'}`, style: 'profileData' },
               { text: `Calle: ${userProfile.calle}`, style: 'profileData' },
               { text: `N° Domicilio: ${userProfile.n_domicilio}`, style: 'profileData' },
               { text: `CI: ${userProfile.ci}`, style: 'profileData' },
@@ -498,7 +535,7 @@ export class ProfileDetailsComponent implements AfterViewInit {
       };
 
       if (inquilinos.length > 0) {
-        console.log('entro');
+
 
         inquilinosSection = [inquilinosSection, inquilinosTable];
       } else {

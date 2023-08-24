@@ -74,8 +74,11 @@ export class EventQrComponent implements OnInit {
       }
     });
     this.qrScannerComponent.capturedQr.subscribe(result => {
+ 
 
       const resultt = this.encript.get(this.Key, result);
+
+
       this.userService.getId(resultt).subscribe(
         async (params: any) => {
           this.result = true;

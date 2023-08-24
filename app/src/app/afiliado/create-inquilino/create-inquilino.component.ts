@@ -43,20 +43,20 @@ export class CreateInquilinoComponent {
     private UtilsService:UtilsService,
     private router:Router) {
       this.lg = this.fb.group({
-        nombre : ['',[Validators.required,Validators.pattern('[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*')]],
-        apellidop : ['',[Validators.required,Validators.pattern('[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*')]],
-        apellido : ['',[Validators.required]],
-        apellidom : ['',[Validators.required,Validators.pattern('[A-Za-záéíóúÁÉÍÓÚñÑ\s\s]*')]],
-        celular : ['',[Validators.required,Validators.pattern('[0-9]+'),Validators.maxLength(7),Validators.minLength(7)]],
+        nombre : ['',[Validators.required,Validators.pattern('^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$')]],
+
+        apellido : ['',[Validators.required,Validators.pattern('^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$')]],
+
+        celular : ['',[Validators.required,Validators.pattern('[0-9]+'),Validators.maxLength(8),Validators.minLength(8)]],
         email : ['',[Validators.email]],
         ci : ['',[Validators.required,Validators.maxLength(8),Validators.pattern('[0-9]+')]],
         calle : ['calle 1'],
         direccion : ['Avenida Petrolera Km 3 1/2 - Piedras blancas',[Validators.maxLength(255)]],
         n_domicilio : ['S/N',[Validators.maxLength(10)]],
-        telefono : ['',[Validators.pattern('[0-9]+'),Validators.maxLength(8),Validators.minLength(8)]],
+        telefono : ['',[Validators.pattern('[0-9]+'),Validators.maxLength(7),Validators.minLength(7)]],
         contraseña : ['',[Validators.required]],
         repcontraseña : ['',[Validators.required]],
-        src_foto:  ['',[Validators.required]],
+
 
       },{ validator: this.passwordMatchValidator })
   }
@@ -160,7 +160,7 @@ cancelSelect(){
 
 
 
-    this.lg.value.apellido = this.lg.value.apellidop + ' ' + this.lg.value.apellidom
+    // this.lg.value.apellido = this.lg.value.apellidop + ' ' + this.lg.value.apellidom
     const formData = new FormData();
     formData.append('nombre', this.lg.value.nombre);
     formData.append('apellido', this.lg.value.apellido);
@@ -169,7 +169,6 @@ cancelSelect(){
     formData.append('calle', this.lg.value.calle);
     formData.append('n_domicilio', this.lg.value.n_domicilio);
     formData.append('cargo_id', this.data.cargo);
-    formData.append('email', this.lg.value.email);
     formData.append('password', this.lg.value.contraseña);
     formData.append('inquilino_de', this.dataAfiliado.id);
     formData.append('id_encargado', this.idUset.id);
@@ -178,6 +177,9 @@ cancelSelect(){
     formData.append('celular', this.lg.value.celular);
     if (this.data.statusId === 1) {
       formData.append('src_foto', this.data.src_foto);
+    }
+    if (this.lg.value.email){
+      formData.append('email', this.lg.value.email);
     }
 
     this.UtilsService.openaAlert('¿Estás seguro de crear el siguiente afiliado?', 'alerta').subscribe(
@@ -192,7 +194,7 @@ cancelSelect(){
                 this.uploadImg(formData2,params.id);
                 this.idcreate = params.id;
               }else{
-                this.router.navigate(['/home/lista']);
+                this.router.navigate(['home/lista']);
               }
 
             }, (error) => {
@@ -218,8 +220,8 @@ cancelSelect(){
 
         this.userService.uploadImg(params.data.url,id).subscribe(
           async (params:any) => {
-            this.router.navigate(['/home/lista']);
-  
+            this.router.navigate(['home/lista']);
+
 
           }
         ),error =>{

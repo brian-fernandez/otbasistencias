@@ -58,7 +58,7 @@
               <div class="col-sm-6 col-md-6 col-xl-6">
                 <label for="">Hora de inicio</label>
                 <mat-form-field class="w-100">
-                  <input [min]="mintime" max="22:59 pm" matInput name="selected_time_A" [format]="24" formControlName="hora_inicio"
+                  <input [min]="mintime"  matInput name="selected_time_A" [format]="24" formControlName="hora_inicio"
                     [ngxMatTimepicker]="pickerA" placeholder="12:00" readonly />
                   <mat-icon matSuffix (click)="pickerA.open()">
                     watch_later
@@ -70,7 +70,7 @@
               <div class="col-sm-6 col-md-6 col-xl-6">
                 <label for="">Hora de finalización</label>
                 <mat-form-field class="w-100">
-                  <input [min]="lg.value.hora_inicio" max="22:59 pm" matInput name="selected_time_B" placeholder="16:00"
+                  <input [min]="lg.value.hora_inicio" matInput name="selected_time_B" placeholder="16:00"
                     [format]="24" formControlName="hora_fin" [ngxMatTimepicker]="pickerB" readonly />
                   <mat-icon matSuffix (click)="pickerB.open()">
                     watch_later

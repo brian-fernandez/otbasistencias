@@ -28,7 +28,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>N° de domicilio:</strong>
               {{users?.n_domicilio || '-'}} </li>
-            <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Correo:</strong> {{users?.email || '-'}}
+            <li class="list-group-item p-0 pb-2 pt-2 "><strong>Correo:</strong> {{users?.email || '-'}}
             </li>
             <li class="list-group-item p-0 pb-2 pt-2 text-capitalize"><strong>Estado: </strong> <span class="badge"
                 [ngClass]="{'text-bg-danger':users?.estado===0,'text-bg-success':users?.estado===1}">{{users?.estado ?
@@ -49,19 +49,22 @@
         <h3><strong>Contacto</strong></h3>
         <div class="row  d-flex">
           <div class="col-auto col-xl-12 col-ms-auto col-ms-12 mb-4 m-auto">
+            <a target="_blank"
+            href="https://api.whatsapp.com/send?phone=591{{users?.celular}}&text=Buenas%20tardes%2C%20t%C3%A9%20habla%20de%20parte%20de%20la%20administraci%C3%B3n%20de%20la%20OTB%20Universitario%20Alto"
+            >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp"
               viewBox="0 0 16 16">
               <path
                 d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
-            </svg>
+            </svg></a>
           </div>
           <div class="col-auto col-xl-12 col-ms-auto col-ms-12 mb-4 m-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone"
+            <a  target="_blank"  href="tel:+591{{users?.celular}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone"
               viewBox="0 0 16 16">
               <path
                 d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z" />
               <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-            </svg>
+            </svg></a>
           </div>
         </div>
       </div>
@@ -262,13 +265,13 @@
 
         </div>
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-          <div *ngIf="userDonaciones" class="mat-elevation-z8">
+          <div *ngIf="userDonaciones?.length" class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSourceD" matSort #sort3="matSort">
               <ng-container matColumnDef="data">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
                 <td mat-cell *matCellDef="let row">
                   <div class="">
-                    <p class="m-0 cursor icon-link text-primary">{{row?.titulo}}</p>
+                    <p (click)="showevento(row.id)" class="m-0 cursor icon-link text-primary">{{row?.titulo}}</p>
                     <p>{{row?.fecha}}</p>
                   </div>
                 </td>
@@ -276,7 +279,7 @@
               <ng-container matColumnDef="total">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
                 <td mat-cell *matCellDef="let row">
-                  <p class="text-success">{{row?.donaciones}}</p>
+                  <p class="text-success">{{row?.donaciones}} Bs</p>
                 </td>
               </ng-container>
 
@@ -289,7 +292,7 @@
               #paginator3></mat-paginator>
           </div>
 
-          <div *ngIf="!userDonaciones"
+          <div *ngIf="!userDonaciones?.length"
             class="d-flex align-items-center flex-column justify-content-center content-data">
             <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor" class="bi bi-box2-heart"
               viewBox="0 0 16 16">

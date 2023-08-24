@@ -2,8 +2,31 @@ import { UserService } from 'src/app/services/user.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {  ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/Utils.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+export interface User {
+  id: number
+  inquilino_de: any
+  id_encargado: number
+  nombre: string
+  apellido: string
+  direccion: string
+  telefono: string
+  celular: string
+  estado: number
+  email: string
+  email_verified_at: any
+  src_foto: string
+  n_domicilio: string
+  calle: string
+  ult_conexion: string
+  ci: string
+  type: string
+  tokenFCM: string
+  cargo_id: number
+  created_at: string
+  updated_at: string
+  deleted_at: any
+}
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -23,6 +46,8 @@ export class EditProfileComponent implements OnInit {
   carnetnuevo : any;
   contraseña:any;
   lg:FormGroup;
+  lgData:FormGroup;
+  lgCi:FormGroup;
   constructor(
     private userService:UserService,
     private route: ActivatedRoute,
@@ -31,6 +56,24 @@ export class EditProfileComponent implements OnInit {
     private router:Router
 
   ) {
+
+    this.lgData = this.fb.group({
+      nombre : [ '' ,[Validators.required,Validators.pattern('^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$')]],
+      apellido : ['',[Validators.required,Validators.pattern('^[A-Za-záéíóúÁÉÍÓÚñÑ ]+$')]],
+      celular : ['',[Validators.required,Validators.pattern('[0-9]+'),Validators.maxLength(8),Validators.minLength(8)]],
+      email : ['',[Validators.email]],  ci : ['',[Validators.required,Validators.maxLength(8),Validators.pattern('[0-9]+')]],
+      calle : ['calle 1'],
+      direccion : ['',[Validators.maxLength(255)]],
+      n_domicilio : ['S/N',[Validators.maxLength(10)]],
+      telefono : ['',[Validators.pattern('[0-9]+'),Validators.maxLength(7),Validators.minLength(7)]],
+
+    })
+
+
+    this.lgCi = this.fb.group({
+      ci : ['',[Validators.required,Validators.maxLength(8),Validators.minLength(6), Validators.pattern('[0-9]+')]],
+    })
+
     this.lg = this.fb.group({
       password: [''],
       passwordrep : ['']
@@ -40,13 +83,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.statusImg = 0;
     this.datauser = {
-      nombre:"",
-      apellido:"",
-      telefono:"",
-      celular:"",
-      calle:"",
-      direccion:"",
-      email:"",
+
     }
     this.changeci=0;
     this.changepassword=0;
@@ -69,10 +106,24 @@ export class EditProfileComponent implements OnInit {
 
       this.carnetnuevo = params.ci;
         this.user = params;
-        this.datauser = this.user;
+
         this.image = params.src_foto;
         this.imageReload = params.src_foto;
 
+        this.lgData.patchValue({
+          nombre: this.user.nombre,
+          apellido: this.user.apellido,
+          celular: this.user.celular,
+          email: this.user.email,
+
+          calle: this.user.calle,
+          direccion: this.user.direccion,
+          n_domicilio: this.user.n_domicilio,
+          telefono: this.user.telefono
+        });
+        this.lgCi.patchValue({
+          ci: this.user.ci,
+        })
 
       }, (error)=>{
 
@@ -112,14 +163,14 @@ export class EditProfileComponent implements OnInit {
       this.utils.openaAlert('¿Seguro que desea guardar los cambios?','alerta').subscribe(result =>{
         if (result) {
           const formData = new FormData();
-          formData.append('nombre', this.datauser.nombre);
-          formData.append('apellido', this.datauser.apellido);
-          formData.append('direccion', this.datauser.direccion);
-          formData.append('celular', this.datauser.celular);
-          formData.append('telefono', this.datauser.telefono);
-          formData.append('email', this.datauser.email);
-          formData.append('n_domicilio', this.datauser.n_domicilio);
-          formData.append('calle', this.datauser.calle);
+          formData.append('nombre', this.lgData.value.nombre);
+          formData.append('apellido', this.lgData.value.apellido);
+          formData.append('direccion', this.lgData.value.direccion);
+          formData.append('celular', this.lgData.value.celular);
+          formData.append('telefono', this.lgData.value.telefono);
+          formData.append('email', this.lgData.value.email);
+          formData.append('n_domicilio', this.lgData.value.n_domicilio);
+          formData.append('calle', this.lgData.value.calle);
           if (this.datauser.statusId == 1) {
             formData.append('src_foto', this.datauser.src_foto);
           }
@@ -147,7 +198,6 @@ export class EditProfileComponent implements OnInit {
 
       this.userService.subdominioimg(img).subscribe(
         async (params:any) => {
-          console.log(params);
 
           this.userService.uploadImg(params.data.url,id).subscribe(
             async (params:any) => {
@@ -163,19 +213,30 @@ export class EditProfileComponent implements OnInit {
 
 
     }
-    editCarnet(){
-      this.utils.openaAlert('¿Seguro que desea guardar los cambios?','alerta').subscribe(result =>{
-        if (result) {
-          this.userService.editCarnet(this.id,this.carnetnuevo).subscribe(
-            async (params:any) => {
-              this.changeci = 0;
-              this.utils.openSnackBar(params.message);
-            }
-          ), (error) =>{
+    editCarnet() {
 
+
+
+      this.utils.openaAlert('¿Seguro que desea guardar los cambios?', 'alerta').subscribe(
+        async (result: any) => {
+          if (result) {
+            this.userService.editCarnet(this.id, this.lgCi.value.ci).subscribe(
+              async (params: any) => {
+                this.changeci = 0;
+                this.utils.openSnackBar(params.message);
+                this.getUser(this.id);
+              },
+              (error) => {
+
+
+                if (error.error.errors.ci[0]) {
+                  this.utils.openSnackBar('El número de carnet ya está en uso.');
+                }
+              }
+            );
           }
         }
-      })
+      );
     }
 
 

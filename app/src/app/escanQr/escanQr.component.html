@@ -5,10 +5,10 @@
     <div class="col-xl-6 col-md-6 col-sm-6">
       <qr-scanner
       [debug]="false"
-      [canvasWidth]="100"
-      [canvasHeight]="100"
+      [canvasWidth]="700"
+      [canvasHeight]="700"
       [stopAfterScan]="false"
-      [updateTime]="500">
+      [updateTime]="200">
     </qr-scanner>
     </div>
 
@@ -42,8 +42,8 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item p-0 pb-2 pt-2"><strong>N° de domicilio:</strong> {{userData?.n_domicilio}} </li>
               <li class="list-group-item p-0 pb-2 pt-2"><strong>Correo:</strong> {{userData?.email}}</li>
-              <li class="list-group-item p-0 pb-2 pt-2"><strong>Estado</strong> {{userData?.estado}}</li>
-              <li class="list-group-item p-0 pb-2 pt-2"><strong>Tipo:</strong> <p class="border-rad" [ngClass]="{'text-bg-danger':userData?.estado===0,'text-bg-success':userData?.estado===1}">{{userData?.estado ?
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Estado</strong> {{userData?.type}}</li>
+              <li class="list-group-item p-0 pb-2 pt-2"><strong>Estado:</strong> <p class="border-rad" [ngClass]="{'text-bg-danger':userData?.estado===0,'text-bg-success':userData?.estado===1}">{{userData?.estado ?
                 'Activo' : 'No Activo' }}</p>  </li>
               <li class="list-group-item p-0 pb-2 pt-2"><strong>Telefono</strong> {{userData?.telefono}}</li>
 
