@@ -24,6 +24,8 @@ import { PdfPagoComponent } from './PDF/pdf-pago/pdf-pago.component';
 import { EventidComponent } from './event/eventid/eventid.component';
 import { PdfCredentialComponent } from './PDF/pdf-credential/pdf-credential.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { ListTransaccionesComponent } from './pagos/list-transacciones/list-transacciones.component';
+import { DetailTransaComponent } from './pagos/detail-transa/detail-transa.component';
 
 
 const routes: Routes = [
@@ -59,8 +61,10 @@ const routes: Routes = [
     {path: 'nuevo-proyecto', component: CreatePagoComponent, canActivate:[AuthGuard]},
     //pagos
     {path: 'pagos', component: ListPagosComponent, canActivate:[AuthGuard]},
+    {path: 'list-transa', component: ListTransaccionesComponent, canActivate:[AuthGuard]},
     {path: 'nuevo-pago', component: CreatePagoComponent, canActivate:[AuthGuard]},
     {path: 'nuevo-pago/:id', component: CreatePagoComponent, canActivate:[AuthGuard]},
+    {path: 'details-transa/:id', component: DetailTransaComponent, canActivate:[AuthGuard]},
 
     {path: 'pdf-credencial/:id', component: PdfCredentialComponent, canActivate:[AuthGuard]},
     {path: 'pdf-pagos', component: PdfPagoComponent, canActivate:[AuthGuard]},

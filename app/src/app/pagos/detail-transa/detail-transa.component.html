@@ -1,0 +1,156 @@
+<div class="p-3 border">
+  <div class="row mt-2">
+    <div class="col-12">
+      <h2>Detalle de la transacción</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-xl-6 col-sm-6">
+      <div class="d-flex justifiy-content-center align-items-center">
+        <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-person-badge" viewBox="0 0 16 16">
+            <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+            <path
+              d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z" />
+          </svg></div>
+        <h3 class="m-0" style="margin-top: 3px !important;"> Detalle del afiliado</h3>
+      </div>
+
+      <hr>
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-1  col-md-1 col-sm-1 ">
+              <img src="{{data?.usuario?.src_foto}}" alt="" style=" width: 30px;border-radius: 50%;object-fit: cover;height: 30px;">
+            </div>
+            <div class="col-xl-11 col-md-11 col-sm-11">
+              <p class="m-0">{{data?.usuario?.nombre}} {{data?.usuario?.apellido}}</p>
+            </div>
+          </div>
+
+        </li>
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-1  col-md-1 col-sm-1 ">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home-outline"></mat-icon>
+            </div>
+            <div class="col-xl-11 col-md-11 col-sm-11">
+              <p class="m-0">{{data?.usuario?.direccion}} - {{data?.usuario?.calle}}</p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-1  col-md-1 col-sm-1 ">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="assignment_ind-outline"></mat-icon>
+            </div>
+            <div class="col-xl-11 col-md-11 col-sm-11">
+              <p class="m-0">{{data?.usuario?.ci}}</p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-1  col-md-1 col-sm-1 ">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="call-outline"></mat-icon>
+            </div>
+            <div class="col-xl-11 col-md-11 col-sm-11">
+              <p class="m-0">{{data?.usuario?.telefono}} - {{data?.usuario?.celular}}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+
+    </div>
+    <div class="col-md-12 col-xl-6 col-sm-6">
+      <div class="d-flex justifiy-content-center align-items-center">
+        <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+            <path
+              d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+            <path
+              d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
+          </svg></div>
+        <h3 class="m-0" style="margin-top: 3px !important;"> Detalle del pago</h3>
+      </div>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+              <p class="m-0">N° transacción: {{data?.id}}</p>
+            </div>
+          </div>
+
+        </li>
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+              <p class="m-0">Tipo de transacción: {{data?.tipo}}</p>
+            </div>
+          </div>
+
+        </li>
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+              <p class="m-0">Fecha: {{data?.fecha}}</p>
+            </div>
+          </div>
+
+        </li>
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+              <p class="m-0">Estado: {{data?.estado}}</p>
+            </div>
+          </div>
+
+        </li>
+        <li class="list-group-item">
+          <div class="row d-flex align-items-center">
+            <div class="col-xl-12 col-md-12 col-sm-12">
+              <p class="m-0">Total: {{data?.total}} bs.</p>
+            </div>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-12">
+      <h2>Aceptar la transacción</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          Atención
+        </div>
+        <div class="card-body">
+          <p class="card-text">Antes de proceder con la verificación del pago, es necesario confirmar que la transacción
+            se haya realizado en el número de cuenta designado para depósitos de pagos. Una vez verificado el traspaso y
+            su correspondiente monto, se procederá a aceptar el pago para su confirmación. Posteriormente, se enviará
+            una notificación al afiliado y un mensaje a su dirección de correo electrónico.</p>
+            <div class="form-check">
+              <input [(ngModel)]="checkList" [ngModelOptions]="{standalone: true}" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Se confirmo el monto depositado a la cuenta 10000000034342554
+              </label>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <button class="btn btn-success btn-sm" [disabled]="!success()" (click)="send()">Aceptar transacción</button>
+    </div>
+  </div>
+</div>

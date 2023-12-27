@@ -12,18 +12,18 @@
         <span class="ff-20">Inicio</span>
       </button>
 
-    <mat-accordion *ngIf="data?.role?.id === 2">
+      <mat-accordion *ngIf="data?.role?.id === 2">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="admin_panel_settings"></mat-icon>
-            Usuario
+              Usuario
             </mat-panel-title>
           </mat-expansion-panel-header>
           <button (click)="listUser()" mat-button class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Lista de Usuario</span>
           </button>
-          <button (click)="createUser()" mat-button  class=" w-100 justify-content-start d-flex p-3">
+          <button (click)="createUser()" mat-button class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Crear nuevo usuario</span>
           </button>
         </mat-expansion-panel>
@@ -38,29 +38,35 @@
               Afiliados
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <button *ngIf="data?.role?.id === 3 || data?.role?.id === 2" mat-button (click)="listAfiliado()" class=" w-100 justify-content-start d-flex p-3">
+          <button *ngIf="data?.role?.id === 3 || data?.role?.id === 2" mat-button (click)="listAfiliado()"
+            class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Lista de Afiliado</span>
           </button>
-          <button *ngIf="data?.role.id === 2" mat-button (click)="createAfiliado()" class=" w-100 justify-content-start d-flex p-3">
+          <button *ngIf="data?.role.id === 2" mat-button (click)="createAfiliado()"
+            class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Crear Afiliado/Inquilino</span>
           </button>
         </mat-expansion-panel>
       </mat-accordion>
-      <button  *ngIf="data?.role?.id === 2 || data?.role?.id === 3" mat-button (click)="reporte()" class=" w-100 justify-content-start d-flex p-3">
+      <button *ngIf="data?.role?.id === 2 || data?.role?.id === 3" mat-button (click)="reporte()"
+        class=" w-100 justify-content-start d-flex p-3">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="bookmarks"></mat-icon>
         <span class="ff-20">Reportes</span>
       </button>
 
-      <mat-accordion  *ngIf="data?.role?.id === 2 || data?.role?.id === 4">
+      <mat-accordion *ngIf="data?.role?.id === 2 || data?.role?.id === 4">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="payments"></mat-icon>
-            Pagos
+              Pagos
             </mat-panel-title>
           </mat-expansion-panel-header>
           <button mat-button (click)="listaPagos()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Lista de Pagos</span>
+          </button>
+          <button mat-button (click)="listatransa()" class=" w-100 justify-content-start d-flex p-3">
+            <span class="">○ Lista de transacciones</span>
           </button>
           <button mat-button (click)="createPagos()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Crear nuevo Pago</span>
@@ -79,12 +85,10 @@
           <button mat-button (click)="listProyect()" class=" w-100 justify-content-start d-flex p-3">
             <span class="">○ Lista de Asuntos</span>
           </button>
-          <!-- <button mat-button (click)="createProyect()" class=" w-100 justify-content-start d-flex p-3">
-            <span class="">○ Crear nuevo Proyecto</span>
-          </button> -->
         </mat-expansion-panel>
       </mat-accordion>
-      <button *ngIf="data?.role?.id === 2 || data?.role?.id === 3 && data?.role?.id === 4" mat-button (click)="qr()" class=" w-100 justify-content-start d-flex p-3">
+      <button *ngIf="data?.role?.id === 2 || data?.role?.id === 3 && data?.role?.id === 4" mat-button (click)="qr()"
+        class=" w-100 justify-content-start d-flex p-3">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="qr_code_scanner"></mat-icon>
         <span class="ff-20">Escanear Credencial</span>
       </button>
@@ -98,6 +102,7 @@
         <button mat-button (click)="listEvent()" class=" w-100 justify-content-start d-flex p-3">
           <span class="">○ Lista de eventos</span>
         </button>
+        
         <button mat-button (click)="createEvent()" class=" w-100 justify-content-start d-flex p-3">
           <span class="">○ Crear eventos</span>
         </button>
@@ -109,7 +114,7 @@
 
 
 
-  <mat-sidenav-content >
+  <mat-sidenav-content>
     <mat-toolbar style="z-index: 99;" color="primary" class="d-flex justify-content-between">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
@@ -134,11 +139,10 @@
       </mat-menu>
     </mat-toolbar>
 
-<app-widget-evento *ngIf="on" [dataEvents]="dataEvent" ></app-widget-evento>
+    <app-widget-evento *ngIf="on" [dataEvents]="dataEvent"></app-widget-evento>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 
 
 
 </mat-sidenav-container>
-

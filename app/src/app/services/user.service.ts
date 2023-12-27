@@ -395,6 +395,11 @@ export class UserService {
         "priority": "high",
         "subtitle": "Elementary School",
         "title": data.nombre,
+        "data" : {
+          "accion" : "open",
+          "dataId" : data.id,
+          "urlDestino" : "meetings-details"
+        }
       }
 
     }
@@ -589,7 +594,46 @@ export class UserService {
     )
   }
 
+  //transacciones
 
+
+  getListTransa(): Observable<any> {
+    return this.http.get(this.pathUser + 'transacciones/list', this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
+  }
+  getIdTransac(id): Observable<any> {
+    return this.http.get(this.pathUser + 'getIdTransa/'+id, this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
+  }
+  sendTransacc(id_transaccion,id_responsable,total,idUser,ids_multas): Observable<any> {
+
+    const body = {
+      'id_transaccion' : id_transaccion,
+      'idUser' :idUser,
+      'id_responsable' : id_responsable,
+      'total' : total,
+      'ids_multas' :ids_multas,
+    }
+
+
+    return this.http.post(this.pathUser + 'transacciones-pago/pagar',body, this.updateToken()).pipe(
+      tap((data: any) => {
+        return of(data);
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    )
+  }
 
   //donaciones
 

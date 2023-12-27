@@ -62,6 +62,8 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { SearchUserComponent } from './event/searchUser/searchUser.component';
 import { WidgetEventoComponent } from './event/widget-evento/widget-evento.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ListTransaccionesComponent } from './pagos/list-transacciones/list-transacciones.component';
+import { DetailTransaComponent } from './pagos/detail-transa/detail-transa.component';
 // Registra la localización en español
 registerLocaleData(localeEs);
 // import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -99,8 +101,10 @@ registerLocaleData(localeEs);
     //pagos
     ListPagosComponent,
     CreatePagoComponent,
+    ListTransaccionesComponent,
+    DetailTransaComponent,
 
-
+    
     //PDFS
 
     PdfPagoComponent,
@@ -113,6 +117,8 @@ registerLocaleData(localeEs);
 
 
     AlertComponent,
+
+
 
   ],
   imports: [

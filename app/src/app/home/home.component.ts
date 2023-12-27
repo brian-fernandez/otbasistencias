@@ -80,6 +80,10 @@ export class HomeComponent {
     this.router.navigateByUrl("home/pagos");
 
   }
+  listatransa() {
+    this.router.navigateByUrl("home/list-transa");
+
+  }
   createPagos() {
 
     this.router.navigateByUrl("home/nuevo-pago");
